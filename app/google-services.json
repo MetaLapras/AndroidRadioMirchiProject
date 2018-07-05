@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "685031010539",
+    "firebase_url": "https://radiomirchi-418f4.firebaseio.com",
+    "project_id": "radiomirchi-418f4",
+    "storage_bucket": "radiomirchi-418f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685031010539:android:d114d5cf3c8d42c3",
+        "android_client_info": {
+          "package_name": "in.co.ashclan.mirchithunder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685031010539-hf4iqbn78sm8h6korpd3q21itj4ij3m7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.co.ashclan.mirchithunder",
+            "certificate_hash": "7af7c54bed85e7a2bfd4906955bd0b17ca0b442d"
+          }
+        },
+        {
+          "client_id": "685031010539-3ba92hjt2c1kms7o2nsi5h97fbp58858.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXtLutWLsVx5oG6_fAZEYPgLPuB04R1X8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685031010539-3ba92hjt2c1kms7o2nsi5h97fbp58858.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
