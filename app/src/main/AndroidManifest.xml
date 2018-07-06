@@ -23,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen" />
+        <activity android:name=".LoginScreen"></activity>
     </application>
 
 </manifest>

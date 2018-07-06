@@ -34,9 +34,10 @@ dependencies {
     //implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
-  //  implementation 'com.google.firebase:firebase-crash:16.0.1'
+    //  implementation 'com.google.firebase:firebase-crash:16.0.1'
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     //implementation 'com.google.firebase:firebase-ads:15.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
 }
 // 69d38946cf13c2413f598fc1a33ac4259e27d717
+
