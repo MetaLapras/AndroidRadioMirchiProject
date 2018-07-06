@@ -18,9 +18,7 @@ public class HomeActivity extends AppCompatActivity {
         Toast.makeText(mContext,"",Toast.LENGTH_LONG).show();
     }
 
-
     private void mInit(){
         mContext = HomeActivity.this;
-
     }
 }
