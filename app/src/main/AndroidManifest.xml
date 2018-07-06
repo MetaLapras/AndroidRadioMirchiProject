@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginScreen" />
-
         <activity android:name=".ParticipantsLogin"></activity>
         <activity android:name=".QRCodeReaderActivity"></activity>
     </application>
