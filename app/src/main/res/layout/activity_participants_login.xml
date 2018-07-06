@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ParticipantsLogin">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="#3c5656"
+       android:layout_marginLeft="140dp"
+        android:layout_marginTop="30dp"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="160dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="7dp"
+                android:hint="E-mail/Mobile Number"
+                android:layout_marginLeft="15dp" />
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="1dp"
+                    android:src="@drawable/email"/>
+            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="4dp"
+              android:background="#33d4dfdf"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="35dp"
+                android:hint="Password"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="15dp" />
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="1dp"
+                android:src="@drawable/password"/>
+            </LinearLayout>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="4dp"
+                android:background="#33d4dfdf"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="150dp"
+            android:layout_height="4dp"
+            android:background="#126"></View>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
