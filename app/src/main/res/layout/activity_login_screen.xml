@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/linear"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:background="#91ec36"
     tools:context=".LoginScreen">
 
-<<<<<<< HEAD
-
-
-
-
-
-
-</LinearLayout>
-=======
     <LinearLayout
         android:id="@+id/Linearlayout_topview"
         android:layout_width="match_parent"
@@ -77,4 +65,3 @@
 
     </LinearLayout>
 </RelativeLayout>
->>>>>>> 46e08c2c736d8e957c50eb2d48ef676289740987
