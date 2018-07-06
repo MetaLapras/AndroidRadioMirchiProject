@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -16,13 +17,35 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
    LinearLayout linearLayout;
    ImageView thunder_logo;
    Context mContext;
-
+   Button participants, volunteer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         init();
+
+        participants = findViewById(R.id.btn_Participant);
+        volunteer = findViewById(R.id.btn_volunteer);
+
+        volunteer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginScreen.this,VolunteerLogin.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+            }
+        });
+
+        participants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginScreen.this,ParticipantsLogin.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+            }
+        });
+
     }
 
     private void init() {
