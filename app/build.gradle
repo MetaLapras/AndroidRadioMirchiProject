@@ -42,5 +42,10 @@ dependencies {
     implementation 'com.github.nisrulz:qreader:2.1.2'
     implementation 'ja.burhanrashid52:photoeditor:0.2.1'
 
+    //flat buttons
+    implementation 'com.github.jd-alexander:android-flat-button:v1.1'
+    //Fancy Button
+    implementation 'com.github.medyo:fancybuttons:1.8.4'
+
 }
 
