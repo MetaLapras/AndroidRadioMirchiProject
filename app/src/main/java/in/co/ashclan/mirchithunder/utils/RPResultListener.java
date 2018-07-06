@@ -16,8 +16,8 @@
 
 package in.co.ashclan.mirchithunder.utils;
 
-interface RPResultListener {
-  void onPermissionGranted();
+public interface RPResultListener {
+  public void onPermissionGranted();
 
-  void onPermissionDenied();
+  public void onPermissionDenied();
 }
