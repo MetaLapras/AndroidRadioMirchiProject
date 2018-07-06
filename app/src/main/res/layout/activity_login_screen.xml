@@ -7,10 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".LoginScreen">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="323dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_runner" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/white_50_per"
+        >
+
 
     </LinearLayout>
 </RelativeLayout>
