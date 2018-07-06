@@ -39,9 +39,4 @@ dependencies {
     //implementation 'com.google.firebase:firebase-ads:15.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
 }
-// 69d38946cf13c2413f598fc1a33ac4259e27d717
 
-<<<<<<< HEAD
-}
-=======
->>>>>>> 4c6808b5f980ec90374b3797b67fb61c17a33838
