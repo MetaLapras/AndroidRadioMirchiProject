@@ -1,25 +1,41 @@
 package in.co.ashclan.mirchithunder;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 //import android.support.v7.widget.CardView;
+import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class LoginScreen extends AppCompatActivity {
+public class LoginScreen extends AppCompatActivity implements View.OnClickListener{
    LinearLayout linearLayout;
+   ImageView thunder_logo;
+   Context mContext;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
-
-        linearLayout = findViewById(R.id.linear);
-
-
-        final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
-       linearLayout.startAnimation(animationFadeIn);
+        init();
     }
+
+    private void init() {
+        mContext = LoginScreen.this;
+        thunder_logo = (ImageView)findViewById(R.id.thudner_logo);
+        thunder_logo.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(mContext,QRCodeReaderActivity.class);
+        startActivity(intent);
+      //  startActivity(new Intent(mContext,QRCodeReaderActivity.class));
+    }
+
 }

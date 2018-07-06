@@ -42,7 +42,7 @@
                     android:layout_height="25dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginLeft="1dp"
-                    android:src="@drawable/email"/>
+                    android:src="@drawable/ic_mail"/>
             </LinearLayout>
             <View
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="1dp"
-                android:src="@drawable/password"/>
+                android:src="@drawable/ic_lock"/>
             </LinearLayout>
             <View
                 android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="26dp"
-                    android:src="@drawable/facebook-logo-button" />
+                    android:src="@drawable/ic_lock" />
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +146,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/email"/>
+                    android:src="@drawable/ic_lock"/>
             </LinearLayout>
 
             <LinearLayout
@@ -163,7 +163,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/email"/>
+                    android:src="@drawable/ic_lock"/>
             </LinearLayout>
         </LinearLayout>
 
