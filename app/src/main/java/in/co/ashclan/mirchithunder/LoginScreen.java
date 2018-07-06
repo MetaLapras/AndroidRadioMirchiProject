@@ -23,9 +23,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         init();
-
-        final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        linearLayout.startAnimation(animationFadeIn);
     }
 
     private void init() {
