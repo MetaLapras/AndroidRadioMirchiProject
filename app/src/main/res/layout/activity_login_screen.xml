@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/back_img"
     tools:context=".LoginScreen">
+
 
     <LinearLayout
         android:id="@+id/Linearlayout_topview"
@@ -13,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:background="@drawable/ic_background_layer1"
         android:orientation="vertical">
 
         <ImageView
