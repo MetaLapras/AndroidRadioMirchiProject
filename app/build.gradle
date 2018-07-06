@@ -30,10 +30,6 @@ dependencies {
 
     //firebase service
     implementation 'com.google.firebase:firebase-core:16.0.0'
-<<<<<<< HEAD
-}
-=======
-
     //firebase
     //implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.1'
@@ -46,4 +42,4 @@ dependencies {
 
 
 }
->>>>>>> 69d38946cf13c2413f598fc1a33ac4259e27d717
+// 69d38946cf13c2413f598fc1a33ac4259e27d717
