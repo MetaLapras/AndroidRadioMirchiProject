@@ -25,7 +25,11 @@
         </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginScreen" />
+<<<<<<< HEAD
         <activity android:name=".ParticipantsLogin"></activity>
+=======
+        <activity android:name=".QRCodeReaderActivity"></activity>
+>>>>>>> baae549828aff34e88d1c74ceec23d635f46f817
     </application>
 
 </manifest>

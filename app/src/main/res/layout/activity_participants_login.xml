@@ -83,6 +83,10 @@
             android:layout_height="4dp"
             android:background="#126"></View>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="" />
+
     </LinearLayout>
 
 
