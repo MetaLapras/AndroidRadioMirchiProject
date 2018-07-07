@@ -33,13 +33,19 @@
                 android:layout_height="55dp"
                 android:background="#e7f4fa"
                 android:orientation="horizontal">
-                <EditText
-                    android:layout_width="240dp"
-                    android:layout_height="55dp"
-                    android:textSize="14dp"
-                    android:layout_marginTop="1dp"
-                    android:hint="E-mail/Mobile Number"
-                    android:layout_marginLeft="15dp" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Library Name"
+                    android:text="MaterialEditText"
+                    android:textSize="34sp"
+                    app:met_baseColor="@android:color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_maxCharacters="20"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_singleLineEllipsis="true" />
+
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="25dp"
