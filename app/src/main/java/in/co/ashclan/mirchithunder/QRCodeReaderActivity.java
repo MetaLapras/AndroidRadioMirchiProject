@@ -94,12 +94,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                         textView.setText(data);
                         //**********************************
                        // Dialog box
-
-
-
-
-
-
                         /*******************************************/
                     }
                 });

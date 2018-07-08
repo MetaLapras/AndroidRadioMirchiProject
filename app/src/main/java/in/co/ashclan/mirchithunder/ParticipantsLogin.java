@@ -58,7 +58,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
 
     }
 
-
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -81,7 +80,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
         intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,configurationBuilder.build());
         startActivityForResult(intent,REQUEST_CODE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -188,10 +186,5 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
     }
 
     private void startGmailLogin() {
-
-    }
-
-    private void startLoginSystem() {
-
     }
 }
