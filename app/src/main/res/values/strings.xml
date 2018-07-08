@@ -20,4 +20,12 @@
     <string name="stop_start_qreader">Stop QREader</string>
 
 
+    <!--facebook-->
+    <string name="app_id">239851700149329</string>
+    <string name="fb_app_name">RadioMirchi</string>
+    <string name="fb_login_protocol_scheme">fb239851700149329</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">e4496e3b538f40189e7ad8fd10519c1f</string>
+
+
+
 </resources>
