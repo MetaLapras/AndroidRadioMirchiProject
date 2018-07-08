@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import github.nisrulz.qreader.QRDataListener;
@@ -25,7 +26,7 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
     SurfaceView mySurfaceView;
     QREader qrEader;
     TextView textView;
-    Button stateBtn,restartBtn;
+    ImageView stateBtn,restartBtn;
     Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,8 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
         mySurfaceView = (SurfaceView)findViewById(R.id.camera_view);
 
         textView =(TextView) findViewById(R.id.code_info);
-        stateBtn = (Button) findViewById(R.id.btn_start_stop);
-        restartBtn = (Button) findViewById(R.id.btn_restart_activity);
+        stateBtn = (ImageView) findViewById(R.id.btn_start_stop);
+        restartBtn = (ImageView) findViewById(R.id.btn_restart_activity);
 
         stateBtn.setOnClickListener(this);
         restartBtn.setOnClickListener(this);
@@ -64,10 +65,12 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         if (view==stateBtn){
             if (qrEader.isCameraRunning()){
-                stateBtn.setText("Start QREader");
+                //stateBtn.setText("Start QREader");
+                stateBtn.setImageDrawable(getResources().getDrawable(R.drawable.aar_ic_play));
                 qrEader.stop();
             }else{
-                stateBtn.setText("Stop QREader");
+               // stateBtn.setText("Stop QREader");
+                stateBtn.setImageDrawable(getResources().getDrawable(R.drawable.aar_ic_stop));
                 qrEader.start();
             }
         }else if (view==restartBtn){
@@ -89,6 +92,15 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void run() {
                         textView.setText(data);
+                        //**********************************
+                       // Dialog box
+
+
+
+
+
+
+                        /*******************************************/
                     }
                 });
             }

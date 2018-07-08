@@ -26,6 +26,7 @@
         <activity android:name=".LoginScreen" />
         <activity android:name=".ParticipantsLogin" />
         <activity android:name=".QRCodeReaderActivity" />
+<<<<<<< HEAD
         <activity android:name=".VolunteerLogin"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -53,6 +54,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+=======
+        <activity android:name=".VolunteerLogin" />
+        <activity android:name=".ImageFlameActivity"></activity>
+>>>>>>> cb7126d249cf29c1fbfee4eccea2595191389d04
     </application>
 
 </manifest>
