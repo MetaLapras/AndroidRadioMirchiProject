@@ -50,4 +50,9 @@ dependencies {
 
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.google.android.gms:play-services-vision:15.0.2'
+<<<<<<< HEAD
+=======
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
+>>>>>>> 4f520ba908596bae2a61bc91b14fcf7a1dfa8c5f
 }
