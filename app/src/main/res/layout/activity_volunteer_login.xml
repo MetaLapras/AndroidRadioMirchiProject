@@ -7,51 +7,47 @@
     android:orientation="vertical"
     tools:context=".VolunteerLogin">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" Volunteer Sign In"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        android:textColor="#3c5656"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="160dp"/>
+        android:layout_marginTop="160dp"
+        android:text=" Volunteer Sign In"
+        android:textColor="#3c5656"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:layout_gravity="center">
 
         <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="160dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="match_parent"
                 android:background="#e7f4fa"
+                android:layout_margin="5dp"
                 android:orientation="horizontal">
 
                 <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_userid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Library Name"
-                    android:text="MaterialEditText"
-                    android:textSize="34sp"
-                    app:met_baseColor="@android:color/white"
+                    android:hint="Phone No"
+                    android:text="1234567890"
+                    android:textSize="12sp"
+                    app:met_baseColor="@android:color/black"
                     app:met_floatingLabel="highlight"
                     app:met_maxCharacters="20"
                     app:met_primaryColor="@color/colorAccent"
                     app:met_singleLineEllipsis="true" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ic_mail"/>
             </LinearLayout>
             <View
                 android:layout_width="wrap_content"
@@ -59,28 +55,53 @@
                 android:background="#33d4dfdf"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:background="#e7f4fa"
+                android:layout_margin="5dp"
                 android:orientation="horizontal">
-                <EditText
-                    android:layout_width="240dp"
-                    android:layout_height="55dp"
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:textSize="14dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginLeft="15dp" />
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ic_lock"/>
+                    android:text="pass"
+                    android:textSize="12sp"
+                    app:met_baseColor="@android:color/black"
+                    app:met_floatingLabel="highlight"
+                    app:met_maxCharacters="20"
+                    app:met_primaryColor="@color/colorAccent"
+                    app:met_singleLineEllipsis="true" />
             </LinearLayout>
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="4dp"
                 android:background="#33d4dfdf"/>
         </LinearLayout>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:background="#33d4dfdf"/>
     </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#e7f4fa"
+        android:orientation="horizontal">
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btn_Login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:shadowColor="@android:color/black"
+            android:text="login"
+            android:textColor="@android:color/white"
+            app:cornerRadius="0dp"
+            app:fButtonColor="@color/colorPrimary"
+            app:shadowColor="@android:color/black"
+            app:shadowEnabled="true"
+            app:shadowHeight="5dp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -14,4 +14,12 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+
+    <!--facebook colors-->
+    <color name="fb_back">#39579B</color>
+    <color name="fb_front">#6183d2</color>
+
+    <!--GoogleColor-->
+    <color name="gm_back">#D2D2D2</color>
+    <color name="gm_front">#B34836</color>
 </resources>
