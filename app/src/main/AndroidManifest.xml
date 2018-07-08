@@ -27,7 +27,8 @@
         <activity android:name=".LoginScreen" />
         <activity android:name=".ParticipantsLogin" />
         <activity android:name=".QRCodeReaderActivity" />
-        <activity android:name=".VolunteerLogin"></activity>
+        <activity android:name=".VolunteerLogin" />
+        <activity android:name=".ImageFlameActivity"></activity>
     </application>
 
 </manifest>
