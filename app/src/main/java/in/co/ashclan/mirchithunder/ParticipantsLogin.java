@@ -2,13 +2,17 @@ package in.co.ashclan.mirchithunder;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.facebook.accountkit.Account;
@@ -36,24 +40,44 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
 
 import dmax.dialog.SpotsDialog;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
 
-public class ParticipantsLogin extends AppCompatActivity implements View.OnClickListener{
+public class ParticipantsLogin extends AppCompatActivity
+        implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener{
 
     FButton btn_facebook,btn_Gmail;
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     Context mContext;
+    DatePickerDialog datePickerDialog ;
+
+    //Participant Pojo
+    ParticipantModel participantModel;
+
+    //FireBase to Facebook
     private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "GoogleSignIn";
 
+    //FireBase to Google
     private FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     public static final int REQUEST_CODE = 7171;
+
+
+    //Alert Dialog View
+    MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth;
+    RadioGroup rdg_Gender;
+    RadioButton rd_male,rd_female;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +104,8 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
         database = FirebaseDatabase.getInstance();
         table_participant = database.getReference("Participant");//Linked to Participant table
         mAuth = FirebaseAuth.getInstance();
+
+        participantModel = new ParticipantModel();
     }
     @Override
     public void onClick(View view) {
@@ -234,7 +260,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             showFireBaseDialog();
-                            startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
+//                            startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -251,7 +277,70 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
     }
 
     private void showFireBaseDialog() {
+        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
+        alertDialog.setTitle("One More Step... ");
+        alertDialog.setMessage("Please Fill all Information");
+
+        LayoutInflater layoutInflater = this.getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.custom_register_dialog,null);
+
+        edtFirstName = (MaterialEditText) view.findViewById(R.id.edt_FirstName);
+        edtLastName = (MaterialEditText) view.findViewById(R.id.edt_LastName);
+        edtMobileNo = (MaterialEditText) view.findViewById(R.id.edt_MobileNo);
+        edtEmailId = (MaterialEditText) view.findViewById(R.id.edt_EmailId);
+        edtDateofBirth = (MaterialEditText)view.findViewById(R.id.edt_DateOfBirth);
+
+       rd_male = (RadioButton)view.findViewById(R.id.rd_male);
+       rd_female = (RadioButton)view.findViewById(R.id.rd_female);
+
+        alertDialog.setView(view);
+        alertDialog.setIcon(R.drawable.ic_person);
+
+        datePickerDialog = new DatePickerDialog();
+
+//        Calendar now = Calendar.getInstance();
+//        DatePickerDialog dpd = DatePickerDialog.newInstance(ParticipantsLogin.this,
+//                now.get(Calendar.YEAR),
+//                now.get(Calendar.MONTH),
+//                now.get(Calendar.DAY_OF_MONTH)
+//        );
+//        dpd.show(getFragmentManager(), "Datepickerdialog");
+
+        //Event for Material Edit text
+        edtDateofBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        //Set Buttons
+        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+
+               /* if(newFood!=null)
+                {
+                    foodList.push().setValue(newFood);
+                    Snackbar.make(rootlayout, "Food Item "+newFood.getName().toString()+" Added successfully", Snackbar.LENGTH_SHORT).show();
+                }*/
+            }
+        });
+        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alertDialog.show();
 
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        String date = ""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        edtDateofBirth.setText(date);
+    }
 }

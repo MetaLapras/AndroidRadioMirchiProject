@@ -65,4 +65,7 @@ dependencies {
     //app Dialog
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    //material Date and time Picker
+    implementation 'com.wdullaer:materialdatetimepicker:3.6.2'
 }
