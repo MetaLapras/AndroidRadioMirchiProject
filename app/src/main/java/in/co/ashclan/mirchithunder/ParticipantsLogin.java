@@ -228,7 +228,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -237,6 +236,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
