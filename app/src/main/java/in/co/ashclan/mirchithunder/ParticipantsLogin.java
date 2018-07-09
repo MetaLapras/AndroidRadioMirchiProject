@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +60,6 @@ public class ParticipantsLogin extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     Context mContext;
-    android.app.DatePickerDialog datePickerDialog ;
 
     //Participant Pojo
     ParticipantModel participantModel;
@@ -79,7 +79,11 @@ public class ParticipantsLogin extends AppCompatActivity
     RadioGroup rdg_Gender;
     RadioButton rd_male,rd_female;
     Button btn_Select,btn_upload;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+
+    //Dialog Datetime Picker
+    Calendar calendar ;
+    DatePickerDialog datePickerDialog ;
+    int Year, Month, Day ;
 
 
     @Override
@@ -302,20 +306,23 @@ public class ParticipantsLogin extends AppCompatActivity
         alertDialog.setView(view);
         alertDialog.setIcon(R.drawable.ic_person);
 
-        datePickerDialog = new DatePickerDialog(mContext,ParticipantsLogin.this, startYear, starthMonth, startDay);
+        calendar = Calendar.getInstance();
+
+        Year = calendar.get(Calendar.YEAR) ;
+        Month = calendar.get(Calendar.MONTH);
+        Day = calendar.get(Calendar.DAY_OF_MONTH);
 
         //Event for Material Edit text
         edtDateofBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                // Get Current Date
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-
-                datePickerDialog.show();
+                datePickerDialog = DatePickerDialog.newInstance((DatePickerDialog.OnDateSetListener) mContext, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(Color.parseColor("#009688"));
+                datePickerDialog.setTitle("Select Date From DatePickerDialog");
+                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
 
             }
         });
@@ -340,9 +347,10 @@ public class ParticipantsLogin extends AppCompatActivity
         });
         alertDialog.show();
     }
-
     @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-
+    public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
+        String date = "" + Day + "-" + Month + "-" + Year;
+        edtDateofBirth.setText(date);
     }
+
 }
