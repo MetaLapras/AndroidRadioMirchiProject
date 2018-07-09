@@ -1,25 +1,53 @@
 package in.co.ashclan.mirchithunder.model;
 
 public class ParticipantModel {
-    private String name,email,password,status,mobile;
+    private String firstname,lastname,gender,dob,email,password,status,mobile,image;
 
-    public ParticipantModel(String name, String email, String password, String status, String mobile) {
-        this.name = name;
+    public ParticipantModel(String firstname,String lastname,String gender,String dob, String email, String password, String status, String mobile,String image) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+        this.dob = dob;
         this.email = email;
         this.password = password;
         this.status = status;
         this.mobile = mobile;
+        this.image = image;
     }
 
     public ParticipantModel() {
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getEmail() {
@@ -52,5 +80,13 @@ public class ParticipantModel {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -68,4 +68,8 @@ dependencies {
 
     //material Date and time Picker
     implementation 'com.wdullaer:materialdatetimepicker:3.6.2'
+
+    //Picaso and Gsons
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

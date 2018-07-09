@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -51,14 +53,13 @@ import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
 
 public class ParticipantsLogin extends AppCompatActivity
-        implements View.OnClickListener,
-        DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener,DatePickerDialog.OnDateSetListener{
 
     FButton btn_facebook,btn_Gmail;
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     Context mContext;
-    DatePickerDialog datePickerDialog ;
+    android.app.DatePickerDialog datePickerDialog ;
 
     //Participant Pojo
     ParticipantModel participantModel;
@@ -77,6 +78,9 @@ public class ParticipantsLogin extends AppCompatActivity
     MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth;
     RadioGroup rdg_Gender;
     RadioButton rd_male,rd_female;
+    Button btn_Select,btn_upload;
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +175,6 @@ public class ParticipantsLogin extends AppCompatActivity
                                             {
                                                 ParticipantModel newUser = new ParticipantModel();
                                                 newUser.setMobile(userphone);
-                                                newUser.setName("");
 
                                                 //add to fire base
                                                 table_participant.child(userphone)
@@ -284,33 +287,36 @@ public class ParticipantsLogin extends AppCompatActivity
         LayoutInflater layoutInflater = this.getLayoutInflater();
         View view = layoutInflater.inflate(R.layout.custom_register_dialog,null);
 
-        edtFirstName = (MaterialEditText) view.findViewById(R.id.edt_FirstName);
-        edtLastName = (MaterialEditText) view.findViewById(R.id.edt_LastName);
-        edtMobileNo = (MaterialEditText) view.findViewById(R.id.edt_MobileNo);
-        edtEmailId = (MaterialEditText) view.findViewById(R.id.edt_EmailId);
-        edtDateofBirth = (MaterialEditText)view.findViewById(R.id.edt_DateOfBirth);
+        edtFirstName    = (MaterialEditText) view.findViewById(R.id.edt_FirstName);
+        edtLastName     = (MaterialEditText) view.findViewById(R.id.edt_LastName);
+        edtMobileNo     = (MaterialEditText) view.findViewById(R.id.edt_MobileNo);
+        edtEmailId      = (MaterialEditText) view.findViewById(R.id.edt_EmailId);
+        edtDateofBirth  = (MaterialEditText)view.findViewById(R.id.edt_DateOfBirth);
 
-       rd_male = (RadioButton)view.findViewById(R.id.rd_male);
-       rd_female = (RadioButton)view.findViewById(R.id.rd_female);
+        btn_Select      = (Button)view.findViewById(R.id.btnSelect);
+        btn_upload      = (Button)view.findViewById(R.id.btnUpload);
+
+        rd_male         = (RadioButton)view.findViewById(R.id.rd_male);
+        rd_female       = (RadioButton)view.findViewById(R.id.rd_female);
 
         alertDialog.setView(view);
         alertDialog.setIcon(R.drawable.ic_person);
 
-        datePickerDialog = new DatePickerDialog();
-
-//        Calendar now = Calendar.getInstance();
-//        DatePickerDialog dpd = DatePickerDialog.newInstance(ParticipantsLogin.this,
-//                now.get(Calendar.YEAR),
-//                now.get(Calendar.MONTH),
-//                now.get(Calendar.DAY_OF_MONTH)
-//        );
-//        dpd.show(getFragmentManager(), "Datepickerdialog");
+        datePickerDialog = new DatePickerDialog(mContext,ParticipantsLogin.this, startYear, starthMonth, startDay);
 
         //Event for Material Edit text
         edtDateofBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datePickerDialog.show(getFragmentManager(), "Datepickerdialog");
+
+                // Get Current Date
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog.show();
+
             }
         });
 
@@ -318,9 +324,7 @@ public class ParticipantsLogin extends AppCompatActivity
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
                 dialog.dismiss();
-
                /* if(newFood!=null)
                 {
                     foodList.push().setValue(newFood);
@@ -335,12 +339,10 @@ public class ParticipantsLogin extends AppCompatActivity
             }
         });
         alertDialog.show();
-
     }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        String date = ""+dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
-        edtDateofBirth.setText(date);
+
     }
 }
