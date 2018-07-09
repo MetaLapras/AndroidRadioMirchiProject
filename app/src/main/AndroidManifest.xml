@@ -19,6 +19,7 @@
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,12 +27,11 @@
         <activity android:name=".LoginScreen" />
         <activity android:name=".ParticipantsLogin" />
         <activity android:name=".QRCodeReaderActivity" />
+        <activity android:name=".VolunteerLogin" />
 
-        <activity android:name=".VolunteerLogin"></activity>
-
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id"/>
-
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
         <meta-data
             android:name="com.facebook.accountkit.ApplicationName"
             android:value="@string/fb_app_name" />
@@ -39,22 +39,24 @@
             android:name="com.facebook.accountkit.ClientToken"
             android:value="@string/ACCOUNT_KIT_CLIENT_TOKEN" />
 
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageFlameActivity"></activity>
+        <activity android:name=".ImageFlameActivity" />
+        <activity android:name=".RegistrationActivity"></activity>
     </application>
 
 </manifest>

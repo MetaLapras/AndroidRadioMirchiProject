@@ -62,7 +62,6 @@ import dmax.dialog.SpotsDialog;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
-
 public class ParticipantsLogin extends AppCompatActivity
         implements View.OnClickListener,DatePickerDialog.OnDateSetListener{
 
@@ -87,7 +86,6 @@ public class ParticipantsLogin extends AppCompatActivity
     private FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     public static final int REQUEST_CODE = 7171;
-
 
     //Alert Dialog View
     MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth;
@@ -136,8 +134,8 @@ public class ParticipantsLogin extends AppCompatActivity
 
         //Init ROOT LAYOUT
         linearLayout = (LinearLayout)findViewById(R.id.root_layout);
-
         participantModel = new ParticipantModel();
+
     }
     @Override
     public void onClick(View view) {
@@ -314,7 +312,6 @@ public class ParticipantsLogin extends AppCompatActivity
                     }
                 });
     }
-
     private void showFireBaseDialog() {
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
         alertDialog.setTitle("One More Step... ");
@@ -396,7 +393,6 @@ public class ParticipantsLogin extends AppCompatActivity
         });
         alertDialog.show();
     }
-
     private void uploadImage() {
         if(saveuri!=null)
         {
@@ -455,14 +451,12 @@ public class ParticipantsLogin extends AppCompatActivity
             });
         }
     }
-
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"Select Picture"),util.PICK_IMAGE_REQUEST);
     }
-
     @Override
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
         String date = "" + Day + "/" + Month + "/" + Year;
