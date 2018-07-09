@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/root_layout"
     tools:context=".ParticipantsLogin">
 
     <TextView
@@ -174,6 +175,7 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_google"
                 android:tint="@android:color/white" />
+
             <info.hoang8f.widget.FButton
                 android:id="@+id/btn_Gmail"
                 android:layout_width="0dp"

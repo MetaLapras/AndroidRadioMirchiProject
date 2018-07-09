@@ -1,10 +1,12 @@
 package in.co.ashclan.mirchithunder;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -32,6 +35,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -43,10 +48,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 import dmax.dialog.SpotsDialog;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
@@ -59,7 +69,12 @@ public class ParticipantsLogin extends AppCompatActivity
     FButton btn_facebook,btn_Gmail;
     FirebaseDatabase database;
     DatabaseReference table_participant ;
+    FirebaseStorage storage;
     Context mContext;
+
+    //Root Layout
+    LinearLayout linearLayout;
+
 
     //Participant Pojo
     ParticipantModel participantModel;
@@ -84,6 +99,10 @@ public class ParticipantsLogin extends AppCompatActivity
     Calendar calendar ;
     DatePickerDialog datePickerDialog ;
     int Year, Month, Day ;
+
+    //Upload Images
+    Uri saveuri;
+    StorageReference storageReference ;
 
 
     @Override
@@ -110,8 +129,13 @@ public class ParticipantsLogin extends AppCompatActivity
 
         //InIt FireBase
         database = FirebaseDatabase.getInstance();
-        table_participant = database.getReference("Participant");//Linked to Participant table
+        table_participant = database.getReference("Participant"); //Linked to Participant table
         mAuth = FirebaseAuth.getInstance();
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        //Init ROOT LAYOUT
+        linearLayout = (LinearLayout)findViewById(R.id.root_layout);
 
         participantModel = new ParticipantModel();
     }
@@ -255,6 +279,14 @@ public class ParticipantsLogin extends AppCompatActivity
                 // ...
             }
         }
+
+        //Result returned from launching FirebaseDialog
+        if(requestCode== util.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null)
+        {
+            saveuri = data.getData();
+            btn_Select.setText("Image Selected !");
+        }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -303,6 +335,8 @@ public class ParticipantsLogin extends AppCompatActivity
         rd_male         = (RadioButton)view.findViewById(R.id.rd_male);
         rd_female       = (RadioButton)view.findViewById(R.id.rd_female);
 
+        rdg_Gender = (RadioGroup)view.findViewById(R.id.rdg_group);
+
         alertDialog.setView(view);
         alertDialog.setIcon(R.drawable.ic_person);
 
@@ -327,16 +361,31 @@ public class ParticipantsLogin extends AppCompatActivity
             }
         });
 
+        //Event for Buttons
+        btn_Select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();//Let user Choose the Image from Gallery
+            }
+        });
+
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                uploadImage();
+            }
+        });
+
         //Set Buttons
         alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-               /* if(newFood!=null)
+               if(participantModel!=null)
                 {
-                    foodList.push().setValue(newFood);
-                    Snackbar.make(rootlayout, "Food Item "+newFood.getName().toString()+" Added successfully", Snackbar.LENGTH_SHORT).show();
-                }*/
+                    table_participant.push().setValue(participantModel);
+                    Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -347,9 +396,76 @@ public class ParticipantsLogin extends AppCompatActivity
         });
         alertDialog.show();
     }
+
+    private void uploadImage() {
+        if(saveuri!=null)
+        {
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Uploading Image .... ");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.show();
+
+            String imageName = UUID.randomUUID().toString(); //set Image to an ID
+            final StorageReference imageFolder = storageReference.child("images/"+imageName); // Create a folder in the Firebase with id reference
+            // Add Image to the Folder at Firebase
+            imageFolder.putFile(saveuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.dismiss();
+                    //Download the refence image from the database
+                    imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+
+                            // set value for new category if image upload and we can get download link
+                            participantModel = new ParticipantModel();
+                            participantModel.setFirstname(edtFirstName.getText().toString());
+                            participantModel.setLastname(edtLastName.getText().toString());
+                            participantModel.setMobile(edtMobileNo.getText().toString());
+                            participantModel.setDob(edtDateofBirth.getText().toString());
+
+                            rdg_Gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                                    if(rd_male.isChecked())
+                                        participantModel.setGender(rd_male.getText().toString());
+                                    else
+                                        participantModel.setGender(rd_female.getText().toString());
+                                }
+                            });
+                            participantModel.setEmail(edtEmailId.getText().toString());
+                            participantModel.setPassword("puid"+ edtMobileNo.getText().toString());
+                            participantModel.setStatus("Active");
+                            participantModel.setImage(uri.toString());
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    progressDialog.dismiss();
+                    Toast.makeText(ParticipantsLogin.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Uploading "+ progress + "%");
+                }
+            });
+        }
+    }
+
+    private void chooseImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Select Picture"),util.PICK_IMAGE_REQUEST);
+    }
+
     @Override
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
-        String date = "" + Day + "-" + Month + "-" + Year;
+        String date = "" + Day + "/" + Month + "/" + Year;
         edtDateofBirth.setText(date);
     }
 

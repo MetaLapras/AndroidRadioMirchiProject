@@ -11,6 +11,7 @@ import in.co.ashclan.mirchithunder.model.VolunteerModel;
 public class util {
     public static ParticipantModel currentParticipant;
     public static VolunteerModel currentvolunteer;
+    public static final int PICK_IMAGE_REQUEST = 71;
 
     public static boolean isConnectedToInterNet(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
