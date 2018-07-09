@@ -19,6 +19,7 @@ import com.facebook.accountkit.ui.AccountKitConfiguration;
 import com.facebook.accountkit.ui.LoginType;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +37,12 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     Context mContext;
+    private static final int RC_SIGN_IN = 234;
+    private static final String TAG = "GoogleSignIn";
+
+    private FirebaseAuth mAuth;
+
+
     public static final int REQUEST_CODE = 7171;
 
     @Override
@@ -46,7 +53,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
         btn_Gmail.setOnClickListener(this);
         btn_facebook.setOnClickListener(this);
     }
-
     private void init() {
         mContext = ParticipantsLogin.this;
         btn_facebook = (FButton)findViewById(R.id.btn_facebook);
@@ -55,7 +61,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
         //InIt FireBase
         database = FirebaseDatabase.getInstance();
         table_participant = database.getReference("Participant");//Linked to Participant table
-
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
