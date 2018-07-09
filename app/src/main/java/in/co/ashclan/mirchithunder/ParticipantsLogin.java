@@ -53,10 +53,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
 
     private FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
-
-
     public static final int REQUEST_CODE = 7171;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +81,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
         table_participant = database.getReference("Participant");//Linked to Participant table
         mAuth = FirebaseAuth.getInstance();
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -97,7 +93,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                 break;
         }
     }
-
     private void startFacebookLogin() {
 
         Intent intent = new Intent(ParticipantsLogin.this, AccountKitActivity.class);
@@ -106,6 +101,10 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                         AccountKitActivity.ResponseType.TOKEN);
         intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,configurationBuilder.build());
         startActivityForResult(intent,REQUEST_CODE);
+    }
+    private void startGmailLogin() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
@@ -131,7 +130,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                     watingDialog.show();
                     watingDialog.setMessage("Please Wait");
                     watingDialog.setCancelable(false);
-
                     //get Current Phone
                     AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                         @Override
@@ -225,7 +223,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
             }
         }
     }
-
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -236,6 +233,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            showFireBaseDialog();
                             startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
@@ -252,8 +250,8 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
                 });
     }
 
-    private void startGmailLogin() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    private void showFireBaseDialog() {
+
     }
+
 }
