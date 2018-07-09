@@ -48,7 +48,7 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     Context mContext;
-    private static final int RC_SIGN_IN = 234;
+    private static final int RC_SIGN_IN = 9001;
     private static final String TAG = "GoogleSignIn";
 
     private FirebaseAuth mAuth;
@@ -253,10 +253,6 @@ public class ParticipantsLogin extends AppCompatActivity implements View.OnClick
     }
 
     private void startGmailLogin() {
-
-    }
-
-    private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
