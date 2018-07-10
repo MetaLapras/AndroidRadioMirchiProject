@@ -1,134 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".DashBoard">
-
-<com.github.mzule.fantasyslide.FantasyDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawerLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".DashBoard">
 
-    <!--<include-->
-        <!--layout="@layout/activity_menu1"-->
-        <!--/>-->
 
-    <com.github.mzule.fantasyslide.SideBar
-        android:id="@+id/leftSideBar"
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical"
-        app:maxTranslationX="66dp">
 
-        <LinearLayout
-            android:id="@+id/userInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:gravity="center_horizontal"
-            android:onClick="onClick"
-            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/ic_person"
-                app:civ_border_color="@color/colorPrimary"
-                app:civ_border_width="2dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mzule"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <TextView
-            style="@style/MenuText"
-            android:drawableLeft="@drawable/ic_profile"
-            android:backgroundTint="@color/accent"
-            android:text="MyProfile" />
-
-        <TextView
-            style="@style/MenuText"
-            android:drawableLeft="@drawable/ic_gallery"
-            android:backgroundTint="@color/accent"
-            android:text="Gallery" />
-
-        <TextView
-            style="@style/MenuText"
-            android:drawableLeft="@drawable/ic_camera"
-            android:backgroundTint="@color/accent"
-            android:text="Mirchi Selfies" />
-
-        <TextView
-            style="@style/MenuText"
-            android:drawableLeft="@drawable/ic_certificate"
-            android:backgroundTint="@color/accent"
-            android:text="Menu 4" />
-
-        <TextView
-            style="@style/MenuText"
-            android:drawableLeft="@drawable/ic_exit"
-            android:backgroundTint="@color/accent"
-            android:text="Menu 5" />
-    </com.github.mzule.fantasyslide.SideBar>
-
-    <!--<com.github.mzule.fantasyslide.SideBar-->
-    <!--android:id="@+id/rightSideBar"-->
-    <!--android:layout_width="133dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="end"-->
-    <!--android:background="@drawable/bg_right_bar"-->
-    <!--android:gravity="center_vertical|right"-->
-    <!--app:maxTranslationX="-33dp">-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 8" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 7" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 6" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 5" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 4" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 3" />-->
-
-    <!--<TextView-->
-    <!--style="@style/MenuText"-->
-    <!--android:text="menu 2" />-->
-    <!--</com.github.mzule.fantasyslide.SideBar>-->
-</com.github.mzule.fantasyslide.FantasyDrawerLayout>
-
-<TextView
-    android:id="@+id/tipView"
-    android:layout_width="160dp"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:background="@color/colorPrimary"
-    android:gravity="center"
-    android:padding="20dp"
-    android:textColor="@color/colorAccent"
-    android:textSize="16sp"
-    android:visibility="invisible" />
 </RelativeLayout>
