@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,46 +36,51 @@
                 android:onClick="onClick"
                 android:orientation="vertical">
 
-                <com.github.mzule.fantasyslide.widget.CircleImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="110dp"
                     android:layout_height="110dp"
                     android:layout_margin="10dp"
-                    android:src="@drawable/me"
-                    app:civ_border_color="@color/menu_text_color"
+                    android:src="@drawable/back_img"
+                    app:civ_border_color="@color/colorPrimary"
                     app:civ_border_width="2dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="mzule"
-                    android:textColor="@color/colorPrimary"
+                    android:text="Name of Participant"
+                    android:textColor="@color/accent"
                     android:textSize="18sp" />
             </LinearLayout>
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_profile"
-                android:text="朋友圈" />
+                android:drawableTint="@color/accent"
+                android:text="My Profile" />
 
             <TextView
                 style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_person"
-                android:text="钱包" />
+                android:drawableLeft="@drawable/ic_panorama"
+                android:drawableTint="@color/accent"
+                android:text="My Gallery" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_camera"
-                android:text="优惠券" />
+                android:drawableTint="@color/accent"
+                android:text="Mirchi Selfie" />
 
             <TextView
                 style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_gallery"
-                android:text="好友" />
+                android:drawableLeft="@drawable/ic_run"
+                android:drawableTint="@color/accent"
+                android:text="Achievement's" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_exit"
-                android:text="设置" />
+                android:drawableTint="@color/accent"
+                android:text="logout" />
         </com.github.mzule.fantasyslide.SideBar>
 
         <com.github.mzule.fantasyslide.SideBar
