@@ -191,8 +191,12 @@ public class ParticipantsLogin extends AppCompatActivity
                         @Override
                         public void onSuccess(Account account) {
                             final String userphone = account.getPhoneNumber().toString();
+                            Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
+                            intent.putExtra("mobilno",userphone);
+                            startActivity(intent);
+                            watingDialog.dismiss();
 
-                            //Check if User Exist on Firebase
+                        /*    //Check if User Exist on Firebase if not then add it
                             table_participant.orderByKey().equalTo(userphone)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -253,7 +257,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
                                         }
-                                    });
+                                    });*/
                         }
                         @Override
                         public void onError(AccountKitError accountKitError) {
@@ -288,6 +292,13 @@ public class ParticipantsLogin extends AppCompatActivity
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        //Show Dialog
+        final AlertDialog watingDialog = new SpotsDialog(this);
+        watingDialog.show();
+        watingDialog.setMessage("Please Wait");
+        watingDialog.setCancelable(false);
+
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -296,8 +307,9 @@ public class ParticipantsLogin extends AppCompatActivity
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            showFireBaseDialog();
-//                            startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
+                            //showFireBaseDialog();
+                            watingDialog.dismiss();
+                            startActivity(new Intent(ParticipantsLogin.this,RegistrationActivity.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -369,7 +381,7 @@ public class ParticipantsLogin extends AppCompatActivity
         btn_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                uploadImage();// Upload all Data into the Firebase database
             }
         });
 
@@ -381,7 +393,7 @@ public class ParticipantsLogin extends AppCompatActivity
                if(participantModel!=null)
                 {
                     table_participant.push().setValue(participantModel);
-                    Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
+                   // Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

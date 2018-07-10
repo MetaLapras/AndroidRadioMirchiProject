@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RegistrationActivity">
-
-    <android.support.v7.widget.CardView
+<android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardElevation="4dp">
+        app:cardElevation="4dp"
+        android:id="@+id/root_layout"
+        tools:context=".RegistrationActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -127,21 +122,22 @@
                         android:text="Female" />
                 </RadioGroup>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Select Image"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:elevation="10dp"
-                    android:layout_margin="10dp"
-                    />
-
-                <LinearLayout
-                    android:orientation="horizontal"
                     android:weightSum="2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Select Image"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:elevation="10dp"
+                        android:layout_margin="10dp"
+                        />
 
                     <Button
                         android:id="@+id/btnSelect"
@@ -157,6 +153,11 @@
                         android:shadowColor="@android:color/black"
                         android:layout_weight="1"
                         />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/btnUpload"
@@ -176,5 +177,3 @@
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>
-
-</RelativeLayout>

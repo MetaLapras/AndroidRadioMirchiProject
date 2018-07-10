@@ -56,7 +56,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ImageFlameActivity" />
-        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".DashBoard"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.login.Login;
+
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener{
    LinearLayout linearLayout;
    ImageView thunder_logo;
@@ -31,9 +33,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         volunteer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginScreen.this,VolunteerLogin.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+//                Intent i = new Intent(LoginScreen.this,VolunteerLogin.class);
+//                startActivity(i);
+//                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+
+                Intent intent = new Intent(LoginScreen.this,DashBoard.class);
+                startActivity(intent);
             }
         });
 
