@@ -25,6 +25,12 @@
     <string name="fb_app_name">RadioMirchi</string>
     <string name="fb_login_protocol_scheme">fb239851700149329</string>
     <string name="ACCOUNT_KIT_CLIENT_TOKEN">e4496e3b538f40189e7ad8fd10519c1f</string>
-
+    
+    
+    
+    <!--Demo Strings-->
+    <string name="para1">With some simple steps, now we have an amazingly animated detail screen that includes most of the things we’ve seen in Material Design specs. We can customize this in many ways really easily, and even manage some more complex effects by creating custom behaviors, which is what we’ll see in next article. You can subscribe to the blog feed to stay tuned.</string>
+    <string name="para2">Author: Antonio Leiva
+I’m in love with Kotlin. I’ve been learning about it for a couple of years, applying it to Android and digesting all this knowledge so that you can learn it with no effort.</string>
 
 </resources>
