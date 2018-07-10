@@ -6,21 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".DashBoard">
 
-    <include
-        android:id="@+id/inc"
-        layout="@layout/dashboard_collapsing_toolbar"/>
-
     <com.github.mzule.fantasyslide.FantasyDrawerLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/back_img" />
+        <include
+            android:id="@+id/inc"
+            layout="@layout/dashboard_collapsing_toolbar"/>
 
         <com.github.mzule.fantasyslide.SideBar
             android:id="@+id/leftSideBar"
