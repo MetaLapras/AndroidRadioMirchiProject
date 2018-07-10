@@ -80,6 +80,5 @@ dependencies {
 
     //Slider list
     implementation 'com.github.mzule.fantasyslide:library:1.0.5'
-    implementation 'de.hdodenhof:circleimageview:2.1.0'
 
 }
