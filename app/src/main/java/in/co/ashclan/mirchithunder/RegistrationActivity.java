@@ -75,28 +75,15 @@ public class RegistrationActivity extends AppCompatActivity
 
         if(getIntent()!=null)
         {
-            if(!fbNumber.isEmpty())
-            {
                 fbNumber =getIntent().getStringExtra("mobilno");
-                edtMobileNo.setText(fbNumber);
-            }else
-            {
-                edtMobileNo.setText("");
-            }
-            if(!gmEmail.isEmpty())
-            {
                 gmEmail = getIntent().getStringExtra("email");
                 gmFirstName = getIntent().getStringExtra("firstname");
                 gmLastName = getIntent().getStringExtra("lastname");
-            }else
-            {
-                edtMobileNo.setText("");
-                edtEmailId.setText("");
-                edtFirstName.setText("");
-                edtLastName.setText("");
-            }
 
-
+                edtMobileNo.setText(fbNumber);
+                edtEmailId.setText(gmEmail);
+                edtFirstName.setText(gmFirstName);
+                edtLastName.setText(gmLastName);
         }
     }
     private void init() {

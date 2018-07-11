@@ -105,7 +105,6 @@ public class ParticipantsLogin extends AppCompatActivity
     Uri saveuri;
     StorageReference storageReference ;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -569,7 +568,6 @@ public class ParticipantsLogin extends AppCompatActivity
                                                 });
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
                                 }
