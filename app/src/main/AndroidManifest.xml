@@ -57,7 +57,15 @@
         </activity>
         <activity android:name=".ImageFlameActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".DashBoard"></activity>
+        <activity
+            android:name=".DashBoard"
+            android:label="@string/DashBoard"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".MyGallery" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".Achivements" />
+        <activity android:name=".FullScreenActivity" />
+        <activity android:name=".MirchiSelfie"></activity>
     </application>
 
 </manifest>

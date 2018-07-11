@@ -47,7 +47,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             public void onClick(View view) {
                 Intent i = new Intent(LoginScreen.this,ParticipantsLogin.class);
                 startActivity(i);
-                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
+               // overridePendingTransition(R.anim.fadein,R.anim.fadeout);
             }
         });
 

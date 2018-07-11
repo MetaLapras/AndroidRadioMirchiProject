@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/demo_back"
     tools:context=".DashBoard">
 
     <com.github.mzule.fantasyslide.FantasyDrawerLayout
@@ -54,31 +55,31 @@
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_profile"
                 android:drawableTint="@color/accent"
-                android:text="My Profile" />
+                android:text="@string/Profile" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_panorama"
                 android:drawableTint="@color/accent"
-                android:text="My Gallery" />
+                android:text="@string/Gallery" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_camera"
                 android:drawableTint="@color/accent"
-                android:text="Mirchi Selfie" />
+                android:text="@string/Selfie" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_run"
                 android:drawableTint="@color/accent"
-                android:text="Achievement's" />
+                android:text="@string/Achievements" />
 
             <TextView
                 style="@style/MenuText"
                 android:drawableLeft="@drawable/ic_exit"
                 android:drawableTint="@color/accent"
-                android:text="logout" />
+                android:text="@string/Logout" />
         </com.github.mzule.fantasyslide.SideBar>
 
         <!--<com.github.mzule.fantasyslide.SideBar-->

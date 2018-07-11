@@ -191,48 +191,22 @@ public class ParticipantsLogin extends AppCompatActivity
                         @Override
                         public void onSuccess(Account account) {
                             final String userphone = account.getPhoneNumber().toString();
-                            Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
+                            /*Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
                             intent.putExtra("mobilno",userphone);
                             startActivity(intent);
-                            watingDialog.dismiss();
+                            watingDialog.dismiss();*/
 
-                        /*    //Check if User Exist on Firebase if not then add it
+                            //Check if User Exist on Firebase if not then add it
                             table_participant.orderByKey().equalTo(userphone)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             if(!dataSnapshot.child(userphone).exists())//if Usernot Exist
                                             {
-                                                ParticipantModel newUser = new ParticipantModel();
-                                                newUser.setMobile(userphone);
-
-                                                //add to fire base
-                                                table_participant.child(userphone)
-                                                        .setValue(newUser)
-                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                if(task.isSuccessful())
-                                                                    Toast.makeText(ParticipantsLogin.this, "User Register Successfully !", Toast.LENGTH_SHORT).show();
-
-                                                                //Login
-                                                                table_participant.child(userphone)
-                                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                            @Override
-                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                                                                ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
-                                                                                startActivity(new Intent(ParticipantsLogin.this, QRCodeReaderActivity.class));
-                                                                                util.currentParticipant = localUser;
-                                                                                watingDialog.dismiss();
-                                                                                finish();
-                                                                            }
-                                                                            @Override
-                                                                            public void onCancelled(DatabaseError databaseError) {
-                                                                            }
-                                                                        });
-                                                            }
-                                                        });
+                                                Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
+                                                intent.putExtra("mobilno",userphone);
+                                                startActivity(intent);
+                                                watingDialog.dismiss();
 
                                             }else//if User Exist
                                             {
@@ -241,7 +215,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                                             @Override
                                                             public void onDataChange(DataSnapshot dataSnapshot) {
                                                                 ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
-                                                                startActivity(new Intent(ParticipantsLogin.this, QRCodeReaderActivity.class));
+                                                                startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
                                                                 util.currentParticipant = localUser;
                                                                 watingDialog.dismiss();
                                                                 finish();
@@ -257,7 +231,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                         @Override
                                         public void onCancelled(DatabaseError databaseError) {
                                         }
-                                    });*/
+                                    });
                         }
                         @Override
                         public void onError(AccountKitError accountKitError) {
@@ -297,7 +271,6 @@ public class ParticipantsLogin extends AppCompatActivity
         watingDialog.show();
         watingDialog.setMessage("Please Wait");
         watingDialog.setCancelable(false);
-
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -473,6 +446,53 @@ public class ParticipantsLogin extends AppCompatActivity
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
         String date = "" + Day + "/" + Month + "/" + Year;
         edtDateofBirth.setText(date);
+    }
+
+    //User Login
+    private void login(final String phone, final String pass) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_user = database.getReference("Participant");
+
+        if (util.isConnectedToInterNet(getBaseContext())) {
+
+            final ProgressDialog mDialog = new ProgressDialog(ParticipantsLogin.this);
+            mDialog.setMessage("Please Wait.....");
+            mDialog.show();
+
+            table_user.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Check if User doesnt exist in database
+                    if (dataSnapshot.child(phone).exists()) {
+                        //mDialog.dismiss();
+
+                        //get User Values
+                        ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
+                        user.setMobile(phone);
+                        if (user.getPassword().equals(pass)) {
+                            //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
+                            util.currentParticipant = user;
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        mDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "User Doesnt Exist", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            Toast.makeText(ParticipantsLogin.this, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

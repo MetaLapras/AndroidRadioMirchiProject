@@ -1,9 +1,9 @@
 package in.co.ashclan.mirchithunder.model;
 
 public class ParticipantModel {
-    private String firstname,lastname,gender,dob,email,password,status,mobile,image;
+    private String firstname,lastname,gender,dob,email,password,status,mobile,image,Bkid;
 
-    public ParticipantModel(String firstname,String lastname,String gender,String dob, String email, String password, String status, String mobile,String image) {
+    public ParticipantModel(String firstname,String lastname,String gender,String dob, String email, String password, String status, String mobile,String image,String bkid) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
@@ -13,6 +13,7 @@ public class ParticipantModel {
         this.status = status;
         this.mobile = mobile;
         this.image = image;
+        this.Bkid = bkid;
     }
 
     public ParticipantModel() {
@@ -88,5 +89,13 @@ public class ParticipantModel {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getBkid() {
+        return Bkid;
+    }
+
+    public void setBkid(String bkid) {
+        Bkid = bkid;
     }
 }
