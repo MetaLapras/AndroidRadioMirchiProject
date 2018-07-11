@@ -65,11 +65,12 @@ import info.hoang8f.widget.FButton;
 public class ParticipantsLogin extends AppCompatActivity
         implements View.OnClickListener,DatePickerDialog.OnDateSetListener{
 
-    FButton btn_facebook,btn_Gmail;
+    FButton btn_facebook,btn_Gmail,btn_submit;
     FirebaseDatabase database;
     DatabaseReference table_participant ;
     FirebaseStorage storage;
     Context mContext;
+
 
     //Get GMail Data from login Account
     public String personName,personFirstName,personLastName,personEmail,personId;
@@ -112,6 +113,7 @@ public class ParticipantsLogin extends AppCompatActivity
         init();
         btn_Gmail.setOnClickListener(this);
         btn_facebook.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
 
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -138,6 +140,9 @@ public class ParticipantsLogin extends AppCompatActivity
         linearLayout = (LinearLayout)findViewById(R.id.root_layout);
         participantModel = new ParticipantModel();
 
+        //Submit Button
+        btn_submit = (FButton)findViewById(R.id.btn_submit);
+
     }
     @Override
     public void onClick(View view) {
@@ -148,6 +153,10 @@ public class ParticipantsLogin extends AppCompatActivity
                 break;
             case R.id.btn_Gmail:
                 startGmailLogin();
+                break;
+            case R.id.btn_submit:
+
+                startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
                 break;
         }
     }
@@ -467,7 +476,7 @@ public class ParticipantsLogin extends AppCompatActivity
                         //get User Values
                         ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
                         user.setMobile(phone);
-                        if (user.getPassword().equals(pass)) {
+                        if (user.getFirstname().equals(pass)) {
                             //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
                             startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
                             util.currentParticipant = user;

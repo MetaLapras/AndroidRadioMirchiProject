@@ -61,7 +61,8 @@
             android:name=".DashBoard"
             android:label="@string/DashBoard"
             android:theme="@style/AppTheme" />
-        <activity android:name=".MyGallery" />
+        <activity android:name=".MyGallery"
+            android:theme="@style/AppThemebar"/>
         <activity android:name=".UserProfile" />
         <activity android:name=".Achivements" />
         <activity android:name=".FullScreenActivity" />

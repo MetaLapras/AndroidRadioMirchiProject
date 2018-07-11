@@ -28,5 +28,6 @@
 
 
     <color name="transperent_80_per">#99FFFFFF</color>
+    <color name="transperent_black">#4f0e0d0e</color>
 
 </resources>
