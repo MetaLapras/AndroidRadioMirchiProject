@@ -1,134 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/root_layout"
+    android:background="@drawable/demo_back"
     tools:context=".ParticipantsLogin">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/background_transperent"
+        android:layout_margin="10dp">
 
-    <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Sign In"
-    android:textSize="25dp"
-    android:textStyle="bold"
-    android:textColor="#3c5656"
-    android:layout_marginLeft="140dp"
-    android:layout_marginTop="30dp"/>
-
+        <ImageView
+            android:layout_width="258dp"
+            android:layout_height="133dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_mirchi_logo" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome"
+            android:fontFamily="@font/candlemustard"
+            android:textAlignment="center"
+            android:textSize="45dp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_dark" />
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center">
+        android:layout_margin="8dp"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@android:color/transparent"
+        android:elevation="10dp"
+        app:cardUseCompatPadding="true"
+        android:outlineSpotShadowColor="@color/black">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/border"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#e7f4fa"
+                android:weightSum="8"
                 android:orientation="horizontal">
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:textSize="14dp"
-                android:hint="E-mail/Mobile Number"
-                android:layout_marginLeft="15dp" />
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginLeft="1dp"
-                    android:src="@drawable/ic_mail"/>
-
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:src="@drawable/ic_person"
+                    android:tint="@color/primary"
+                    android:layout_weight="1"
+                    />
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_User_id"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:layout_weight="7"
+                    android:hint="User Id"
+                    android:inputType="text"
+                    android:textColor="@color/primary"
+                    android:textColorHint="@color/primary_dark"
+                    app:met_baseColor="@color/primary_text"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/primary_dark"
+                    app:met_singleLineEllipsis="true" />
             </LinearLayout>
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="7dp"
-              android:background="#33d4dfdf"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:background="#e7f4fa"
-                android:orientation="horizontal">
-            <EditText
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Password"
-                android:inputType="number"
-                android:textSize="14dp"
-                android:layout_marginLeft="15dp" />
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="1dp"
-                android:src="@drawable/ic_lock"/>
-            </LinearLayout>
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="4dp"
-                android:background="#33d4dfdf"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                android:weightSum="8"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="5dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:src="@drawable/ic_lock"
+                    android:tint="@color/primary"
+                    android:layout_weight="1"
+                    />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_User_password"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:layout_weight="7"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:textColor="@color/primary"
+                    android:textColorHint="@color/primary_dark"
+                    app:met_baseColor="@color/primary_text"
+                    app:met_floatingLabel="highlight"
+                    app:met_primaryColor="@color/primary_dark"
+                    app:met_singleLineEllipsis="true" />
+            </LinearLayout>
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:shadowColor="@android:color/black"
+                android:text="Submit"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:cornerRadius="0dp"
+                app:fButtonColor="@color/primary_dark"
+                app:shadowColor="@color/gm_back"
+                app:shadowEnabled="true"
+                app:shadowHeight="5dp" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
+        android:weightSum="10"
         android:orientation="horizontal">
-
         <View
-            android:layout_marginTop="30dp"
-            android:layout_width="150dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="4dp"
-            android:layout_marginLeft="12dp"
-            android:background="#126"></View>
-
+            android:background="@color/primary_dark">
+        </View>
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
             android:text="OR"
-            android:textColor="#000"/>
-
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_text"/>
         <View
-            android:layout_marginTop="30dp"
-            android:layout_width="150dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:layout_height="4dp"
-            android:background="#126"
-            android:layout_marginLeft="15dp">
-
+            android:background="@color/primary_dark">
         </View>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="15dp"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Sign Up with "
-            android:textColor="#3c5656"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:background="@color/fb_back"
             android:orientation="horizontal"
             android:weightSum="10">
@@ -137,10 +175,10 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_facebook"
                 android:tint="@android:color/white" />
-
             <info.hoang8f.widget.FButton
                 android:id="@+id/btn_facebook"
                 android:layout_width="0dp"
@@ -151,19 +189,16 @@
                 android:textColor="@android:color/white"
                 app:cornerRadius="0dp"
                 app:fButtonColor="@color/fb_back"
-                app:shadowColor="@color/fb_front"
+                app:shadowColor="@color/gm_back"
                 app:shadowEnabled="true"
                 app:shadowHeight="5dp" />
         </LinearLayout>
-
         <View
-            android:layout_width="wrap_content"
-            android:layout_height="7dp" />
-
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:background="@color/gm_front"
             android:orientation="horizontal"
             android:weightSum="10">
@@ -172,6 +207,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_google"
                 android:tint="@android:color/white" />
@@ -190,11 +226,9 @@
                 app:shadowEnabled="true"
                 app:shadowHeight="5dp" />
         </LinearLayout>
-
         <View
             android:layout_width="wrap_content"
             android:layout_height="7dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -207,6 +241,7 @@
         <View
             android:layout_width="wrap_content"
             android:layout_height="7dp" />
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 

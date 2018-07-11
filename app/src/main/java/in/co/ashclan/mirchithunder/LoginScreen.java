@@ -52,18 +52,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         });
 
     }
-
     private void init() {
         mContext = LoginScreen.this;
         thunder_logo = (ImageView)findViewById(R.id.thudner_logo);
         thunder_logo.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(mContext,QRCodeReaderActivity.class);
         startActivity(intent);
       //  startActivity(new Intent(mContext,QRCodeReaderActivity.class));
     }
-
+    
 }

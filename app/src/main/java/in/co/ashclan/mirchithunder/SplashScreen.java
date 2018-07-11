@@ -13,7 +13,7 @@ import android.widget.ImageView;
 public class SplashScreen extends AppCompatActivity {
 
     Context mcontext;
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, LoginScreen.class);
+                Intent i = new Intent(SplashScreen.this, ParticipantsLogin.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.fadein,R.anim.fadeout);
 
