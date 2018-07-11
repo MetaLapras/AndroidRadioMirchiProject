@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity
     Uri saveuri;
     StorageReference storageReference ;
     CardView RootLayout;
-    String fbNumber;
+    String fbNumber,gmFirstName,gmLastName,gmEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,16 +73,31 @@ public class RegistrationActivity extends AppCompatActivity
         btn_Select.setOnClickListener(this);
         btn_upload.setOnClickListener(this);
 
-        fbNumber =getIntent().getStringExtra("mobilno");
+        if(getIntent()!=null)
+        {
+            if(!fbNumber.isEmpty())
+            {
+                fbNumber =getIntent().getStringExtra("mobilno");
+                edtMobileNo.setText(fbNumber);
+            }else
+            {
+                edtMobileNo.setText("");
+            }
+            if(!gmEmail.isEmpty())
+            {
+                gmEmail = getIntent().getStringExtra("email");
+                gmFirstName = getIntent().getStringExtra("firstname");
+                gmLastName = getIntent().getStringExtra("lastname");
+            }else
+            {
+                edtMobileNo.setText("");
+                edtEmailId.setText("");
+                edtFirstName.setText("");
+                edtLastName.setText("");
+            }
 
-        if(fbNumber!="" && !fbNumber.equals(null))
-        {
-            edtMobileNo.setText(fbNumber);
-        }else
-        {
-            edtMobileNo.setText("");
+
         }
-
     }
     private void init() {
         mContext = RegistrationActivity.this;

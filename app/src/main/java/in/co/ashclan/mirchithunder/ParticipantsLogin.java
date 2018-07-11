@@ -71,9 +71,12 @@ public class ParticipantsLogin extends AppCompatActivity
     FirebaseStorage storage;
     Context mContext;
 
+    //Get GMail Data from login Account
+    public String personName,personFirstName,personLastName,personEmail,personId;
+    Uri personPhoto ;
+
     //Root Layout
     LinearLayout linearLayout;
-
 
     //Participant Pojo
     ParticipantModel participantModel;
@@ -220,10 +223,8 @@ public class ParticipantsLogin extends AppCompatActivity
                                                                 watingDialog.dismiss();
                                                                 finish();
                                                             }
-
                                                             @Override
                                                             public void onCancelled(DatabaseError databaseError) {
-
                                                             }
                                                         });
                                             }
@@ -282,7 +283,8 @@ public class ParticipantsLogin extends AppCompatActivity
                             Log.d(TAG, "signInWithCredential:success");
                             //showFireBaseDialog();
                             watingDialog.dismiss();
-                            startActivity(new Intent(ParticipantsLogin.this,RegistrationActivity.class));
+                            //If user is not registred then register it
+                           // startActivity(new Intent(ParticipantsLogin.this,RegistrationActivity.class));
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
@@ -291,9 +293,6 @@ public class ParticipantsLogin extends AppCompatActivity
                            // Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                    }
-                    private void updateUI(FirebaseUser user) {
                     }
                 });
     }
@@ -363,10 +362,10 @@ public class ParticipantsLogin extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-               if(participantModel!=null)
+                if(participantModel!=null)
                 {
                     table_participant.push().setValue(participantModel);
-                   // Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
+                    // Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -447,7 +446,6 @@ public class ParticipantsLogin extends AppCompatActivity
         String date = "" + Day + "/" + Month + "/" + Year;
         edtDateofBirth.setText(date);
     }
-
     //User Login
     private void login(final String phone, final String pass) {
 
@@ -494,5 +492,97 @@ public class ParticipantsLogin extends AppCompatActivity
         }
 
     }
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            // User is signed in
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+            if (acct != null) {
+                personName = acct.getDisplayName();
+                personFirstName = acct.getGivenName();
+                personLastName = acct.getFamilyName();
+                personEmail = acct.getEmail();
+                personId = acct.getId();
+                personPhoto = acct.getPhotoUrl();
 
+                Toast.makeText(ParticipantsLogin.this, "" + personName + "\n" +
+                        personFirstName + "\n" +
+                        personLastName + "\n" +
+                        personEmail + "\n", Toast.LENGTH_LONG).show();
+
+            } else {
+                // No user is signed in
+            }
+            //Show Dialog
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
+            alertDialog.setTitle("One More Step... ");
+            alertDialog.setMessage("Please Enter Your Registred Mobile");
+
+            LayoutInflater layoutInflater = this.getLayoutInflater();
+            View view = layoutInflater.inflate(R.layout.custom_mobileno_dialog, null);
+
+            edtMobileNo = (MaterialEditText) view.findViewById(R.id.edt_gm_MobileNo);
+
+            alertDialog.setView(view);
+            alertDialog.setIcon(R.drawable.ic_person);
+
+            //Set Buttons
+            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final String phone = edtMobileNo.getText().toString();
+                    final AlertDialog watingDialog = new SpotsDialog(ParticipantsLogin.this);
+                    watingDialog.show();
+                    watingDialog.setMessage("Please Wait");
+                    watingDialog.setCancelable(false);
+
+                    //Check if User Exist on Firebase if not then add it
+                    table_participant.orderByKey().equalTo(phone)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if (!dataSnapshot.child(phone).exists())//if User not Exist
+                                    {
+                                        Intent intent = new Intent(ParticipantsLogin.this, RegistrationActivity.class);
+                                        intent.putExtra("email", personEmail);
+                                        intent.putExtra("firstname", personFirstName);
+                                        intent.putExtra("lastname", personLastName);
+                                        intent.putExtra("mobilno", phone);
+                                        startActivity(intent);
+                                        watingDialog.dismiss();
+
+                                    } else//if User Exist
+                                    {
+                                        table_participant.child(phone)
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
+                                                        startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
+                                                        util.currentParticipant = localUser;
+                                                        watingDialog.dismiss();
+                                                        finish();
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+                                                    }
+                                                });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                }
+                            });
+                }
+            });
+            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            alertDialog.show();
+        }
+    }
 }
