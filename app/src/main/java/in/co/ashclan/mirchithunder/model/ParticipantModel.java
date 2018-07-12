@@ -16,6 +16,23 @@ public class ParticipantModel {
         this.Bkid = bkid;
     }
 
+
+    @Override
+    public String toString() {
+        return "Participants :"+
+                " firstname='" + firstname + '\'' +
+                ", last name='" + lastname + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dob='" + dob + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", status='" + status + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", image='" + image + '\'' +
+                ", bkid='" + Bkid + '\''+
+                '}';
+    }
+
     public ParticipantModel() {
     }
 

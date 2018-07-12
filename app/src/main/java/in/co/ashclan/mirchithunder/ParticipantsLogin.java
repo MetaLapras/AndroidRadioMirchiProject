@@ -71,7 +71,6 @@ public class ParticipantsLogin extends AppCompatActivity
     FirebaseStorage storage;
     Context mContext;
 
-
     //Get GMail Data from login Account
     public String personName,personFirstName,personLastName,personEmail,personId;
     Uri personPhoto ;
@@ -90,6 +89,9 @@ public class ParticipantsLogin extends AppCompatActivity
     private FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     public static final int REQUEST_CODE = 7171;
+
+    MaterialEditText edtUserName,edtPassword;
+    String phone,pass;
 
     //Alert Dialog View
     MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth;
@@ -123,6 +125,9 @@ public class ParticipantsLogin extends AppCompatActivity
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+
+
     }
     private void init() {
         mContext = ParticipantsLogin.this;
@@ -142,6 +147,8 @@ public class ParticipantsLogin extends AppCompatActivity
 
         //Submit Button
         btn_submit = (FButton)findViewById(R.id.btn_submit);
+        edtUserName = (MaterialEditText)findViewById(R.id.edt_User_id);
+        edtPassword = (MaterialEditText)findViewById(R.id.edt_User_password);
 
     }
     @Override
@@ -156,7 +163,10 @@ public class ParticipantsLogin extends AppCompatActivity
                 break;
             case R.id.btn_submit:
 
-                startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
+                phone = "+91"+ edtUserName.getText().toString();
+                pass = edtPassword.getText().toString();
+                login(phone,pass);
+                //startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
                 break;
         }
     }
@@ -460,6 +470,8 @@ public class ParticipantsLogin extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_user = database.getReference("Participant");
 
+        Log.d("-->",phone +" "+pass);
+
         if (util.isConnectedToInterNet(getBaseContext())) {
 
             final ProgressDialog mDialog = new ProgressDialog(ParticipantsLogin.this);
@@ -472,16 +484,17 @@ public class ParticipantsLogin extends AppCompatActivity
                     //Check if User doesnt exist in database
                     if (dataSnapshot.child(phone).exists()) {
                         //mDialog.dismiss();
-
                         //get User Values
                         ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
                         user.setMobile(phone);
+                        Log.d("PoJo-->",user.toString());
                         if (user.getFirstname().equals(pass)) {
                             //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
                             startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
                             util.currentParticipant = user;
                             finish();
                         } else {
+                            mDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
                         }
                     } else {

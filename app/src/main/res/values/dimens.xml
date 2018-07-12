@@ -6,4 +6,8 @@
     <dimen name="pager_margin">5dp</dimen>
     <dimen name="viewPagerMargin">150dp</dimen>
     <dimen name="spacing">32dp</dimen>
+
+    <integer name="animation_duration_medium">2000</integer>
+    <integer name="animation_duration_fast">1000</integer>
+    <integer name="animation_duration_slow">5000</integer>
 </resources>

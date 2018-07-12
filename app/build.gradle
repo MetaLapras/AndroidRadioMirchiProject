@@ -41,7 +41,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.2'
     implementation 'com.google.firebase:firebase-ads:15.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
+
+
     implementation 'com.google.android.gms:play-services-vision:15.0.2'
+
+
+    // FirebaseUI for Firebase Realtime Database
+    implementation 'com.firebaseui:firebase-ui-database:3.3.1'
+
+
     //QRCoderReader
     implementation 'com.github.nisrulz:qreader:2.1.2'
     //ImageFramePhotoEditor
@@ -92,5 +100,9 @@ dependencies {
 
     //sql lite helper
     implementation 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
+
+    //glide image loader
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
 }
