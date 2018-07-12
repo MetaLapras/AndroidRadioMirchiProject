@@ -1,5 +1,6 @@
 package in.co.ashclan.mirchithunder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -9,6 +10,17 @@ import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import in.co.ashclan.mirchithunder.model.ParticipantModel;
+import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
+import in.co.ashclan.mirchithunder.utils.util;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -20,45 +32,81 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        ImageView image = findViewById(R.id.imgLogo);
+        //checkConnection();
+        if (PreferenceUtil.getSignIn(this)) {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashScreen.this, DashBoard.class);
+                    startActivity(intent);
+                    finish();
+                    //        layout.setVisibility(View.VISIBLE);
+                    //login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
 
-        mInit();
-
-        Log.e("--->MEMBER>>","Splash Screen");
-
-
-        //for animation
-       /* final Animation animationFadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
-        final Animation animationFadeOut = AnimationUtils.loadAnimation(this, R.anim.fadeout);
-        image.startAnimation(animationFadeIn);
-        image.startAnimation(animationFadeOut);*/
-
-        new Handler().postDelayed(new Runnable() {
-
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
-
-            @Override
-            public void run() {
-                // This method will be executed once the timer is over
-                // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, ParticipantsLogin.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.fadein,R.anim.fadeout);
-
-                // close this activity
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
+                }
+            }, 1500);
+        } else {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(SplashScreen.this, ParticipantsLogin.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1500);
+        }
     }
 
-    private void overridePendingTransition(int fadein) {
+    private void login(final String phone, final String pass) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_user = database.getReference("Participant");
+
+        Log.d("-->",phone +" "+pass);
+
+        if (util.isConnectedToInterNet(getBaseContext())) {
+
+            final ProgressDialog mDialog = new ProgressDialog(mcontext);
+            mDialog.setMessage("Please Wait.....");
+            mDialog.show();
+
+            table_user.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //Check if User doesnt exist in database
+                    if (dataSnapshot.child(phone).exists()) {
+                        //mDialog.dismiss();
+                        //get User Values
+                        Log.d("-->123",dataSnapshot.toString());
+                        ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
+                        user.setMobile(phone);
+                        Log.d("PoJo-->",user.toString());
+                        if (user.getFirstname().equals(pass)) {
+                            //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(mcontext, DashBoard.class));
+                            util.currentParticipant = user;
+                            finish();
+                        } else {
+                            mDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        mDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "User Doesnt Exist", Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } else {
+            Toast.makeText(mcontext, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
-
-    private void mInit() {
-        mcontext = SplashScreen.this;
-    }
 }

@@ -12,8 +12,16 @@
     tools:context=".MyGallery"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mGallery_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mgallery_grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:numColumns="2"
+        android:columnWidth="90dp"
+        android:horizontalSpacing="15dp"
+        android:verticalSpacing="15dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:layout_margin="10dp"/>
+
 </android.support.v4.widget.SwipeRefreshLayout>

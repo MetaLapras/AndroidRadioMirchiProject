@@ -21,7 +21,7 @@ public class ParticipantModel {
     public String toString() {
         return "Participants :"+
                 " firstname='" + firstname + '\'' +
-                ", last name='" + lastname + '\'' +
+                ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
                 ", email='" + email + '\'' +

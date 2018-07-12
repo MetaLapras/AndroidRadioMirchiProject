@@ -176,6 +176,7 @@ public class RegistrationActivity extends AppCompatActivity
                                Snackbar.make(RootLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
                                Intent intent = new Intent(RegistrationActivity.this,DashBoard.class);
                                startActivity(intent);
+                               finish();
                             }
                         }
                     });

@@ -11,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/menu_image"
+            android:id="@+id/single_image"
             android:scaleType="centerCrop"
             android:src="@drawable/demo_back"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="200dp" />
 
         <TextView
             android:id="@+id/txtMenu_name"

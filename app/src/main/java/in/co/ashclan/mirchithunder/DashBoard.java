@@ -1,8 +1,10 @@
 package in.co.ashclan.mirchithunder;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
@@ -19,8 +21,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.accountkit.AccountKit;
 import com.github.mzule.fantasyslide.SideBar;
 import com.github.mzule.fantasyslide.Transformer;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
+import in.co.ashclan.mirchithunder.utils.util;
+import io.paperdb.Paper;
 
 public class DashBoard extends AppCompatActivity  {
 
@@ -33,6 +45,9 @@ public class DashBoard extends AppCompatActivity  {
     public String title;
     private DrawerLayout drawerLayout;
     Toolbar toolbar;
+    TextView txtUserName;
+    GoogleSignInClient mGoogleSignInClient;
+    Context mContext;
 
     CardView cardView_Gallery,cardView_Selfie,cardView_Achivements,cardView_logout;
 
@@ -55,16 +70,21 @@ public class DashBoard extends AppCompatActivity  {
         init();
         setupViewPager();
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
-        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                if (((ViewGroup) drawerView).getChildAt(1).getId() == R.id.leftSideBar) {
-                    indicator.setProgress(slideOffset);
-                }
-            }
-        });
+//        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+//        drawerLayout.setScrimColor(Color.TRANSPARENT);
+//        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+//            @Override
+//            public void onDrawerSlide(View drawerView, float slideOffset) {
+//                if (((ViewGroup) drawerView).getChildAt(1).getId() == R.id.leftSideBar) {
+//                    indicator.setProgress(slideOffset);
+//                }
+//            }
+//        });
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
 
         cardView_Gallery.setOnClickListener(new View.OnClickListener() {
@@ -88,12 +108,37 @@ public class DashBoard extends AppCompatActivity  {
         cardView_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DashBoard.this, "Logout", Toast.LENGTH_SHORT).show();
+                signoutFacebook();
+                signOutRegular();
+                signOutGmail();
+                //Paper.book().destroy();
             }
         });
 
-    }
+        //txtUserName.setText(util.currentParticipant.getFirstname() + util.currentParticipant.getLastname());
 
+    }
+    private void signoutFacebook() {
+        //FaceBook LogOut
+        AccountKit.logOut();
+    }
+    private void signOutRegular() {
+
+        Intent signin = new Intent(DashBoard.this,ParticipantsLogin.class);
+        signin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(signin);
+        //  Toast.makeText(DashBoard.this, "Logout", Toast.LENGTH_SHORT).show();
+    }
+    private void signOutGmail() {
+        //Google Logout
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(DashBoard.this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        PreferenceUtil.setSignIn(mContext,false);
+                    }
+                });
+    }
     private void setTransformer() {
         final float spacing = getResources().getDimensionPixelSize(R.dimen.spacing);
         SideBar rightSideBar = (SideBar) findViewById(R.id.leftSideBar);
@@ -126,8 +171,6 @@ public class DashBoard extends AppCompatActivity  {
             }
         });
     }
-
-
     public void onClick(View view) {
 
             if (view instanceof TextView) {
@@ -163,8 +206,9 @@ public class DashBoard extends AppCompatActivity  {
         {
         }
     }
-
     private void init() {
+
+        mContext = DashBoard.this;
 
        // image_menu = (ImageView)findViewById(R.id.toolbar_imgMenu) ;
         viewpagerTop = (ViewPager) findViewById(R.id.viewpagerTop);
@@ -180,6 +224,7 @@ public class DashBoard extends AppCompatActivity  {
         cardView_Selfie = (CardView)findViewById(R.id.card_selfie);
         cardView_Achivements = (CardView)findViewById(R.id.card_achivements);
         cardView_logout = (CardView)findViewById(R.id.card_logout);
+        txtUserName = (TextView)findViewById(R.id.txt_user_name);
     }
     /**
      * Setup viewpager and it's events
@@ -236,5 +281,10 @@ public class DashBoard extends AppCompatActivity  {
                 }
                 break;
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

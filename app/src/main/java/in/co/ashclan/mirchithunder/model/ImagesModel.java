@@ -1,53 +1,65 @@
 package in.co.ashclan.mirchithunder.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ImagesModel {
-        String id;
-        String image;
+        String bkid;
+        String puid;
+        ArrayList<String> images;
         String mobile;
-        ArrayList<String> picutres;
+        //ArrayList<String> images;
 
-    public ImagesModel(String id, String image) {
-        this.id = id;
-        this.image = image;
+
+    public ImagesModel() {
+    }
+
+    public ImagesModel(String bkid, String puid, ArrayList<String> images, String mobile) {
+        this.bkid = bkid;
+        this.puid = puid;
+        this.images = images;
+        this.mobile = mobile;
     }
 
     @Override
     public String toString() {
-         return "ImageModel :"+
-                " id ='" + id + '\'' +
-                ", pictures ='" + picutres + '\'' +
-                ", image='" + image + '\'' +
+        return "ImagesModel{" +
+                "bkid='" + bkid + '\'' +
+                ", puid='" + puid + '\'' +
+                ", images=" + images +
+                ", mobile='" + mobile + '\'' +
                 '}';
     }
 
-    public ImagesModel() {
-    }
-    public String getId() {
-        return id;
+    public String getBkid() {
+        return bkid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBkid(String bkid) {
+        this.bkid = bkid;
     }
-    public String getImage() {
-        return image;
+
+    public String getPuid() {
+        return puid;
     }
-    public void setImage(String image) {
-        this.image = image;
+
+    public void setPuid(String puid) {
+        this.puid = puid;
     }
-    public ArrayList<String> getPicutres() {
-        return picutres;
+
+    public ArrayList<String> getImages() {
+        return images;
     }
-    public void setPicutres(ArrayList<String> picutres) {
-        this.picutres = picutres;
+
+    public void setImages(ArrayList<String> images) {
+        this.images = images;
     }
+
     public String getMobile() {
         return mobile;
     }
+
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-
 }

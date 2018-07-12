@@ -62,6 +62,9 @@ import dmax.dialog.SpotsDialog;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
+import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
+
+
 public class ParticipantsLogin extends AppCompatActivity
         implements View.OnClickListener,DatePickerDialog.OnDateSetListener{
 
@@ -162,11 +165,10 @@ public class ParticipantsLogin extends AppCompatActivity
                 startGmailLogin();
                 break;
             case R.id.btn_submit:
-
                 phone = "+91"+ edtUserName.getText().toString();
                 pass = edtPassword.getText().toString();
                 login(phone,pass);
-                startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
+                //startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
                 break;
         }
     }
@@ -216,30 +218,36 @@ public class ParticipantsLogin extends AppCompatActivity
                             intent.putExtra("mobilno",userphone);
                             startActivity(intent);
                             watingDialog.dismiss();*/
-
                             //Check if User Exist on Firebase if not then add it
                             table_participant.orderByKey().equalTo(userphone)
                                     .addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
+
                                             if(!dataSnapshot.child(userphone).exists())//if Usernot Exist
                                             {
+                                                PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
                                                 Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
                                                 intent.putExtra("mobilno",userphone);
                                                 startActivity(intent);
                                                 watingDialog.dismiss();
 
-                                            }else//if User Exist
+                                            }else //if User Exist
                                             {
                                                 table_participant.child(userphone)
                                                         .addListenerForSingleValueEvent(new ValueEventListener() {
                                                             @Override
                                                             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                                Log.e("-->123",dataSnapshot.toString());
+
                                                                 ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
                                                                 startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
                                                                 util.currentParticipant = localUser;
                                                                 watingDialog.dismiss();
+
                                                                 finish();
+
                                                             }
                                                             @Override
                                                             public void onCancelled(DatabaseError databaseError) {
@@ -485,6 +493,7 @@ public class ParticipantsLogin extends AppCompatActivity
                     if (dataSnapshot.child(phone).exists()) {
                         //mDialog.dismiss();
                         //get User Values
+                        Log.d("-->123",dataSnapshot.toString());
                         ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
                         user.setMobile(phone);
                         Log.d("PoJo-->",user.toString());
@@ -492,6 +501,9 @@ public class ParticipantsLogin extends AppCompatActivity
                             //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
                             startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
                             util.currentParticipant = user;
+                            PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
+                            PreferenceUtil.setMobileNo(mContext,phone);
+                            PreferenceUtil.setPass(mContext,pass);
                             finish();
                         } else {
                             mDialog.dismiss();
@@ -529,9 +541,11 @@ public class ParticipantsLogin extends AppCompatActivity
                         personFirstName + "\n" +
                         personLastName + "\n" +
                         personEmail + "\n", Toast.LENGTH_LONG).show();
+                PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
 
             } else {
                 // No user is signed in
+
             }
             //Show Dialog
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
@@ -550,7 +564,7 @@ public class ParticipantsLogin extends AppCompatActivity
             alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    final String phone = edtMobileNo.getText().toString();
+                    final String phone = "+91"+edtMobileNo.getText().toString();
                     final AlertDialog watingDialog = new SpotsDialog(ParticipantsLogin.this);
                     watingDialog.show();
                     watingDialog.setMessage("Please Wait");
@@ -605,4 +619,5 @@ public class ParticipantsLogin extends AppCompatActivity
             alertDialog.show();
         }
     }
+
 }
