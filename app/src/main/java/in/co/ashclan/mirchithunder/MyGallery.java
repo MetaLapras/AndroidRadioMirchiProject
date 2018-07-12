@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +21,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import in.co.ashclan.mirchithunder.ViewHolders.mGalleryViewHolder;
+import in.co.ashclan.mirchithunder.adapter.mGalleryAdapter;
 import in.co.ashclan.mirchithunder.model.ImagesModel;
 import in.co.ashclan.mirchithunder.utils.ItemClickListener;
 import in.co.ashclan.mirchithunder.utils.util;
@@ -40,8 +47,9 @@ public class MyGallery extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager ;
     Context mContext;
     SwipeRefreshLayout refreshLayout;
-    FirebaseRecyclerAdapter<ImagesModel,mGalleryViewHolder> adapter;
+    mGalleryAdapter adapter;
     String phoneNo;
+    ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,44 +95,6 @@ public class MyGallery extends AppCompatActivity {
             }
         });
     }
-
-    private void imagesbyParticipant(String phoneNo) {
-
-        final Query byParticipantImages = participantImages.orderByKey().equalTo(phoneNo);
-        FirebaseRecyclerOptions<ImagesModel> options = new FirebaseRecyclerOptions.Builder<ImagesModel>()
-                .setQuery(byParticipantImages,ImagesModel.class)
-                .build();
-        adapter = new FirebaseRecyclerAdapter<ImagesModel, mGalleryViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull mGalleryViewHolder holder, int position, @NonNull ImagesModel model) {
-
-               // holder.txtMenuName.setText(model.getName());
-                Glide.with(getBaseContext()).load(model.getImage())
-                        .into(holder.Img_Menu);
-
-                final ImagesModel clickitem = model;
-
-                holder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                      /*  Intent intent = new Intent(Home.this, FoodMenu.class);
-                        intent.putExtra("CategoryId",adapter.getRef(position).getKey());
-                        startActivity(intent)*/;
-                        Toast.makeText(mContext,"this is clicked",Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-            @NonNull
-            @Override
-            public mGalleryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.gallery_single_item,parent,false);
-                return new mGalleryViewHolder(itemView);
-
-            }
-        };
-    }
-
     private void intit() {
         mContext = MyGallery.this;
         recyclerView = (RecyclerView)findViewById(R.id.mGallery_recyclerview);
@@ -140,9 +110,28 @@ public class MyGallery extends AppCompatActivity {
         participantImages = database.getReference("ParticipantImages");
     }
 
+    private void imagesbyParticipant(final String phoneNo) {
+
+        participantImages.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(phoneNo).exists())
+                {
+                    ImagesModel imagesModel = dataSnapshot.child(phoneNo).getValue(ImagesModel.class);
+                    Log.d("-->",imagesModel.toString());
+                    util.CurrentimagesModel = imagesModel;
+                    arrayList = imagesModel.getPicutres();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
     private void loadMenu() {
-        adapter.notifyDataSetChanged();
-        adapter.startListening();
+        adapter = new mGalleryAdapter(mContext,arrayList);
         recyclerView.setAdapter(adapter);
         recyclerView.scheduleLayoutAnimation();
         refreshLayout.setRefreshing(false);
@@ -150,13 +139,10 @@ public class MyGallery extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(adapter!=null)
-            adapter.startListening();
     }
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
     }
 
 

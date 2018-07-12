@@ -5,12 +5,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import in.co.ashclan.mirchithunder.ParticipantsLogin;
+import in.co.ashclan.mirchithunder.model.ImagesModel;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.model.VolunteerModel;
 
 public class util {
     public static ParticipantModel currentParticipant;
     public static VolunteerModel currentvolunteer;
+    public static ImagesModel CurrentimagesModel;
     public static final int PICK_IMAGE_REQUEST = 71;
 
     public static boolean isConnectedToInterNet(Context context) {

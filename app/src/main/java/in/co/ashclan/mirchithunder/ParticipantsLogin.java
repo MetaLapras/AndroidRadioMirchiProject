@@ -166,7 +166,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 phone = "+91"+ edtUserName.getText().toString();
                 pass = edtPassword.getText().toString();
                 login(phone,pass);
-                //startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
+                startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
                 break;
         }
     }
