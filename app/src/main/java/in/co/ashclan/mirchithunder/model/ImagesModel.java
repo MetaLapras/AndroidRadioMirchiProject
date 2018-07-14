@@ -62,4 +62,5 @@ public class ImagesModel {
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
 }

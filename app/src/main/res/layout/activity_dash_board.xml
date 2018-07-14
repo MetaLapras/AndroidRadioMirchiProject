@@ -7,81 +7,83 @@
     android:background="@drawable/demo_back"
     tools:context=".DashBoard">
 
-    <com.github.mzule.fantasyslide.FantasyDrawerLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include
+        android:id="@+id/inc"
+        layout="@layout/dashboard_collapsing_toolbar"/>
 
-        <include
-            android:id="@+id/inc"
-            layout="@layout/dashboard_collapsing_toolbar"/>
+    <!--<com.github.mzule.fantasyslide.FantasyDrawerLayout-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/drawerLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-        <com.github.mzule.fantasyslide.SideBar
-            android:id="@+id/leftSideBar"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/colorPrimary"
-            android:gravity="center_vertical"
-            app:maxTranslationX="66dp">
 
-            <LinearLayout
-                android:id="@+id/userInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:gravity="center_horizontal"
-                android:onClick="onClick"
-                android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/demo_pic"
-                    app:civ_border_color="@color/colorPrimary"
-                    app:civ_border_width="2dp" />
+        <!--<com.github.mzule.fantasyslide.SideBar-->
+            <!--android:id="@+id/leftSideBar"-->
+            <!--android:layout_width="200dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--android:background="@color/colorPrimary"-->
+            <!--android:gravity="center_vertical"-->
+            <!--app:maxTranslationX="66dp">-->
 
-                <TextView
-                    android:id="@+id/txt_user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name of Participant"
-                    android:textColor="@color/accent"
-                    android:textSize="18sp" />
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:id="@+id/userInfo"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="30dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:onClick="onClick"-->
+                <!--android:orientation="vertical">-->
 
-            <TextView
-                style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_profile"
-                android:drawableTint="@color/accent"
-                android:text="@string/Profile" />
+                <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                    <!--android:layout_width="110dp"-->
+                    <!--android:layout_height="110dp"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--android:src="@drawable/demo_pic"-->
+                    <!--app:civ_border_color="@color/colorPrimary"-->
+                    <!--app:civ_border_width="2dp" />-->
 
-            <TextView
-                style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_panorama"
-                android:drawableTint="@color/accent"
-                android:text="@string/Gallery" />
+                <!--<TextView-->
+                    <!--android:id="@+id/txt_user_name"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Name of Participant"-->
+                    <!--android:textColor="@color/accent"-->
+                    <!--android:textSize="18sp" />-->
+            <!--</LinearLayout>-->
 
-            <TextView
-                style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_camera"
-                android:drawableTint="@color/accent"
-                android:text="@string/Selfie" />
+            <!--<TextView-->
+                <!--style="@style/MenuText"-->
+                <!--android:drawableLeft="@drawable/ic_profile"-->
+                <!--android:drawableTint="@color/accent"-->
+                <!--android:text="@string/Profile" />-->
 
-            <TextView
-                style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_run"
-                android:drawableTint="@color/accent"
-                android:text="@string/Achievements" />
+            <!--<TextView-->
+                <!--style="@style/MenuText"-->
+                <!--android:drawableLeft="@drawable/ic_panorama"-->
+                <!--android:drawableTint="@color/accent"-->
+                <!--android:text="@string/Gallery" />-->
 
-            <TextView
-                style="@style/MenuText"
-                android:drawableLeft="@drawable/ic_exit"
-                android:drawableTint="@color/accent"
-                android:text="@string/Logout" />
-        </com.github.mzule.fantasyslide.SideBar>
+            <!--<TextView-->
+                <!--style="@style/MenuText"-->
+                <!--android:drawableLeft="@drawable/ic_camera"-->
+                <!--android:drawableTint="@color/accent"-->
+                <!--android:text="@string/Selfie" />-->
+
+            <!--<TextView-->
+                <!--style="@style/MenuText"-->
+                <!--android:drawableLeft="@drawable/ic_run"-->
+                <!--android:drawableTint="@color/accent"-->
+                <!--android:text="@string/Achievements" />-->
+
+            <!--<TextView-->
+                <!--style="@style/MenuText"-->
+                <!--android:drawableLeft="@drawable/ic_exit"-->
+                <!--android:drawableTint="@color/accent"-->
+                <!--android:text="@string/Logout" />-->
+        <!--</com.github.mzule.fantasyslide.SideBar>-->
 
         <!--<com.github.mzule.fantasyslide.SideBar-->
             <!--android:id="@+id/rightSideBar"-->
@@ -120,7 +122,7 @@
                 <!--style="@style/MenuText"-->
                 <!--android:text="星期日" />-->
         <!--</com.github.mzule.fantasyslide.SideBar>-->
-    </com.github.mzule.fantasyslide.FantasyDrawerLayout>
+    <!--</com.github.mzule.fantasyslide.FantasyDrawerLayout>-->
 
     <TextView
         android:id="@+id/tipView"

@@ -41,7 +41,6 @@ public class MyPagerAdapter extends PagerAdapter {
                     linMain.setBackgroundResource(0);
                     break;
             }
-
             GlideApp.with(context)
                     .load(listItems[position])
                     .into(imageCover);

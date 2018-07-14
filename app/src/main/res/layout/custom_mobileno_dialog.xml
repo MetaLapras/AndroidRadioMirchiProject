@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mobile No"
-        android:text="9211420420"
+        app:met_maxCharacters="10"
         android:inputType="number"
         android:textColorHint="@color/primary_dark"
         android:textColor="@color/colorPrimary"

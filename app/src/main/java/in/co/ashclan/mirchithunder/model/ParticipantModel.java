@@ -1,9 +1,9 @@
 package in.co.ashclan.mirchithunder.model;
 
 public class ParticipantModel {
-    private String firstname,lastname,gender,dob,email,password,status,mobile,image,Bkid;
+    private String firstname,lastname,gender,dob,email,password,status,mobile,image,puid,receiptid,paymenttype,tickettype;
 
-    public ParticipantModel(String firstname,String lastname,String gender,String dob, String email, String password, String status, String mobile,String image,String bkid) {
+    public ParticipantModel(String firstname, String lastname, String gender, String dob, String email, String password, String status, String mobile, String image, String puid, String receiptid, String paymenttype, String tickettype) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
@@ -13,14 +13,16 @@ public class ParticipantModel {
         this.status = status;
         this.mobile = mobile;
         this.image = image;
-        this.Bkid = bkid;
+        this.puid = puid;
+        this.receiptid = receiptid;
+        this.paymenttype = paymenttype;
+        this.tickettype = tickettype;
     }
-
 
     @Override
     public String toString() {
-        return "Participants :"+
-                " firstname='" + firstname + '\'' +
+        return "ParticipantModel{" +
+                "firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob='" + dob + '\'' +
@@ -29,7 +31,10 @@ public class ParticipantModel {
                 ", status='" + status + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", image='" + image + '\'' +
-                ", bkid='" + Bkid + '\''+
+                ", puid='" + puid + '\'' +
+                ", receiptid='" + receiptid + '\'' +
+                ", paymenttype='" + paymenttype + '\'' +
+                ", tickettype='" + tickettype + '\'' +
                 '}';
     }
 
@@ -108,11 +113,35 @@ public class ParticipantModel {
         this.image = image;
     }
 
-    public String getBkid() {
-        return Bkid;
+    public String getPuid() {
+        return puid;
     }
 
-    public void setBkid(String bkid) {
-        Bkid = bkid;
+    public void setPuid(String puid) {
+        this.puid = puid;
+    }
+
+    public String getReceiptid() {
+        return receiptid;
+    }
+
+    public void setReceiptid(String receiptid) {
+        this.receiptid = receiptid;
+    }
+
+    public String getPaymenttype() {
+        return paymenttype;
+    }
+
+    public void setPaymenttype(String paymenttype) {
+        this.paymenttype = paymenttype;
+    }
+
+    public String getTickettype() {
+        return tickettype;
+    }
+
+    public void setTickettype(String tickettype) {
+        this.tickettype = tickettype;
     }
 }

@@ -30,4 +30,11 @@
     <color name="transperent_80_per">#99FFFFFF</color>
     <color name="transperent_black">#4f0e0d0e</color>
 
+
+    <color name="metalic_gold">#FFDF00</color>
+    <color name="pink">#DC4C64</color>
+    <color name="blue">#F6841F</color>
+    <color name="green">#A8C068</color>
+    <color name="orange">#1EA27E</color>
+
 </resources>

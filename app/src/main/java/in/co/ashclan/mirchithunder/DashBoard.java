@@ -48,7 +48,6 @@ public class DashBoard extends AppCompatActivity  {
     TextView txtUserName;
     GoogleSignInClient mGoogleSignInClient;
     Context mContext;
-
     CardView cardView_Gallery,cardView_Selfie,cardView_Achivements,cardView_logout;
 
     private int[] listItems = {R.mipmap.img1, R.mipmap.img2, R.mipmap.img3, R.mipmap.img4,
@@ -59,19 +58,20 @@ public class DashBoard extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+/*        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //this.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final DrawerArrowDrawable indicator = new DrawerArrowDrawable(this);
         indicator.setColor(Color.WHITE);
-        this.getSupportActionBar().setHomeAsUpIndicator(indicator);
+        this.getSupportActionBar().setHomeAsUpIndicator(indicator);*/
 
         init();
         setupViewPager();
 
 //        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
 //        drawerLayout.setScrimColor(Color.TRANSPARENT);
+//        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 //        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
 //            @Override
 //            public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -80,12 +80,12 @@ public class DashBoard extends AppCompatActivity  {
 //                }
 //            }
 //        });
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
 
         cardView_Gallery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +96,15 @@ public class DashBoard extends AppCompatActivity  {
         cardView_Selfie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DashBoard.this,MirchiSelfie.class));
+                startActivity(new Intent(DashBoard.this,FramesActivity.class));
+
             }
         });
         cardView_Achivements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DashBoard.this,Achivements.class));
+                startActivity(new Intent(DashBoard.this,MainActivity.class));
+
             }
         });
         cardView_logout.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +113,8 @@ public class DashBoard extends AppCompatActivity  {
                 signoutFacebook();
                 signOutRegular();
                 signOutGmail();
-                //Paper.book().destroy();
+
+                Paper.book().destroy();
             }
         });
 
@@ -121,6 +124,7 @@ public class DashBoard extends AppCompatActivity  {
     private void signoutFacebook() {
         //FaceBook LogOut
         AccountKit.logOut();
+        finish();
     }
     private void signOutRegular() {
 
@@ -128,6 +132,7 @@ public class DashBoard extends AppCompatActivity  {
         signin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(signin);
         //  Toast.makeText(DashBoard.this, "Logout", Toast.LENGTH_SHORT).show();
+        finish();
     }
     private void signOutGmail() {
         //Google Logout
@@ -138,8 +143,10 @@ public class DashBoard extends AppCompatActivity  {
                         PreferenceUtil.setSignIn(mContext,false);
                     }
                 });
+
+        finish();
     }
-    private void setTransformer() {
+    /*private void setTransformer() {
         final float spacing = getResources().getDimensionPixelSize(R.dimen.spacing);
         SideBar rightSideBar = (SideBar) findViewById(R.id.leftSideBar);
         rightSideBar.setTransformer(new Transformer() {
@@ -170,38 +177,37 @@ public class DashBoard extends AppCompatActivity  {
                 translationX.start();
             }
         });
-    }
+    }*/
     public void onClick(View view) {
-
-            if (view instanceof TextView) {
-                title = ((TextView) view).getText().toString();
-                    if (title.startsWith(getResources().getString(R.string.Profile))) {
-                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this,UserProfile.class));
-                    }
-                    else if (title.startsWith(getResources().getString(R.string.Gallery))) {
-                        //  startActivity(UniversalActivity.newIntent(this, title));
-                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this,MyGallery.class));
-                    }
-                    else if (title.startsWith(getResources().getString(R.string.Achievements))) {
-                        //  startActivity(UniversalActivity.newIntent(this, title));
-                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this,Achivements.class));
-                    }
-                    else if (title.startsWith(getResources().getString(R.string.Selfie))) {
-                        //  startActivity(UniversalActivity.newIntent(this, title));
-                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this,MirchiSelfie.class));
-                    }
-                    else if (title.startsWith(getResources().getString(R.string.Logout))) {
-                        //  startActivity(UniversalActivity.newIntent(this, title));
-                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-                    }
-        } else if (view.getId() == R.id.userInfo) {
-            //startActivity(UniversalActivity.newIntent(this, "个人中心"));
-            Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
-        }
+//            if (view instanceof TextView) {
+//                title = ((TextView) view).getText().toString();
+//                    if (title.startsWith(getResources().getString(R.string.Profile))) {
+//                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(this,UserProfile.class));
+//                    }
+//                    else if (title.startsWith(getResources().getString(R.string.Gallery))) {
+//                        //  startActivity(UniversalActivity.newIntent(this, title));
+//                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(this,MyGallery.class));
+//                    }
+//                    else if (title.startsWith(getResources().getString(R.string.Achievements))) {
+//                        //  startActivity(UniversalActivity.newIntent(this, title));
+//                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(this,Achivements.class));
+//                    }
+//                    else if (title.startsWith(getResources().getString(R.string.Selfie))) {
+//                        //  startActivity(UniversalActivity.newIntent(this, title));
+//                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(this,MirchiSelfie.class));
+//                    }
+//                    else if (title.startsWith(getResources().getString(R.string.Logout))) {
+//                        //  startActivity(UniversalActivity.newIntent(this, title));
+//                        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//                    }
+//        } else if (view.getId() == R.id.userInfo) {
+//            //startActivity(UniversalActivity.newIntent(this, "个人中心"));
+//            Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+//        }
         switch (view.getId())
         {
         }
@@ -224,7 +230,7 @@ public class DashBoard extends AppCompatActivity  {
         cardView_Selfie = (CardView)findViewById(R.id.card_selfie);
         cardView_Achivements = (CardView)findViewById(R.id.card_achivements);
         cardView_logout = (CardView)findViewById(R.id.card_logout);
-        txtUserName = (TextView)findViewById(R.id.txt_user_name);
+     //   txtUserName = (TextView)findViewById(R.id.txt_user_name);
     }
     /**
      * Setup viewpager and it's events
@@ -237,24 +243,19 @@ public class DashBoard extends AppCompatActivity  {
         // Set Background ViewPager Adapter
         MyPagerAdapter adapterBackground = new MyPagerAdapter(this, listItems, ADAPTER_TYPE_BOTTOM);
         viewPagerBackground.setAdapter(adapterBackground);
-
-
         viewpagerTop.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             private int index = 0;
-
             @Override
             public void onPageSelected(int position) {
                 index = position;
 
             }
-
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 int width = viewPagerBackground.getWidth();
                 viewPagerBackground.scrollTo((int) (width * position + width * positionOffset), 0);
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {

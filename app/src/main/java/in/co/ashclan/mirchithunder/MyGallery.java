@@ -1,13 +1,18 @@
 package in.co.ashclan.mirchithunder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -19,8 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import in.co.ashclan.mirchithunder.ViewHolders.customGalleryFull;
 import in.co.ashclan.mirchithunder.adapter.mGalleryAdapter;
 import in.co.ashclan.mirchithunder.model.ImagesModel;
+import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import in.co.ashclan.mirchithunder.utils.util;
 import io.paperdb.Paper;
 
@@ -28,6 +35,8 @@ public class MyGallery extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference participantImages ;
+    public static final String EXTRA_IMAGE = "image";
+    public static final String EXTRA_TRANSITION_IMAGE = "image";
 
     GridView gridView;
     Context mContext;
@@ -42,6 +51,7 @@ public class MyGallery extends AppCompatActivity {
         setContentView(R.layout.activity_my_gallery);
         intit();
       //  imagesbyParticipant(phoneNo);
+        loadPictures();
         //Init
         Paper.init(this);
         refreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
@@ -92,7 +102,7 @@ public class MyGallery extends AppCompatActivity {
     }
 
     private void loadPictures() {
-        phoneNo = "+917378797289";
+        phoneNo = PreferenceUtil.getMobileNo(mContext);
         participantImages.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -110,6 +120,15 @@ public class MyGallery extends AppCompatActivity {
                     gridView.scheduleLayoutAnimation();
                     adapter.notifyDataSetChanged();
                     refreshLayout.setRefreshing(false);
+
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Intent intent=new Intent(mContext,customGalleryFull.class);
+                            intent.putExtra(EXTRA_IMAGE,arrayList.get(i));
+                            startActivity(intent);
+                        }
+                    });
 
                     for(int i =0;i<arrayList.size();i++)
                     {

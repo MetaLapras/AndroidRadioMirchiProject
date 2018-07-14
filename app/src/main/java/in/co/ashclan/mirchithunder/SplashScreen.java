@@ -3,9 +3,13 @@ package in.co.ashclan.mirchithunder;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,34 +22,46 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import in.co.ashclan.mirchithunder.utils.util;
+import io.paperdb.Paper;
 
 public class SplashScreen extends AppCompatActivity {
 
     Context mcontext;
-    private static int SPLASH_TIME_OUT = 1000;
+    private static int SPLASH_TIME_OUT = 3000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        //checkConnection();
+       /* //checkConnection();
+        if(util.isConnectedToInterNet(mcontext))
+        {
+            if(PreferenceUtil.getMobileNo(mcontext)!=null&&PreferenceUtil.getPass(mcontext)!=null)
+            {
+                login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
+            }
+        }*/
         if (PreferenceUtil.getSignIn(this)) {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(SplashScreen.this, DashBoard.class);
+                    Intent intent = new Intent(SplashScreen.this, Activity_DashBoard2.class);
                     startActivity(intent);
                     finish();
-                    //        layout.setVisibility(View.VISIBLE);
+                    //layout.setVisibility(View.VISIBLE);
                     //login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
 
                 }
-            }, 1500);
+            }, 5000);
         } else {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -55,7 +71,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-            }, 1500);
+            }, 5000);
         }
     }
 
@@ -107,6 +123,12 @@ public class SplashScreen extends AppCompatActivity {
             Toast.makeText(mcontext, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }

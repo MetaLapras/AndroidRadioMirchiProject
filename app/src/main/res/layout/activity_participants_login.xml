@@ -7,30 +7,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/root_layout"
-    android:background="@drawable/demo_back"
+    android:background="@drawable/ic_demo_back_1"
     tools:context=".ParticipantsLogin">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/background_transperent"
         android:layout_margin="10dp">
 
         <ImageView
-            android:layout_width="258dp"
-            android:layout_height="133dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_mirchi_logo" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Welcome"
-            android:fontFamily="@font/candlemustard"
-            android:textAlignment="center"
-            android:textSize="45dp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_dark" />
+            android:src="@drawable/mirchilivelogo" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Welcome"-->
+            <!--android:fontFamily="@font/candlemustard"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textSize="45dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/white" />-->
+
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,8 +38,7 @@
         android:layout_gravity="center"
         app:cardBackgroundColor="@android:color/transparent"
         android:elevation="10dp"
-        app:cardUseCompatPadding="true"
-        android:outlineSpotShadowColor="@color/black">
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,7 +59,7 @@
                     android:padding="5dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:src="@drawable/ic_person"
-                    android:tint="@color/primary"
+                    android:tint="@color/white"
                     android:layout_weight="1"
                     />
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -71,11 +70,13 @@
                     android:layout_weight="7"
                     android:hint="User Id"
                     android:inputType="text"
-                    android:textColor="@color/primary"
-                    android:textColorHint="@color/primary_dark"
-                    app:met_baseColor="@color/primary_text"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    android:textStyle="bold"
+                    app:met_baseColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/primary_dark"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    app:met_primaryColor="@color/white"
                     app:met_singleLineEllipsis="true" />
             </LinearLayout>
             <LinearLayout
@@ -91,7 +92,7 @@
                     android:padding="5dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:src="@drawable/ic_lock"
-                    android:tint="@color/primary"
+                    android:tint="@color/white"
                     android:layout_weight="1"
                     />
 
@@ -103,11 +104,13 @@
                     android:layout_weight="7"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:textColor="@color/primary"
-                    android:textColorHint="@color/primary_dark"
-                    app:met_baseColor="@color/primary_text"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColorHint="@color/white"
+                    android:textStyle="bold"
+                    app:met_baseColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/primary_dark"
+                    app:met_primaryColor="@color/white"
                     app:met_singleLineEllipsis="true" />
             </LinearLayout>
 
@@ -118,6 +121,7 @@
                 android:layout_weight="8"
                 android:shadowColor="@android:color/black"
                 android:text="Submit"
+                android:fontFamily="@font/helveticaneuemedium"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 app:cornerRadius="0dp"
@@ -139,7 +143,7 @@
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="4dp"
-            android:background="@color/primary_dark">
+            android:background="@color/colorAccent">
         </View>
         <TextView
             android:layout_width="0dp"
@@ -149,13 +153,13 @@
             android:text="OR"
             android:textSize="15dp"
             android:textStyle="bold"
-            android:textColor="@color/primary_text"/>
+            android:textColor="@color/white"/>
         <View
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="4dp"
-            android:background="@color/primary_dark">
+            android:background="@color/colorAccent">
         </View>
     </LinearLayout>
     <LinearLayout
@@ -238,9 +242,11 @@
             android:weightSum="10">
 
     </LinearLayout>
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="7dp" />
+        <ImageView
+            android:layout_margin="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/technologypartnerfooter"/>
     </LinearLayout>
     </LinearLayout>
 </LinearLayout>

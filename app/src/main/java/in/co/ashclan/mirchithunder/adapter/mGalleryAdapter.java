@@ -63,9 +63,9 @@ public class mGalleryAdapter extends BaseAdapter {
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
-                .showImageOnLoading(R.drawable.ic_person)
-                .showImageForEmptyUri(R.drawable.ic_person)
-                .showImageOnFail(R.drawable.ic_person)
+                .showImageOnLoading(R.drawable.ic_default)
+                .showImageForEmptyUri(R.drawable.ic_default)
+                .showImageOnFail(R.drawable.ic_default)
                 .build();
 
         loaderConfiguration = new ImageLoaderConfiguration.Builder(mContext)
@@ -90,11 +90,9 @@ public class mGalleryAdapter extends BaseAdapter {
                 }
             });
         }catch (Exception e){
-            singleImage.setImageResource(R.drawable.demo_pic);
+            singleImage.setImageResource(R.drawable.ic_default);
             e.printStackTrace();
         }
-
         return vList;
-
     }
 }

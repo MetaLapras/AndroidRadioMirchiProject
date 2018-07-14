@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_demo_back_1">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="129dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:id="@+id/txt_id"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="41dp"
+        android:fontFamily="@font/deliciousadventures"
+        android:text="Registration"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_below="@id/txt_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardElevation="4dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
+        app:cardElevation="8dp"
         android:id="@+id/root_layout"
         tools:context=".RegistrationActivity">
 
@@ -25,12 +57,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="First Name"
-                    android:text="Jacki"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary"
-                    app:met_baseColor="@color/colorPrimary"
+                    android:text=""
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_primaryColor="@color/colorPrimary"
                     app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -38,63 +71,139 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Last Name"
-                    android:text="Chan"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/colorPrimary"
+                    android:text=""
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_baseColor="@color/colorPrimary"
-                    app:met_primaryColor="@color/colorPrimary"
-                    app:met_singleLineEllipsis="true"
-                    />
+                    app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_DateOfBirth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Date of Birth"
-                    android:text="09/07/2018"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_baseColor="@color/colorPrimary"
-                    app:met_primaryColor="@color/colorPrimary"
-                    app:met_singleLineEllipsis="true"
-                    />
+                    app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_EmailId"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email Id"
-                    android:text="jackiChan@gmail.com"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/colorPrimary"
+                    android:text=""
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_baseColor="@color/colorPrimary"
-                    app:met_primaryColor="@color/colorPrimary"
-                    app:met_singleLineEllipsis="true"
-                    />
+                    app:met_singleLineEllipsis="true" />
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_MobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Mobile No"
-                    android:text="9211420420"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textColor="@color/colorPrimary"
+                    android:text=""
+                    android:inputType="number"
+                    app:met_maxCharacters="10"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
-                    app:met_baseColor="@color/colorPrimary"
-                    app:met_primaryColor="@color/colorPrimary"
-                    app:met_singleLineEllipsis="true"
-                    />
+                    app:met_singleLineEllipsis="true" />
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_QrCOdeID"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="QR CODE ID"
+                    android:text=""
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true" />
 
                 <TextView
                     android:textSize="20sp"
-                    android:id="@+id/textView3"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:id="@+id/textView"
+                    android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Selet Gender" />
+                    android:text="Select Booking Type" />
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:id="@+id/rdg_group_type"
+                    android:layout_margin="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rd_pro"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:text="PRO Runner" />
+
+                    <RadioButton
+                        android:id="@+id/rd_fun"
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:text="Fun Runner" />
+                </RadioGroup>
+
+                <TextView
+                    android:textSize="20sp"
+                    android:id="@+id/textView5"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Payment Type" />
+                <Spinner
+                    android:id="@+id/spn_PaymentType"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:entries="@array/paymentType">
+                </Spinner>
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_RecipteId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Receipt Id"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true" />
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Selet Gender"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
 
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -105,54 +214,57 @@
 
                     <RadioButton
                         android:id="@+id/rd_male"
-                        android:textColor="@color/colorPrimaryDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:text="Male" />
+                        android:text="Male"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
 
                     <RadioButton
                         android:id="@+id/rd_female"
-                        android:textColor="@color/colorPrimaryDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:text="Female" />
+                        android:text="Female"
+                        android:textColor="#ffffff"
+                        android:textSize="20sp" />
                 </RadioGroup>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="2"
                     android:orientation="horizontal"
-                    >
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Select Image"
-                        android:layout_weight="1"
-                        android:textSize="20sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:elevation="10dp"
-                        android:layout_margin="10dp"
-                        />
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:weightSum="2">
+                    <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Select Image"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
+                    <!--android:elevation="10dp"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--android:visibility="gone"-->
+                    <!--/>-->
 
                     <Button
                         android:id="@+id/btnSelect"
-                        android:text="Select"
-                        android:textColor="@android:color/white"
-                        android:layout_width="0dp"
-                        android:background="@color/primary"
-                        android:layout_margin="8dp"
-                        android:textSize="20sp"
-                        android:textAllCaps="false"
-                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="8dp"
+                        android:background="@android:color/transparent"
+                        android:drawableTint="@color/white"
+                        android:drawableTop="@drawable/ic_profilepic"
+                        android:gravity="center_horizontal|center_vertical"
                         android:shadowColor="@android:color/black"
-                        android:layout_weight="1"
-                        />
+                        android:text="Select Profile Pic"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
@@ -177,3 +289,4 @@
             </LinearLayout>
         </ScrollView>
     </android.support.v7.widget.CardView>
+</RelativeLayout>

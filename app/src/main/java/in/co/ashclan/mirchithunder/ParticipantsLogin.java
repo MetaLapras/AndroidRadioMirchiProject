@@ -63,6 +63,7 @@ import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
+import io.paperdb.Paper;
 
 
 public class ParticipantsLogin extends AppCompatActivity
@@ -165,11 +166,32 @@ public class ParticipantsLogin extends AppCompatActivity
                 startGmailLogin();
                 break;
             case R.id.btn_submit:
-                phone = "+91"+ edtUserName.getText().toString();
-                pass = edtPassword.getText().toString();
-                login(phone,pass);
-                //startActivity(new Intent(ParticipantsLogin.this,DashBoard.class));
-                break;
+                if(edtUserName.getText().equals("")||edtUserName.getText().equals(null))
+                {
+                    edtUserName.setError("Please Enter UserName as Phone!");
+                }else if(edtPassword.getText().equals("")||edtPassword.getText().equals(null))
+                {
+                    edtPassword.setError("Please Enter Password ");
+                }else
+                {
+                    //Init Paper
+                    Paper.init(this);
+
+                    phone = "+91"+ edtUserName.getText().toString();
+                    pass = edtPassword.getText().toString();
+
+                    if (util.isConnectedToInterNet(getBaseContext())){
+                        //Save username and password
+                            Paper.book().write(util.USER_KEY,phone);
+                            Paper.book().write(util.PWD_KEY,pass);
+                            login(phone,pass);
+                        }
+
+                    //startActivity(new Intent(ParticipantsLogin.this,Activity_DashBoard2.class));
+                    break;
+
+                }
+
         }
     }
     private void startFacebookLogin() {
@@ -231,6 +253,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                                 intent.putExtra("mobilno",userphone);
                                                 startActivity(intent);
                                                 watingDialog.dismiss();
+                                                finish();
 
                                             }else //if User Exist
                                             {
@@ -242,10 +265,9 @@ public class ParticipantsLogin extends AppCompatActivity
                                                                 Log.e("-->123",dataSnapshot.toString());
 
                                                                 ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
-                                                                startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
+                                                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
                                                                 util.currentParticipant = localUser;
                                                                 watingDialog.dismiss();
-
                                                                 finish();
 
                                                             }
@@ -499,11 +521,13 @@ public class ParticipantsLogin extends AppCompatActivity
                         Log.d("PoJo-->",user.toString());
                         if (user.getFirstname().equals(pass)) {
                             //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
+                            startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
                             util.currentParticipant = user;
+
                             PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
                             PreferenceUtil.setMobileNo(mContext,phone);
                             PreferenceUtil.setPass(mContext,pass);
+
                             finish();
                         } else {
                             mDialog.dismiss();
@@ -542,7 +566,7 @@ public class ParticipantsLogin extends AppCompatActivity
                         personLastName + "\n" +
                         personEmail + "\n", Toast.LENGTH_LONG).show();
                 PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
-
+                PreferenceUtil.setPass(mContext,personFirstName);
             } else {
                 // No user is signed in
 
@@ -565,6 +589,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     final String phone = "+91"+edtMobileNo.getText().toString();
+                    PreferenceUtil.setMobileNo(mContext,phone);
                     final AlertDialog watingDialog = new SpotsDialog(ParticipantsLogin.this);
                     watingDialog.show();
                     watingDialog.setMessage("Please Wait");
@@ -584,6 +609,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                         intent.putExtra("mobilno", phone);
                                         startActivity(intent);
                                         watingDialog.dismiss();
+                                        finish();
 
                                     } else//if User Exist
                                     {
@@ -592,7 +618,7 @@ public class ParticipantsLogin extends AppCompatActivity
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
-                                                        startActivity(new Intent(ParticipantsLogin.this, DashBoard.class));
+                                                        startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
                                                         util.currentParticipant = localUser;
                                                         watingDialog.dismiss();
                                                         finish();

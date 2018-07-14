@@ -1,32 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="in.co.ashclan.mirchithunder">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+   <!--// <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--<uses-permission android:name="android.permission.GET_ACCOUNTS" />-->
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!--<uses-permission android:name="android.permission.READ_CONTACTS" />-->
+    <uses-permission android:name="android.permission.CAMERA"
+        tools:node="remove"/>
 
     <application
+        android:name=".checkinternet.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".SplashScreen"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".ParticipantsLogin" />
-        <activity android:name=".QRCodeReaderActivity" />
-        <activity android:name=".VolunteerLogin" />
+        <activity
+            android:name=".HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ParticipantsLogin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QRCodeReaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VolunteerLogin"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -41,7 +67,8 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -54,18 +81,65 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageFlameActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity
+            android:name=".ImageFlameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegistrationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DashBoard"
             android:label="@string/DashBoard"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".MyGallery"
-            android:theme="@style/AppThemebar"/>
-        <activity android:name=".UserProfile" />
-        <activity android:name=".Achivements" />
-        <activity android:name=".FullScreenActivity" />
-        <activity android:name=".MirchiSelfie"></activity>
+        <activity
+            android:name=".MyGallery"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UserProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Achivements"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FullScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewHolders.customGalleryFull"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MirchiSelfi2"
+            android:screenOrientation="portrait" />
+        <activity android:name=".FramesActivity" />
+        <activity
+            android:name=".CropImageActivity"
+            android:screenOrientation="portrait" />
+
+        <receiver
+            android:name=".checkinternet.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider239851700149329"
+            android:exported="true" />
+
+
+        <!--<provider-->
+            <!--android:name="android.support.v4.content.FileProvider"-->
+            <!--android:authorities="${applicationId}.provider"-->
+            <!--android:exported="false"-->
+            <!--android:grantUriPermissions="true">-->
+            <!--<meta-data-->
+                <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
+                <!--android:resource="@xml/file_paths" />-->
+        <!--</provider>-->
+
+        <activity android:name=".Activity_DashBoard2"></activity>
     </application>
 
 </manifest>

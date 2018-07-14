@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/Relative_rootlayout"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/ic_demo_back_1"
     tools:context=".MirchiSelfie">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/deliciousadventures"
+        android:text="Mirchi Selfie"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="262dp"
+        android:fontFamily="@font/deliciousadventures"
+        android:text="Comming Soon "
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="45dp"
+        android:textStyle="bold" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_camera"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="162dp"
+        app:fabSize="normal"
+        android:layout_marginStart="55dp"
+        android:src="@drawable/ic_camera"
+        android:tint="@color/black" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="132dp"
+        android:layout_marginStart="35dp"
+        android:fontFamily="@font/helveticaneuemedium"
+        android:text="Select Gallery"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/fab_camera_save"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="162dp"
+        android:layout_marginEnd="55dp"
+        android:src="@drawable/ic_save"
+        android:tint="@color/black" />
+
+    <TextView
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="135dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/helveticaneuemedium"
+        android:text="Save Picture"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <ja.burhanrashid52.photoeditor.PhotoEditorView
+        android:id="@+id/photoEditorView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal|center_vertical" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="129dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/technologypartnerlogo" />
+
+
+</RelativeLayout>

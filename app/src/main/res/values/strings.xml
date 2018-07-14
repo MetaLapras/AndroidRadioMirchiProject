@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MirchiThunder</string>
+    <string name="app_name">MirchiLive</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -34,11 +34,25 @@ I’m in love with Kotlin. I’ve been learning about it for a couple of years, 
 
 
     <!--Dashboard-->
-    <string name="DashBoard">MirchiLive</string>
+    <string name="DashBoard">DashBoard</string>
     <string name="Profile">My Profile</string>
     <string name="Gallery">My Gallery</string>
     <string name="Selfie">Mirchi Selfie</string>
     <string name="Achievements">Achievements</string>
     <string name="Logout">Logout</string>
+
+    <string-array name="paymentType">
+        <item>Select</item>
+        <item>Book My Show</item>
+        <item>Towns Script</item>
+        <item>Mera Evnet</item>
+        <item>OnSpot</item>
+    </string-array>
+
+    <string-array name="ticketType">
+        <item>Select</item>
+        <item>PRO</item>
+        <item>FUN</item>
+    </string-array>
 
 </resources>
