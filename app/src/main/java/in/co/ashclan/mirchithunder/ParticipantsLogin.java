@@ -161,7 +161,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 break;
             case R.id.btn_submit:
                     //Init Paper
-                  /*  Paper.init(this);
+                    Paper.init(this);
 
                     phone = "+91"+ edtUserName.getText().toString();
                     pass = edtPassword.getText().toString();
@@ -177,8 +177,7 @@ public class ParticipantsLogin extends AppCompatActivity
                     {
                         Toast.makeText(mContext, "Please Check your Internet Connection!", Toast.LENGTH_SHORT).show();
                     }
-                    */
-                    startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
+                    //startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
                     break;
                 }
         }

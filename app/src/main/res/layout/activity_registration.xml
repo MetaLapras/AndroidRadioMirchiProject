@@ -122,7 +122,7 @@
                     app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true" />
-                <com.rengwuxian.materialedittext.MaterialEditText
+               <!-- <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_QrCOdeID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true" />
-
+-->
                 <TextView
                     android:textSize="20sp"
                     android:id="@+id/textView"
@@ -156,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:buttonTint="@color/white"
                         android:textSize="20sp"
                         android:text="PRO Runner" />
 
@@ -166,6 +167,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="20sp"
+                        android:buttonTint="@color/white"
                         android:text="Fun Runner" />
                 </RadioGroup>
 
@@ -180,6 +182,7 @@
                     android:id="@+id/spn_PaymentType"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
+                    android:background="@color/white"
                     android:entries="@array/paymentType">
                 </Spinner>
 

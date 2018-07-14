@@ -100,11 +100,11 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 textView.post(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText(data);
+                        //textView.setText(data);
                         //**********************************
                        // Dialog box
                         /*******************************************/
-                       // showQRVerificationDialog(data);
+                        showQRVerificationDialog(data);
                     }
                 });
             }
@@ -134,6 +134,7 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
     private void showQRVerificationDialog(final String data) {
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext);
         LayoutInflater layoutInflater = this.getLayoutInflater();
+
         View add_menu_layout = layoutInflater.inflate(R.layout.custom_qrverification,null);
 
         edtQRCodeVerifcation = (MaterialEditText) add_menu_layout.findViewById(R.id.edt_QrCOdeID);
@@ -145,7 +146,7 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 if(edtQRCodeVerifcation.getText().toString().equals(data))
                 {
                     PreferenceUtil.setQrcodeid(mContext,edtQRCodeVerifcation.getText().toString());
-                    Toast.makeText(mContext, "Verification Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "QR Verification Successful", Toast.LENGTH_SHORT).show();
                     finish();
                 }else
                 {
