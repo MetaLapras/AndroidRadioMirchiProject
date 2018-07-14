@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,7 @@ import io.paperdb.Paper;
 
 
 public class ParticipantsLogin extends AppCompatActivity
-        implements View.OnClickListener,DatePickerDialog.OnDateSetListener{
+        implements View.OnClickListener{
 
     FButton btn_facebook,btn_Gmail,btn_submit;
     FirebaseDatabase database;
@@ -98,15 +99,8 @@ public class ParticipantsLogin extends AppCompatActivity
     String phone,pass;
 
     //Alert Dialog View
-    MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth;
-    RadioGroup rdg_Gender;
+    MaterialEditText edtMobileNo;
     RadioButton rd_male,rd_female;
-    Button btn_Select,btn_upload;
-
-    //Dialog Datetime Picker
-    Calendar calendar ;
-    DatePickerDialog datePickerDialog ;
-    int Year, Month, Day ;
 
     //Upload Images
     Uri saveuri;
@@ -166,34 +160,29 @@ public class ParticipantsLogin extends AppCompatActivity
                 startGmailLogin();
                 break;
             case R.id.btn_submit:
-                if(edtUserName.getText().equals("")||edtUserName.getText().equals(null))
-                {
-                    edtUserName.setError("Please Enter UserName as Phone!");
-                }else if(edtPassword.getText().equals("")||edtPassword.getText().equals(null))
-                {
-                    edtPassword.setError("Please Enter Password ");
-                }else
-                {
                     //Init Paper
-                    Paper.init(this);
+                  /*  Paper.init(this);
 
                     phone = "+91"+ edtUserName.getText().toString();
                     pass = edtPassword.getText().toString();
 
-                    if (util.isConnectedToInterNet(getBaseContext())){
+                    if (util.isConnectedToInterNet(getBaseContext())) {
                         //Save username and password
-                            Paper.book().write(util.USER_KEY,phone);
-                            Paper.book().write(util.PWD_KEY,pass);
-                            login(phone,pass);
+                        if (utilsCheck()) {
+                            Paper.book().write(util.USER_KEY, phone);
+                            Paper.book().write(util.PWD_KEY, pass);
+                            login(phone, pass);
                         }
-
-                    //startActivity(new Intent(ParticipantsLogin.this,Activity_DashBoard2.class));
+                    }else
+                    {
+                        Toast.makeText(mContext, "Please Check your Internet Connection!", Toast.LENGTH_SHORT).show();
+                    }
+                    */
+                    startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
                     break;
-
                 }
-
         }
-    }
+
     private void startFacebookLogin() {
 
         Intent intent = new Intent(ParticipantsLogin.this, AccountKitActivity.class);
@@ -309,8 +298,8 @@ public class ParticipantsLogin extends AppCompatActivity
         if(requestCode== util.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null)
         {
-            saveuri = data.getData();
-            btn_Select.setText("Image Selected !");
+           // saveuri = data.getData();
+            //btn_Select.setText("Image Selected !");
         }
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
@@ -343,156 +332,6 @@ public class ParticipantsLogin extends AppCompatActivity
                         }
                     }
                 });
-    }
-    private void showFireBaseDialog() {
-        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
-        alertDialog.setTitle("One More Step... ");
-        alertDialog.setMessage("Please Fill all Information");
-
-        LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_register_dialog,null);
-
-        edtFirstName    = (MaterialEditText) view.findViewById(R.id.edt_FirstName);
-        edtLastName     = (MaterialEditText) view.findViewById(R.id.edt_LastName);
-        edtMobileNo     = (MaterialEditText) view.findViewById(R.id.edt_MobileNo);
-        edtEmailId      = (MaterialEditText) view.findViewById(R.id.edt_EmailId);
-        edtDateofBirth  = (MaterialEditText)view.findViewById(R.id.edt_DateOfBirth);
-
-        btn_Select      = (Button)view.findViewById(R.id.btnSelect);
-        btn_upload      = (Button)view.findViewById(R.id.btnUpload);
-
-        rd_male         = (RadioButton)view.findViewById(R.id.rd_male);
-        rd_female       = (RadioButton)view.findViewById(R.id.rd_female);
-
-        rdg_Gender = (RadioGroup)view.findViewById(R.id.rdg_group);
-
-        alertDialog.setView(view);
-        alertDialog.setIcon(R.drawable.ic_person);
-
-        calendar = Calendar.getInstance();
-
-        Year = calendar.get(Calendar.YEAR) ;
-        Month = calendar.get(Calendar.MONTH);
-        Day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        //Event for Material Edit text
-        edtDateofBirth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                datePickerDialog = DatePickerDialog.newInstance((DatePickerDialog.OnDateSetListener) mContext, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
-                datePickerDialog.setAccentColor(Color.parseColor("#009688"));
-                datePickerDialog.setTitle("Select Date From DatePickerDialog");
-                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
-
-            }
-        });
-
-        //Event for Buttons
-        btn_Select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseImage();//Let user Choose the Image from Gallery
-            }
-        });
-
-        btn_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                uploadImage();// Upload all Data into the Firebase database
-            }
-        });
-
-        //Set Buttons
-        alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                if(participantModel!=null)
-                {
-                    table_participant.push().setValue(participantModel);
-                    // Snackbar.make(linearLayout, "Congratulations"+participantModel.getFirstname().toString()+" Registred successfully", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });
-        alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alertDialog.show();
-    }
-    private void uploadImage() {
-        if(saveuri!=null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Uploading Image .... ");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
-
-            String imageName = UUID.randomUUID().toString(); //set Image to an ID
-            final StorageReference imageFolder = storageReference.child("images/"+imageName); // Create a folder in the Firebase with id reference
-            // Add Image to the Folder at Firebase
-            imageFolder.putFile(saveuri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    //Download the refence image from the database
-                    imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-
-                            // set value for new category if image upload and we can get download link
-                            participantModel = new ParticipantModel();
-                            participantModel.setFirstname(edtFirstName.getText().toString());
-                            participantModel.setLastname(edtLastName.getText().toString());
-                            participantModel.setMobile(edtMobileNo.getText().toString());
-                            participantModel.setDob(edtDateofBirth.getText().toString());
-
-                            rdg_Gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                                @Override
-                                public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                                    if(rd_male.isChecked())
-                                        participantModel.setGender(rd_male.getText().toString());
-                                    else
-                                        participantModel.setGender(rd_female.getText().toString());
-                                }
-                            });
-                            participantModel.setEmail(edtEmailId.getText().toString());
-                            participantModel.setPassword("puid"+ edtMobileNo.getText().toString());
-                            participantModel.setStatus("Active");
-                            participantModel.setImage(uri.toString());
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(ParticipantsLogin.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploading "+ progress + "%");
-                }
-            });
-        }
-    }
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Picture"),util.PICK_IMAGE_REQUEST);
-    }
-    @Override
-    public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
-        String date = "" + Day + "/" + Month + "/" + Year;
-        edtDateofBirth.setText(date);
     }
     //User Login
     private void login(final String phone, final String pass) {
@@ -644,6 +483,36 @@ public class ParticipantsLogin extends AppCompatActivity
             });
             alertDialog.show();
         }
+    }
+
+    //Check User VAlidataions
+    public boolean utilsCheck(){
+        boolean cancel = false;
+        View focusView = null;
+        if (TextUtils.isEmpty(edtUserName.getText())){
+            edtUserName.setError("Please enter first Name");
+            focusView=edtUserName;
+            cancel=true;
+        }
+
+        if (TextUtils.isEmpty(edtPassword.getText())){
+            edtPassword.setError("Please enter Last Name");
+            focusView=edtPassword;
+            cancel=true;
+        }
+       //date of birth validation
+      /*  if (TextUtils.isEmpty(editTextDOB.getText())&&!isValidDate(editTextDOB.getText().toString())){
+            editTextDOB.setError("Please enter in dateformat");
+            focusView=editTextDOB;
+            cancel=true;
+        }
+        //Spinner Validation
+        if(msGender.getSelectedItemPosition()==0){
+            msGender.setError("Please Select Gender");
+            focusView=msGender;
+            cancel=true;
+        }*/
+        return cancel;
     }
 
 }

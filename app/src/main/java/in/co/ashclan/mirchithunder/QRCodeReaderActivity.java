@@ -100,11 +100,11 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 textView.post(new Runnable() {
                     @Override
                     public void run() {
-                       // textView.setText(data);
+                        textView.setText(data);
                         //**********************************
                        // Dialog box
                         /*******************************************/
-                        showQRVerificationDialog(data);
+                       // showQRVerificationDialog(data);
                     }
                 });
             }
