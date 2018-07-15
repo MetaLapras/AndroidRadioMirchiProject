@@ -24,37 +24,36 @@
         android:text="Mirchi Selfie"
         android:textAlignment="center"
         android:textColor="@android:color/white"
-        android:textSize="35dp"
+        android:textSize="40dp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="262dp"
-        android:fontFamily="@font/deliciousadventures"
-        android:text="Comming Soon "
-        android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="45dp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="262dp"-->
+        <!--android:fontFamily="@font/deliciousadventures"-->
+        <!--android:text="Comming Soon "-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:textSize="45dp"-->
+        <!--android:textStyle="bold" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_camera"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="162dp"
         app:fabSize="normal"
         android:layout_marginStart="55dp"
-        android:src="@drawable/ic_camera"
+        android:src="@drawable/camera"
+        android:scaleType="fitXY"
         android:tint="@color/black" />
 
     <TextView
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -67,7 +66,6 @@
         android:textSize="15sp" />
 
     <android.support.design.widget.FloatingActionButton
-        android:visibility="gone"
         android:id="@+id/fab_camera_save"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -76,11 +74,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="162dp"
         android:layout_marginEnd="55dp"
-        android:src="@drawable/ic_save"
+        android:src="@drawable/save"
         android:tint="@color/black" />
 
     <TextView
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

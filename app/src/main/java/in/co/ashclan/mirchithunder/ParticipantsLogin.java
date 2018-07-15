@@ -127,6 +127,7 @@ public class ParticipantsLogin extends AppCompatActivity
 
 
     }
+    //Initialisation
     private void init() {
         mContext = ParticipantsLogin.this;
         btn_facebook = (FButton)findViewById(R.id.btn_facebook);
@@ -149,6 +150,8 @@ public class ParticipantsLogin extends AppCompatActivity
         edtPassword = (MaterialEditText)findViewById(R.id.edt_User_password);
 
     }
+
+    //OnclickListner
     @Override
     public void onClick(View view) {
         switch (view.getId())
@@ -160,30 +163,17 @@ public class ParticipantsLogin extends AppCompatActivity
                 startGmailLogin();
                 break;
             case R.id.btn_submit:
-                    //Init Paper
-                    Paper.init(this);
-
-                    phone = "+91"+ edtUserName.getText().toString();
-                    pass = edtPassword.getText().toString();
-
-                    if (util.isConnectedToInterNet(getBaseContext())) {
                         //Save username and password
-                        if (utilsCheck()) {
-                            Paper.book().write(util.USER_KEY, phone);
-                            Paper.book().write(util.PWD_KEY, pass);
+                            phone = "+91"+ edtUserName.getText().toString();
+                            pass = edtPassword.getText().toString();
                             login(phone, pass);
-                        }
-                    }else
-                    {
-                        Toast.makeText(mContext, "Please Check your Internet Connection!", Toast.LENGTH_SHORT).show();
-                    }
-                    //startActivity(new Intent(ParticipantsLogin.this,QRCodeReaderActivity.class));
-                    break;
+                   // startActivity(new Intent(ParticipantsLogin.this,RegistrationActivity.class));
+                   break;
                 }
         }
 
+    //Methods
     private void startFacebookLogin() {
-
         Intent intent = new Intent(ParticipantsLogin.this, AccountKitActivity.class);
         AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                 new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
@@ -198,86 +188,90 @@ public class ParticipantsLogin extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_CODE)
-        {
-            AccountKitLoginResult result = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
-            if(result.getError()!=null)
+        try{
+            if(requestCode==REQUEST_CODE)
             {
-                Toast.makeText(this, ""+result.getError().getErrorType().getMessage(), Toast.LENGTH_SHORT).show();
-                return;
-            }else if(result.wasCancelled())
-            {
-                Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            else
-            {
-                if(result.getAccessToken()!=null)
+                AccountKitLoginResult result = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
+                if(result.getError()!=null)
                 {
-                    //Show Dialog
-                    final AlertDialog watingDialog = new SpotsDialog(this);
-                    watingDialog.show();
-                    watingDialog.setMessage("Please Wait");
-                    watingDialog.setCancelable(false);
-                    //get Current Phone
-                    AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
-                        @Override
-                        public void onSuccess(Account account) {
-                            final String userphone = account.getPhoneNumber().toString();
-                            /*Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
-                            intent.putExtra("mobilno",userphone);
-                            startActivity(intent);
-                            watingDialog.dismiss();*/
-                            //Check if User Exist on Firebase if not then add it
-                            table_participant.orderByKey().equalTo(userphone)
-                                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                    Toast.makeText(this, ""+result.getError().getErrorType().getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(result.wasCancelled())
+                {
+                    Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else
+                {
+                    if(result.getAccessToken()!=null)
+                    {
+                        //Show Dialog
+                        final AlertDialog watingDialog = new SpotsDialog(this);
+                        watingDialog.show();
+                        watingDialog.setMessage("Please Wait");
+                        watingDialog.setCancelable(false);
+                        //get Current Phone
+                        AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
+                            @Override
+                            public void onSuccess(Account account) {
+                                final String userphone = account.getPhoneNumber().toString();
+                                //Check if User Exist on Firebase if not then add it
+                                table_participant.orderByKey().equalTo(userphone)
+                                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                            if(!dataSnapshot.child(userphone).exists())//if Usernot Exist
-                                            {
-                                                PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
-                                                Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
-                                                intent.putExtra("mobilno",userphone);
-                                                startActivity(intent);
-                                                watingDialog.dismiss();
-                                                finish();
+                                                if(!dataSnapshot.child(userphone).exists())//if User not Exist
+                                                {
+                                                    PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
+                                                    Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
+                                                    intent.putExtra("mobilno",userphone);
+                                                    startActivity(intent);
+                                                    watingDialog.dismiss();
+                                                    finish();
 
-                                            }else //if User Exist
-                                            {
-                                                table_participant.child(userphone)
-                                                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                }else //if User Exist
+                                                {
 
-                                                                Log.e("-->123",dataSnapshot.toString());
+                                                    startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
 
-                                                                ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
-                                                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
-                                                                util.currentParticipant = localUser;
-                                                                watingDialog.dismiss();
-                                                                finish();
+                                                   /* table_participant.child(userphone)
+                                                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                            }
-                                                            @Override
-                                                            public void onCancelled(DatabaseError databaseError) {
-                                                            }
-                                                        });
+                                                                    Log.e("-->123",dataSnapshot.toString());
+
+                                                                    ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
+                                                                    util.currentParticipant = localUser;
+                                                                    startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
+                                                                    watingDialog.dismiss();
+                                                                    finish();
+                                                                }
+                                                                @Override
+                                                                public void onCancelled(DatabaseError databaseError) {
+                                                                }
+                                                            });*/
+                                                }
                                             }
-                                        }
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                        }
-                                    });
-                        }
-                        @Override
-                        public void onError(AccountKitError accountKitError) {
-                            Toast.makeText(ParticipantsLogin.this, ""+accountKitError.getErrorType().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                                            @Override
+                                            public void onCancelled(DatabaseError databaseError) {
+                                            }
+                                        });
+                            }
+                            @Override
+                            public void onError(AccountKitError accountKitError) {
+                                Toast.makeText(ParticipantsLogin.this, ""+accountKitError.getErrorType().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
             }
+        }catch (Exception e)
+        {
+            Log.e("-->FbError",e.toString());
         }
+
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
@@ -404,10 +398,8 @@ public class ParticipantsLogin extends AppCompatActivity
                         personLastName + "\n" +
                         personEmail + "\n", Toast.LENGTH_LONG).show();
                 PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
-                PreferenceUtil.setPass(mContext,personFirstName);
             } else {
                 // No user is signed in
-
             }
             //Show Dialog
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(ParticipantsLogin.this);
@@ -427,7 +419,6 @@ public class ParticipantsLogin extends AppCompatActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     final String phone = "+91"+edtMobileNo.getText().toString();
-                    PreferenceUtil.setMobileNo(mContext,phone);
                     final AlertDialog watingDialog = new SpotsDialog(ParticipantsLogin.this);
                     watingDialog.show();
                     watingDialog.setMessage("Please Wait");
@@ -445,6 +436,13 @@ public class ParticipantsLogin extends AppCompatActivity
                                         intent.putExtra("firstname", personFirstName);
                                         intent.putExtra("lastname", personLastName);
                                         intent.putExtra("mobilno", phone);
+
+                                        PreferenceUtil.setMobileNo(mContext,phone);
+                                        PreferenceUtil.setEmailid(mContext,personEmail);
+                                        PreferenceUtil.setLastname(mContext,personLastName);
+                                        PreferenceUtil.setFirstname(mContext,personFirstName);
+                                        PreferenceUtil.setPass(mContext,personFirstName);
+
                                         startActivity(intent);
                                         watingDialog.dismiss();
                                         finish();
@@ -458,6 +456,13 @@ public class ParticipantsLogin extends AppCompatActivity
                                                         ParticipantModel localUser = dataSnapshot.getValue(ParticipantModel.class);
                                                         startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
                                                         util.currentParticipant = localUser;
+
+                                                        PreferenceUtil.setMobileNo(mContext,phone);
+                                                        PreferenceUtil.setEmailid(mContext,personEmail);
+                                                        PreferenceUtil.setLastname(mContext,personLastName);
+                                                        PreferenceUtil.setFirstname(mContext,personFirstName);
+                                                        PreferenceUtil.setPass(mContext,personFirstName);
+
                                                         watingDialog.dismiss();
                                                         finish();
                                                     }
@@ -483,7 +488,6 @@ public class ParticipantsLogin extends AppCompatActivity
             alertDialog.show();
         }
     }
-
     //Check User VAlidataions
     public boolean utilsCheck(){
         boolean cancel = false;
@@ -493,24 +497,11 @@ public class ParticipantsLogin extends AppCompatActivity
             focusView=edtUserName;
             cancel=true;
         }
-
         if (TextUtils.isEmpty(edtPassword.getText())){
             edtPassword.setError("Please enter Last Name");
             focusView=edtPassword;
             cancel=true;
         }
-       //date of birth validation
-      /*  if (TextUtils.isEmpty(editTextDOB.getText())&&!isValidDate(editTextDOB.getText().toString())){
-            editTextDOB.setError("Please enter in dateformat");
-            focusView=editTextDOB;
-            cancel=true;
-        }
-        //Spinner Validation
-        if(msGender.getSelectedItemPosition()==0){
-            msGender.setError("Please Select Gender");
-            focusView=msGender;
-            cancel=true;
-        }*/
         return cancel;
     }
 

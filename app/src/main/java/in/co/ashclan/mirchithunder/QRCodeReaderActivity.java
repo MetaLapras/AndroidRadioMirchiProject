@@ -3,6 +3,7 @@ package in.co.ashclan.mirchithunder;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import github.nisrulz.qreader.QRDataListener;
@@ -37,6 +44,10 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
     ImageView stateBtn,restartBtn;
     MaterialEditText edtQRCodeVerifcation;
     Context mContext;
+
+    FirebaseDatabase database;
+    DatabaseReference table_participant ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +78,9 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
 
         stateBtn.setOnClickListener(this);
         restartBtn.setOnClickListener(this);
+
+        database            = FirebaseDatabase.getInstance();
+        table_participant   = database.getReference("Participant");
 
     }
 
@@ -135,6 +149,11 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext);
         LayoutInflater layoutInflater = this.getLayoutInflater();
 
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setMessage("Please Wait .... ");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.show();
+
         View add_menu_layout = layoutInflater.inflate(R.layout.custom_qrverification,null);
 
         edtQRCodeVerifcation = (MaterialEditText) add_menu_layout.findViewById(R.id.edt_QrCOdeID);
@@ -146,6 +165,19 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 if(edtQRCodeVerifcation.getText().toString().equals(data))
                 {
                     PreferenceUtil.setQrcodeid(mContext,edtQRCodeVerifcation.getText().toString());
+                    Query pendingQuery = table_participant.child(PreferenceUtil.getMobileNo(mContext)).child("puid").equalTo("XXXX");
+                    pendingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            dataSnapshot.getRef().setValue(data);
+                            progressDialog.dismiss();
+                            PreferenceUtil.setPuid(mContext,data);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                     Toast.makeText(mContext, "QR Verification Successful", Toast.LENGTH_SHORT).show();
                     finish();
                 }else

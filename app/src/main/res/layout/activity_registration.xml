@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:background="@drawable/ic_demo_back_1">
 
     <ImageView
@@ -26,10 +26,8 @@
         android:text="Registration"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="25dp"
+        android:textSize="35sp"
         android:textStyle="bold" />
-
-
 
     <android.support.v7.widget.CardView
         android:layout_below="@id/txt_id"
@@ -42,8 +40,10 @@
         tools:context=".RegistrationActivity">
 
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollIndicators="right"
+            android:scrollbarStyle="insideInset">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,6 +51,19 @@
                 android:orientation="vertical"
                 android:layout_margin="20dp"
                 >
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/edt_RecipteId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Receipt Id"
+                    android:fontFamily="@font/helveticaneuemedium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    app:met_baseColor="@color/white"
+                    app:met_primaryColor="@color/white"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true" />
 
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_FirstName"
@@ -107,6 +120,7 @@
                     app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true" />
+
                 <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_MobileNo"
                     android:layout_width="match_parent"
@@ -122,6 +136,9 @@
                     app:met_primaryColor="@color/white"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true" />
+
+
+
                <!-- <com.rengwuxian.materialedittext.MaterialEditText
                     android:id="@+id/edt_QrCOdeID"
                     android:layout_width="match_parent"
@@ -138,10 +155,11 @@
 -->
                 <TextView
                     android:textSize="20sp"
-                    android:id="@+id/textView"
+                    android:id="@+id/textView_booking"
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     android:text="Select Booking Type" />
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -158,54 +176,26 @@
                         android:layout_weight="1"
                         android:buttonTint="@color/white"
                         android:textSize="20sp"
-                        android:text="PRO Runner" />
+                        android:text="Competitor" />
 
                     <RadioButton
                         android:id="@+id/rd_fun"
                         android:textColor="@color/white"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="20sp"
                         android:buttonTint="@color/white"
-                        android:text="Fun Runner" />
+                        android:text="Fun" />
                 </RadioGroup>
 
                 <TextView
-                    android:textSize="20sp"
-                    android:id="@+id/textView5"
-                    android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Select Payment Type" />
-                <Spinner
-                    android:id="@+id/spn_PaymentType"
-                    android:layout_width="match_parent"
-                    android:layout_height="51dp"
-                    android:background="@color/white"
-                    android:entries="@array/paymentType">
-                </Spinner>
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/edt_RecipteId"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Receipt Id"
-                    android:fontFamily="@font/helveticaneuemedium"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
-                    app:met_baseColor="@color/white"
-                    app:met_primaryColor="@color/white"
-                    app:met_floatingLabel="highlight"
-                    app:met_singleLineEllipsis="true" />
-
-
-                <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/textView_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Selet Gender"
                     android:textColor="#ffffff"
+
                     android:textSize="20sp" />
 
                 <RadioGroup
@@ -221,6 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Male"
+                        android:buttonTint="@color/white"
                         android:textColor="#ffffff"
                         android:textSize="20sp" />
 
@@ -230,14 +221,34 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Female"
+                        android:buttonTint="@color/white"
                         android:textColor="#ffffff"
                         android:textSize="20sp" />
                 </RadioGroup>
 
+                <TextView
+                    android:textSize="20sp"
+                    android:id="@+id/textView_payment"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Payment Type" />
+                <Spinner
+                    android:id="@+id/spn_PaymentType"
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_margin="6dp"
+                    android:dropDownSelector="@color/black"
+                    android:background="@color/white"
+                    android:layout_marginBottom="6dp"
+                    android:entries="@array/paymentType"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:weightSum="2">
@@ -252,16 +263,23 @@
                     <!--android:layout_margin="10dp"-->
                     <!--android:visibility="gone"-->
                     <!--/>-->
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_btnSelect"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ic_profilepic"
+                        app:civ_border_color="@android:color/white"
+                        app:civ_border_width="2dp"
+                        />
+
 
                     <Button
                         android:id="@+id/btnSelect"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_margin="8dp"
                         android:background="@android:color/transparent"
-                        android:drawableTint="@color/white"
-                        android:drawableTop="@drawable/ic_profilepic"
                         android:gravity="center_horizontal|center_vertical"
                         android:shadowColor="@android:color/black"
                         android:text="Select Profile Pic"
@@ -270,7 +288,7 @@
                         android:textSize="20sp" />
                 </LinearLayout>
                 <LinearLayout
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -278,9 +296,10 @@
                         android:id="@+id/btnUpload"
                         android:text="Submit"
                         android:textColor="@android:color/white"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:background="@color/colorAccent"
                         android:layout_margin="8dp"
+                        android:layout_marginBottom="15dp"
                         android:textSize="20sp"
                         android:textAllCaps="false"
                         android:layout_gravity="center"
@@ -288,6 +307,9 @@
                         android:shadowColor="@android:color/black"
                         android:layout_weight="1"
                         />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

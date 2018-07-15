@@ -72,7 +72,7 @@ public class MirchiSelfi2 extends AppCompatActivity implements View.OnClickListe
     PhotoEditorView mPhotoEditorView;
     PhotoEditor mPhotoEditor;
     private int REQUEST_CAMERA = 52, SELECT_FILE = 1, CROP_IMAGE = 2;
-    ;
+
     FloatingActionButton fabCamera, fabSave;
     private Bitmap bitmapImage;
     private File destination;

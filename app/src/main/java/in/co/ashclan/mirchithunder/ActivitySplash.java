@@ -1,19 +1,13 @@
 package in.co.ashclan.mirchithunder;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,62 +16,53 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import in.co.ashclan.mirchithunder.utils.util;
-import io.paperdb.Paper;
 
-public class SplashScreen extends AppCompatActivity {
+public class ActivitySplash extends AppCompatActivity {
 
+    // Splash screen timer
+    private static int SPLASH_TIME_OUT = 3000;
+    String username,pass;
     Context mcontext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_splash);
 
-       /* //checkConnection();
-        if(util.isConnectedToInterNet(mcontext))
-        {
-            if(PreferenceUtil.getMobileNo(mcontext)!=null&&PreferenceUtil.getPass(mcontext)!=null)
-            {
-                login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
-            }
-        }*/
-       try {
-           if (PreferenceUtil.getSignIn(this)) {
-               final Handler handler = new Handler();
-               handler.postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       Intent intent = new Intent(SplashScreen.this, Activity_DashBoard2.class);
-                       startActivity(intent);
-                       finish();
-                       //layout.setVisibility(View.VISIBLE);
-                       //login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
+        mcontext = ActivitySplash.this;
 
-                   }
-               }, 7000);
-           } else {
-               final Handler handler = new Handler();
-               handler.postDelayed(new Runnable() {
-                   @Override
-                   public void run() {
-                       Intent intent = new Intent(SplashScreen.this, ParticipantsLogin.class);
-                       startActivity(intent);
-                       finish();
-                   }
-               }, 7000);
-           }
+        username = PreferenceUtil.getMobileNo(mcontext);
+        pass     = PreferenceUtil.getPass(mcontext);
 
-       }catch (Exception e)
-       {
-           Log.e("-->splashexp",e.toString());
-       }
+            new Handler().postDelayed(new Runnable() {
+
+                                          /*
+                                           * Showing splash screen with a timer. This will be useful when you
+                                           * want to show case your app logo / company
+                                           */
+                                          @Override
+                                          public void run() {
+     // This method will be executed once the timer is over
+     // Start your app main activity
+     // close this activity
+    //checkConnection();
+
+    if (PreferenceUtil.getSignIn(mcontext)) {
+        Intent intent = new Intent(ActivitySplash.this, Activity_DashBoard2.class);
+          startActivity(intent);
+         }
+      else
+     {
+       Intent intent = new Intent(ActivitySplash.this, ParticipantsLogin.class);
+       startActivity(intent);
+      }
+    finish();
     }
-
+    }, SPLASH_TIME_OUT);
+        }
     private void login(final String phone, final String pass) {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -128,10 +113,6 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
 }
+
+

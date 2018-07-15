@@ -74,7 +74,6 @@ public class Activity_DashBoard2 extends AppCompatActivity{
                 }
             }
         });
-
         cardView_Gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

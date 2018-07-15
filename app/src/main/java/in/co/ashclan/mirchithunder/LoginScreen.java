@@ -41,7 +41,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 startActivity(intent);
             }
         });
-
         participants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -39,7 +39,7 @@ public class FramesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 selectFrame = i;
-                Intent intent = new Intent(FramesActivity.this,MirchiSelfi2.class);
+                Intent intent = new Intent(FramesActivity.this,MirchiSelfie3.class);
                 intent.putExtra("position",selectFrame);
                 startActivity(intent);
                 Log.e("-->",selectFrame+"");

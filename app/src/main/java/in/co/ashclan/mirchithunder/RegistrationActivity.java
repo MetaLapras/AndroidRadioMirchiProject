@@ -11,13 +11,17 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,12 +32,16 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import in.co.ashclan.mirchithunder.model.ImagesModel;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
@@ -52,6 +60,7 @@ public class RegistrationActivity extends AppCompatActivity
     DatabaseReference participantImages;
     FirebaseStorage storage;
     Context mContext;
+    CircleImageView img_btnSelect;
 
     //Alert Dialog View
     MaterialEditText edtFirstName,edtLastName,edtEmailId,edtMobileNo,edtDateofBirth,edtQRCodeId,edtRecipteId;
@@ -70,6 +79,8 @@ public class RegistrationActivity extends AppCompatActivity
     StorageReference storageReference ;
     CardView RootLayout;
     String fbNumber,gmFirstName,gmLastName,gmEmail;
+    TextView txt_payment,txt_gender,txt_booking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +90,7 @@ public class RegistrationActivity extends AppCompatActivity
         edtDateofBirth.setOnClickListener(this);
         btn_Select.setOnClickListener(this);
         btn_upload.setOnClickListener(this);
+        img_btnSelect.setOnClickListener(this);
 
         if(getIntent()!=null)
         {
@@ -122,12 +134,15 @@ public class RegistrationActivity extends AppCompatActivity
         rdg_Gender      = (RadioGroup) findViewById(R.id.rdg_group);
         rdg_group       = (RadioGroup) findViewById(R.id.rdg_group_type);
         spn_PaymentType = (Spinner)findViewById(R.id.spn_PaymentType) ;
+        img_btnSelect   = (CircleImageView) findViewById(R.id.img_btnSelect) ;
 
         calendar        = Calendar.getInstance();
         Year            = calendar.get(Calendar.YEAR) ;
         Month           = calendar.get(Calendar.MONTH);
         Day             = calendar.get(Calendar.DAY_OF_MONTH);
-
+        txt_payment     = (TextView)findViewById(R.id.textView_payment);
+        txt_gender      = (TextView)findViewById(R.id.textView_gender);
+        txt_booking     = (TextView)findViewById(R.id.textView_booking);
     }
     @Override
     public void onClick(View view) {
@@ -145,7 +160,13 @@ public class RegistrationActivity extends AppCompatActivity
                 chooseImage();//Let user Choose the Image from Gallery
                 break;
             case R.id.btnUpload:
-                uploadImage();// Upload all Data into the Firebase database
+                    if(utilsCheck())
+                    {
+                    uploadImage();// Upload all Data into the Firebase database
+                    }
+                break;
+            case R.id.img_btnSelect:
+                chooseImage();//Let user Choose the Image from Gallery
                 break;
         }
 
@@ -169,65 +190,7 @@ public class RegistrationActivity extends AppCompatActivity
                     imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            // set value for new category if image upload and we can get download link
-                            if (edtFirstName.getText().toString().equals(null) || edtFirstName.getText().toString().equals("")) {
-                                edtFirstName.setError("Please Enter FirstName");
-                            } else if (edtLastName.getText().toString().equals(null) || edtLastName.getText().toString().equals("")) {
-                                edtLastName.setError("Please Enter LastName");
-                            } else if (edtMobileNo.getText().toString().equals(null) || edtMobileNo.getText().toString().equals("")) {
-                                edtMobileNo.setError("Please Enter Mobile");
-                            } else if (edtDateofBirth.getText().toString().equals(null) || edtDateofBirth.getText().toString().equals("")) {
-                                edtDateofBirth.setError("Please Enter Date of Birth");
-                            } else if (edtEmailId.getText().toString().equals(null) || edtFirstName.getText().toString().equals("")) {
-                                edtEmailId.setError("Please Enter Valid Email Address ");
-                            } else if (edtMobileNo.getText().toString().equals(null) || edtMobileNo.getText().toString().equals("")) {
-                                edtEmailId.setError("Please Enter Valid Mobile No Address ");
-                            } else {
-
-
-                                participantModel = new ParticipantModel();
-                                participantModel.setFirstname(edtFirstName.getText().toString());
-                                participantModel.setLastname(edtLastName.getText().toString());
-                                participantModel.setMobile(edtMobileNo.getText().toString());
-                                participantModel.setDob(edtDateofBirth.getText().toString());
-                                if (rd_male.isChecked())
-                                    participantModel.setGender(rd_male.getText().toString());
-                                else
-                                    participantModel.setGender(rd_female.getText().toString());
-                                participantModel.setEmail(edtEmailId.getText().toString());
-                                participantModel.setPassword(edtMobileNo.getText().toString());
-                                participantModel.setStatus("Active");
-                                if (rd_fun.isChecked())
-                                    participantModel.setGender(rd_fun.getText().toString());
-                                else
-                                    participantModel.setGender(rd_pro.getText().toString());
-                                participantModel.setPuid(edtQRCodeId.getText().toString());
-                                participantModel.setReceiptid(edtRecipteId.getText().toString());
-                                participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
-                                participantModel.setImage(uri.toString());
-
-                                imagesModel = new ImagesModel();
-                                imagesModel.setMobile(edtMobileNo.getText().toString());
-                                imagesModel.setBkid(edtRecipteId.getText().toString());
-                                imagesModel.setPuid(edtQRCodeId.getText().toString());
-                                ArrayList<String> strings = new ArrayList<>();
-                                strings.add(uri.toString());
-                                imagesModel.setImages(strings);
-
-
-                                if (participantModel != null) {
-                                    table_participant.child(edtMobileNo.getText().toString()).setValue(participantModel);
-                                    participantImages.child(edtMobileNo.getText().toString()).setValue(imagesModel);
-                                    //table_participant.push().setValue(participantModel);
-                                    Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent(RegistrationActivity.this, Activity_DashBoard2.class);
-                                    PreferenceUtil.setMobileNo(mContext, edtMobileNo.getText().toString());
-                                    PreferenceUtil.setPass(mContext, edtFirstName.getText().toString());
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
+                            uploadDatatoFireBase(uri);
                         }
 
                     });
@@ -265,7 +228,189 @@ public class RegistrationActivity extends AppCompatActivity
                 && data != null && data.getData() != null)
         {
             saveuri = data.getData();
+            Picasso.with(mContext).load(saveuri).into(img_btnSelect);
             btn_Select.setText("Image Selected !");
         }
+    }
+    private void uploadDatatoFireBase(Uri uri) {
+        //Upload all data to Firebase
+        // set value for new category if image upload and we can get download link
+       /* if (edtRecipteId.getText().length()<=0){
+            edtRecipteId.setError("Please enter Receipt Id");
+            return;
+        }else if (edtFirstName.getText().length()<=0){
+            edtFirstName.setError("Please enter first Name");
+            return;
+        }
+        else if (TextUtils.isEmpty(edtLastName.getText())){
+            edtLastName.setError("Please enter first Name");
+             return;
+        }
+        else if (TextUtils.isEmpty(edtDateofBirth.getText())&&!isValidDate(edtDateofBirth.getText().toString())){
+            edtDateofBirth.setError("Please enter in Dateformat");
+            return;
+        }
+        else if (TextUtils.isEmpty(edtEmailId.getText())&&!isEmailValid(edtEmailId.getText().toString())){
+            edtEmailId.setError("Please enter in Dateformat");
+             return;
+        }
+        else if (TextUtils.isEmpty(edtMobileNo.getText())||edtMobileNo.length()>13){
+            edtRecipteId.setError("Please enter Valid Mobile No or prefix +91");
+            return;
+        }
+        //Spinner Validation
+        else if(spn_PaymentType.getSelectedItemPosition()==0){
+            txt_payment.setError("Please Select Gender");
+            return;
+        }
+        //Radio Button Validation
+        else if(rdg_group.getCheckedRadioButtonId() == 0 )
+        {
+            Toast.makeText(mContext, "Please Select Category", Toast.LENGTH_SHORT).show();
+             return;
+        }
+        else if(rdg_Gender.getCheckedRadioButtonId() == 0 )
+        {
+            Toast.makeText(mContext, "Please Select Gender", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    else
+        {*/
+            participantModel = new ParticipantModel();
+
+            participantModel.setReceiptid(edtRecipteId.getText().toString());
+            participantModel.setFirstname(edtFirstName.getText().toString());
+            participantModel.setLastname(edtLastName.getText().toString());
+            participantModel.setDob(edtDateofBirth.getText().toString());
+            participantModel.setEmail(edtEmailId.getText().toString());
+            participantModel.setMobile(edtMobileNo.getText().toString());
+
+            if (rd_male.isChecked()) {
+                participantModel.setGender(rd_male.getText().toString());
+                PreferenceUtil.setGender(mContext, rd_male.getText().toString());
+            } else {
+                participantModel.setGender(rd_female.getText().toString());
+                PreferenceUtil.setGender(mContext, rd_female.getText().toString());
+            }
+
+            if (rd_fun.isChecked()) {
+                participantModel.setTickettype(rd_fun.getText().toString());
+                PreferenceUtil.setTickettype(mContext, rd_fun.getText().toString());
+            }   else {
+                participantModel.setTickettype(rd_pro.getText().toString());
+                PreferenceUtil.setTickettype(mContext, rd_pro.getText().toString());
+            }
+                participantModel.setPassword(edtFirstName.getText().toString());
+                participantModel.setStatus("Active");
+                participantModel.setPuid("XXXX");
+                participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
+                participantModel.setImage(uri.toString());
+
+                imagesModel = new ImagesModel();
+                imagesModel.setMobile(edtMobileNo.getText().toString());
+                imagesModel.setBkid(edtRecipteId.getText().toString());
+                imagesModel.setPuid("XXXX");
+                ArrayList<String> strings = new ArrayList<>();
+                strings.add(uri.toString());
+                imagesModel.setImages(strings);
+
+                if (participantModel != null)
+                {
+                    table_participant.child(edtMobileNo.getText().toString()).setValue(participantModel);
+                    participantImages.child(edtMobileNo.getText().toString()).setValue(imagesModel);
+
+                    //table_participant.push().setValue(participantModel);
+                    //Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
+
+                    Toast.makeText(mContext, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Toast.LENGTH_SHORT).show();
+
+                    PreferenceUtil.setReceiptid(mContext,edtRecipteId.getText().toString());
+                    PreferenceUtil.setFirstname(mContext,edtFirstName.getText().toString());
+                    PreferenceUtil.setLastname(mContext,edtLastName.getText().toString());
+                    PreferenceUtil.setDob(mContext,edtDateofBirth.getText().toString());
+                    PreferenceUtil.setEmailid(mContext,edtEmailId.getText().toString());
+                    PreferenceUtil.setMobileNo(mContext,edtMobileNo.getText().toString());
+                    PreferenceUtil.setPaymenttype(mContext,spn_PaymentType.getSelectedItem().toString().trim());
+
+                    Intent intent = new Intent(RegistrationActivity.this, Activity_DashBoard2.class);
+                    startActivity(intent);
+                    finish();
+            }
+        //}
+    }
+    //Check User VAlidataions
+    public boolean utilsCheck(){
+
+        boolean cancel = false;
+        View focusView = null;
+
+        if (TextUtils.isEmpty(edtRecipteId.getText())){
+            edtRecipteId.setError("Please enter Receipt Id");
+            focusView=edtRecipteId;
+        }
+        if (TextUtils.isEmpty(edtFirstName.getText())){
+            edtFirstName.setError("Please enter first Name");
+            focusView=edtFirstName;
+            cancel=true;
+        }
+        if (TextUtils.isEmpty(edtLastName.getText())){
+            edtLastName.setError("Please enter first Name");
+            focusView=edtLastName;
+            cancel=true;
+        }
+        if (TextUtils.isEmpty(edtDateofBirth.getText())&&!isValidDate(edtDateofBirth.getText().toString())){
+            edtDateofBirth.setError("Please enter in Dateformat");
+            focusView=edtDateofBirth;
+            cancel=true;
+        }
+        if (TextUtils.isEmpty(edtEmailId.getText())&&!isEmailValid(edtEmailId.getText().toString())){
+            edtEmailId.setError("Please enter in Dateformat");
+            focusView=edtEmailId;
+            cancel=true;
+        }
+        if (TextUtils.isEmpty(edtMobileNo.getText()) || edtMobileNo.length()>13){
+            edtMobileNo.setError("Please enter Valid Mobile No or prefix +91");
+            focusView=edtMobileNo;
+            cancel=true;
+        }
+        //Spinner Validation
+        if(spn_PaymentType.getSelectedItemPosition()==0){
+            txt_payment.setError("Please Select Gender");
+            focusView=spn_PaymentType;
+            cancel=true;
+        }
+        //Radio Button Validation
+        if(rdg_group.getCheckedRadioButtonId() == 0 )
+        {
+            txt_booking.setError("Please Select Category");
+            //Toast.makeText(mContext, "Please Select Category", Toast.LENGTH_SHORT).show();
+            focusView=rdg_group;
+            cancel=true;
+        }
+
+        if(rdg_Gender.getCheckedRadioButtonId() == 0 )
+        {
+            txt_gender.setError("Please Select Gender");
+            //Toast.makeText(mContext, "Please Select Gender", Toast.LENGTH_SHORT).show();
+            focusView=rdg_Gender;
+            cancel=true;
+        }
+        return true;
+    }
+
+    //Email Validataion
+    private boolean isEmailValid(String email) {
+        return email.contains("@")&&email.contains(".");
+    }
+    //Date Validataion
+    private boolean isValidDate(String inDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(inDate.trim());
+        } catch (ParseException pe) {
+            return false;
+        }
+        return true;
     }
 }

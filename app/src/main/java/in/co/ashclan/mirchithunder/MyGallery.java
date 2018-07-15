@@ -50,10 +50,8 @@ public class MyGallery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_gallery);
         intit();
-      //  imagesbyParticipant(phoneNo);
         loadPictures();
-        //Init
-        Paper.init(this);
+
         refreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_light,
@@ -100,7 +98,6 @@ public class MyGallery extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         participantImages = database.getReference("ParticipantImages");
     }
-
     private void loadPictures() {
         phoneNo = PreferenceUtil.getMobileNo(mContext);
         participantImages.addValueEventListener(new ValueEventListener() {
@@ -152,6 +149,4 @@ public class MyGallery extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
-
-
 }

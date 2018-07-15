@@ -127,7 +127,6 @@ public class DashBoard extends AppCompatActivity  {
         finish();
     }
     private void signOutRegular() {
-
         Intent signin = new Intent(DashBoard.this,ParticipantsLogin.class);
         signin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(signin);
