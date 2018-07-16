@@ -70,10 +70,10 @@ public class Activity_DashBoard2 extends AppCompatActivity{
                 // do somethi
                 Log.e("-->Tag",itemId+"");
                 if(itemId == 1){
-                    startActivity(new Intent(mContext,QRCodeReaderActivity.class));
+                    startActivity(new Intent(mContext,UserProfile.class));
                 }else if(itemId == 2)
                 {
-                    startActivity(new Intent(mContext,UserProfile.class));
+                    startActivity(new Intent(mContext,QRCodeReaderActivity.class));
 
                 }else if(itemId == 3)
                 {
