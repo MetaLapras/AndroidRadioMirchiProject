@@ -54,6 +54,9 @@ public class ImagesModel {
     public void setImages(ArrayList<String> images) {
         this.images = images;
     }
+    public void addImage(String s){
+        images.add(s);
+    }
 
     public String getMobile() {
         return mobile;

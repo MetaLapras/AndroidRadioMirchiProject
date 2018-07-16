@@ -123,6 +123,8 @@ dependencies {
     implementation 'com.github.kobakei:MaterialFabSpeedDial:LATEST_VERSION'
     implementation 'com.github.kobakei:MaterialFabSpeedDial:master-SNAPSHOT'
 
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
+
     //camera
     implementation 'com.mindorks:paracamera:0.2.2'
 }

@@ -5,13 +5,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/demo_back"
+    android:background="@drawable/ic_demo_back_1"
     tools:context=".FramesActivity">
 
+    <ImageView
+        android:id="@+id/imgage"
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/deliciousadventures"
+        android:text="Frame Selection"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/imgage"
         android:id="@+id/mSelfie_gridview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@drawable/demo_back"
         android:numColumns="2"
         android:columnWidth="90dp"
         android:horizontalSpacing="10dp"

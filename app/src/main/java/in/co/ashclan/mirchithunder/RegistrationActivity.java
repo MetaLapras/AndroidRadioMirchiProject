@@ -173,8 +173,7 @@ public class RegistrationActivity extends AppCompatActivity
             case R.id.btnUpload:
                     if(!utilsCheck())
                     {
-                        uploadDatatoFireBase();
-                      // uploadImage();// Upload all Data into the Firebase database
+                       uploadImage();// Upload all Data into the Firebase database
                     }
                 break;
             case R.id.img_btnSelect:
@@ -203,7 +202,7 @@ public class RegistrationActivity extends AppCompatActivity
                     imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            //uploadDatatoFireBase(uri);
+                            uploadDatatoFireBase(uri);
                         }
 
                     });
@@ -246,7 +245,7 @@ public class RegistrationActivity extends AppCompatActivity
             btn_Select.setText("Image Selected !");
         }
     }
-    private void uploadDatatoFireBase() {
+    private void uploadDatatoFireBase(final Uri uri) {
         //Upload all data to Firebase
         // set value for new category if image upload and we can get download link
        /* if (edtRecipteId.getText().length()<=0){
@@ -340,15 +339,9 @@ public class RegistrationActivity extends AppCompatActivity
                         imagesModel.setBkid(edtRecipteId.getText().toString());
                         imagesModel.setPuid("XXXX");
 
-                        ArrayList<String> strings = new ArrayList<>();
-
-                        try {
-                            Uri uri = Uri.parse("android.resource://in.co.ashclan.mirchithunder/drawable/ic_thunder_logo");
-                            InputStream stream = getContentResolver().openInputStream(uri);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        imagesModel.setImages(strings);
+                        ArrayList<String> Images = new ArrayList<>();
+                        Images.add(uri.toString());
+                        imagesModel.setImages(Images);
 
                         if (participantModel != null)
                         {
@@ -388,8 +381,6 @@ public class RegistrationActivity extends AppCompatActivity
         else {
             Toast.makeText(mContext, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
         }
-
-
         //}
     }
     //Check User VAlidataions
@@ -443,13 +434,13 @@ public class RegistrationActivity extends AppCompatActivity
             focusView=rdg_Gender;
             cancel=true;
         }
-      /*  if(!isImage)
+      if(!isImage)
         {
             Toast toast = Toast.makeText(mContext,"Please Select profile Pic",Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             cancel=true;
-        }*/
+        }
         return cancel;
     }
     //Date Validataion

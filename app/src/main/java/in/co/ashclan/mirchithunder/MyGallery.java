@@ -1,5 +1,6 @@
 package in.co.ashclan.mirchithunder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -112,6 +113,11 @@ public class MyGallery extends AppCompatActivity {
         participantImages = database.getReference("ParticipantImages");
     }
     private void loadPictures() {
+        final ProgressDialog mDialog = new ProgressDialog(mContext);
+        mDialog.setMessage("Please Wait.....");
+        mDialog.setCancelable(false);
+        mDialog.show();
+
         phoneNo = PreferenceUtil.getMobileNo(mContext);
         participantImages.addValueEventListener(new ValueEventListener() {
             @Override
@@ -123,6 +129,8 @@ public class MyGallery extends AppCompatActivity {
                     Log.e("-->1234",imagesModel.toString());
                     util.CurrentimagesModel = imagesModel;
 
+                    mDialog.show();
+                    
                     arrayList = imagesModel.getImages();
                     Log.e("-->s",arrayList.toString());
                     adapter = new mGalleryAdapter(mContext,arrayList);

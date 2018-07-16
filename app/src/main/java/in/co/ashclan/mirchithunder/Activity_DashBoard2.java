@@ -3,6 +3,8 @@ package in.co.ashclan.mirchithunder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -50,6 +53,7 @@ public class Activity_DashBoard2 extends AppCompatActivity{
 
         fab = (FabSpeedDial)findViewById(R.id.fab);
         FabSpeedDialMenu menu = new FabSpeedDialMenu(this);
+        menu.add("Profile").setIcon(R.drawable.ic_profile);
         menu.add("QRScan").setIcon(R.drawable.ic_fullscreen);
         menu.add("Support").setIcon(R.drawable.ic_headset);
         fab.setMenu(menu);
@@ -57,23 +61,29 @@ public class Activity_DashBoard2 extends AppCompatActivity{
         fab.addOnStateChangeListener(new FabSpeedDial.OnStateChangeListener() {
             @Override
             public void onStateChange(boolean open) {
-                // do something
             }
         });
 
         fab.addOnMenuItemClickListener(new FabSpeedDial.OnMenuItemClickListener() {
             @Override
             public void onMenuItemClick(FloatingActionButton fab, TextView textView, int itemId) {
-                // do somethin
+                // do somethi
                 Log.e("-->Tag",itemId+"");
-                if(itemId==1){
+                if(itemId == 1){
                     startActivity(new Intent(mContext,QRCodeReaderActivity.class));
                 }else if(itemId == 2)
+                {
+                    startActivity(new Intent(mContext,UserProfile.class));
+
+                }else if(itemId == 3)
                 {
                     Toast.makeText(mContext, "pasistence@mirchilive.app", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+
+
         cardView_Gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

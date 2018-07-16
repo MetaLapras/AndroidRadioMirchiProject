@@ -133,7 +133,6 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         }
     };
     //*****************************//
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mirchi_selfie);
@@ -192,7 +191,6 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
 
             // Call the camera takePicture method to open the existing camera
     }
-
     // Get the bitmap and image path onActivityResult of an activity or fragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -206,7 +204,6 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
             }
         }
     }
-
     private void inti() {
         mContext = MirchiSelfie3.this;
 
@@ -366,9 +363,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
                         mPhotoEditorView.getSource().setImageURI(Uri.fromFile(new File(imagePath)));
                         saveUri = Uri.fromFile(new File(imagePath));
                         uploadImage(saveUri);
-
                     }
-
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                     }
@@ -419,6 +414,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Uploading Image .... ");
+            progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
 
@@ -457,7 +453,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
                             if(imagesModel!=null)
                             {
                                 arrayList.add(uri.toString());
-                                participantImages.child(PreferenceUtil.getMobileNo(mContext)).setValue(imagesModel);
+                                participantImages.child(PreferenceUtil.getMobileNo(mContext)).child("Images").setValue(imagesModel);
                                 startActivity(new Intent(MirchiSelfie3.this,MyGallery.class));
                                 finish();
                             }
@@ -479,8 +475,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
             });
         }
     }
-    public Boolean requestPermissionStorage(String permission)
-    {
+    public Boolean requestPermissionStorage(String permission){
         boolean isGranted = ContextCompat.checkSelfPermission(mContext,permission) == PackageManager.PERMISSION_GRANTED;
         if(!isGranted)
         {

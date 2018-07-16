@@ -165,7 +165,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 break;
             case R.id.btn_submit:
                         //Save username and password
-                            phone = "+91"+ edtUserName.getText().toString();
+                            phone = edtUserName.getText().toString();
                             pass = edtPassword.getText().toString();
 
                             if(edtUserName.getText().length()==0)
@@ -370,14 +370,14 @@ public class ParticipantsLogin extends AppCompatActivity
                             Log.d("PoJo-->",user.toString());
                             if (user.getFirstname().equals(pass)) {
                                 //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
-                                util.currentParticipant = user;
-
                                 PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
                                 PreferenceUtil.setMobileNo(mContext,phone);
                                 PreferenceUtil.setPass(mContext,pass);
                                 mDialog.dismiss();
                                 finish();
+
+                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
+                                util.currentParticipant = user;
                             } else {
                                 mDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
@@ -440,7 +440,7 @@ public class ParticipantsLogin extends AppCompatActivity
             alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    final String phone = "+91"+edtMobileNo.getText().toString();
+                    final String phone = edtMobileNo.getText().toString();
                     final AlertDialog watingDialog = new SpotsDialog(ParticipantsLogin.this);
                     watingDialog.show();
                     watingDialog.setMessage("Please Wait");
