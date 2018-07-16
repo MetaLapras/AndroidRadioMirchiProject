@@ -249,6 +249,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
                 icon = BitmapFactory.decodeResource(getResources(),
                         R.drawable.filter_1);
                 mPhotoEditor.addImage(icon);
+
                 break;
             case 1:
                 icon = BitmapFactory.decodeResource(getResources(),
@@ -364,6 +365,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
                         saveUri = Uri.fromFile(new File(imagePath));
                         uploadImage(saveUri);
                     }
+
                     @Override
                     public void onFailure(@NonNull Exception exception) {
                     }
@@ -414,7 +416,6 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Uploading Image .... ");
-            progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
 
@@ -453,7 +454,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
                             if(imagesModel!=null)
                             {
                                 arrayList.add(uri.toString());
-                                participantImages.child(PreferenceUtil.getMobileNo(mContext)).child("Images").setValue(imagesModel);
+                                participantImages.child(PreferenceUtil.getMobileNo(mContext)).setValue(imagesModel);
                                 startActivity(new Intent(MirchiSelfie3.this,MyGallery.class));
                                 finish();
                             }
@@ -469,7 +470,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    long progress = (100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
                     progressDialog.setMessage("Uploading "+ progress + "%");
                 }
             });

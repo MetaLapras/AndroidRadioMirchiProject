@@ -129,7 +129,7 @@ public class MyGallery extends AppCompatActivity {
                     Log.e("-->1234",imagesModel.toString());
                     util.CurrentimagesModel = imagesModel;
 
-                    mDialog.show();
+                    mDialog.dismiss();
                     
                     arrayList = imagesModel.getImages();
                     Log.e("-->s",arrayList.toString());

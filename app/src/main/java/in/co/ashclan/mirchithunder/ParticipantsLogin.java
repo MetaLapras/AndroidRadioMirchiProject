@@ -355,6 +355,7 @@ public class ParticipantsLogin extends AppCompatActivity
 
                 final ProgressDialog mDialog = new ProgressDialog(ParticipantsLogin.this);
                 mDialog.setMessage("Please Wait.....");
+                mDialog.setCancelable(false);
                 mDialog.show();
 
                 table_user.addValueEventListener(new ValueEventListener() {
