@@ -419,6 +419,7 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Uploading Image .... ");
+            progressDialog.setCancelable(false);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
 

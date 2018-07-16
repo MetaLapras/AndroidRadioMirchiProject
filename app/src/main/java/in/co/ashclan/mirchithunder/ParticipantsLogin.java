@@ -165,7 +165,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 break;
             case R.id.btn_submit:
                         //Save username and password
-                        /*    phone = "+91"+ edtUserName.getText().toString();
+                            phone = "+91"+ edtUserName.getText().toString();
                             pass = edtPassword.getText().toString();
 
                             if(edtUserName.getText().length()==0)
@@ -175,8 +175,8 @@ public class ParticipantsLogin extends AppCompatActivity
                                 edtPassword.setError("Please enter correct password");
                             }else {
                                 login(phone, pass);
-                            }*/
-                        startActivity(new Intent(mContext,RegistrationActivity.class));
+                            }
+                        //startActivity(new Intent(mContext,RegistrationActivity.class));
                    break;
                 }
         }

@@ -166,9 +166,10 @@ public class RegistrationActivity extends AppCompatActivity
                 chooseImage();//Let user Choose the Image from Gallery
                 break;
             case R.id.btnUpload:
-                    if(utilsCheck())
+                    if(!utilsCheck())
                     {
-                      uploadImage();// Upload all Data into the Firebase database
+                        uploadDatatoFireBase();
+                      // uploadImage();// Upload all Data into the Firebase database
                     }
                 break;
             case R.id.img_btnSelect:
@@ -197,7 +198,7 @@ public class RegistrationActivity extends AppCompatActivity
                     imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            uploadDatatoFireBase(uri);
+                            //uploadDatatoFireBase(uri);
                         }
 
                     });
@@ -240,7 +241,7 @@ public class RegistrationActivity extends AppCompatActivity
             btn_Select.setText("Image Selected !");
         }
     }
-    private void uploadDatatoFireBase(Uri uri) {
+    private void uploadDatatoFireBase() {
         //Upload all data to Firebase
         // set value for new category if image upload and we can get download link
        /* if (edtRecipteId.getText().length()<=0){
@@ -311,7 +312,7 @@ public class RegistrationActivity extends AppCompatActivity
                 participantModel.setStatus("deactivate");
                 participantModel.setPuid("XXXX");
                 participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
-                participantModel.setImage(uri.toString());
+                //participantModel.setImage(uri.toString());
 
                 imagesModel = new ImagesModel();
                 imagesModel.setMobile(edtMobileNo.getText().toString());
@@ -319,7 +320,6 @@ public class RegistrationActivity extends AppCompatActivity
                 imagesModel.setPuid("XXXX");
 
                 ArrayList<String> strings = new ArrayList<>();
-                strings.add(uri.toString());
                 imagesModel.setImages(strings);
 
                 if (participantModel != null)
@@ -378,7 +378,7 @@ public class RegistrationActivity extends AppCompatActivity
             cancel=true;
         }
         isValidEmail(edtEmailId.getText().toString());
-        //isValidMobile(edtMobileNo.getText().toString());
+        isValidMobile(edtMobileNo.getText().toString());
 
         //Spinner Validation
         if(spn_PaymentType.getSelectedItemPosition()==0){
@@ -407,6 +407,7 @@ public class RegistrationActivity extends AppCompatActivity
             Toast toast = Toast.makeText(mContext,"Please Select profile Pic",Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
+            cancel=true;
         }
         return cancel;
     }
