@@ -351,8 +351,6 @@ public class RegistrationActivity extends AppCompatActivity
                             //table_participant.push().setValue(participantModel);
                             //Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
 
-                            PreferenceUtil.setSignIn(mContext,true);
-
                             PreferenceUtil.setReceiptid(mContext,edtRecipteId.getText().toString());
                             PreferenceUtil.setFirstname(mContext,edtFirstName.getText().toString());
                             PreferenceUtil.setLastname(mContext,edtLastName.getText().toString());

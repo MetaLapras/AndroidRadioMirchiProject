@@ -22,6 +22,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
 import com.facebook.accountkit.AccountKitCallback;
@@ -75,6 +76,7 @@ public class ParticipantsLogin extends AppCompatActivity
     DatabaseReference table_participant ;
     FirebaseStorage storage;
     Context mContext;
+    DatabaseReference table_user;
 
     //Get GMail Data from login Account
     public String personName,personFirstName,personLastName,personEmail,personId;
@@ -109,6 +111,8 @@ public class ParticipantsLogin extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AccountKit.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participants_login);
         mInit();
@@ -343,12 +347,8 @@ public class ParticipantsLogin extends AppCompatActivity
     //User Login
     private void login(final String phone, final String pass)
     {
-
         try
         {
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            final DatabaseReference table_user = database.getReference("Participant");
-
             Log.d("-->",phone +" "+pass);
 
             if (util.isConnectedToInterNet(getBaseContext())) {
@@ -358,7 +358,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 mDialog.setCancelable(false);
                 mDialog.show();
 
-                table_user.addValueEventListener(new ValueEventListener() {
+                table_participant.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //Check if User doesnt exist in database
@@ -367,18 +367,15 @@ public class ParticipantsLogin extends AppCompatActivity
                             //get User Values
                             Log.d("-->123",dataSnapshot.toString());
                             ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
-                            user.setMobile(phone);
-                            Log.d("PoJo-->",user.toString());
-                            if (user.getFirstname().equals(pass)) {
-                                //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
-                                PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
-                                PreferenceUtil.setMobileNo(mContext,phone);
-                                PreferenceUtil.setPass(mContext,pass);
+                                user.setMobile(phone);
+                                Log.d("PoJo-->",user.toString());
+                                if (user.getFirstname().equals(pass)) {
+                                    //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+                                    PreferenceUtil.setSignIn(mContext,true);
+                                    PreferenceUtil.setMobileNo(mContext,phone);
+                                    PreferenceUtil.setPass(mContext,pass);
                                 mDialog.dismiss();
                                 finish();
-
-                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
-                                util.currentParticipant = user;
                             } else {
                                 mDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();

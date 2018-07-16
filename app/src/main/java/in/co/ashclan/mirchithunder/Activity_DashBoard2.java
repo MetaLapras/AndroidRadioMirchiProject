@@ -3,8 +3,6 @@ package in.co.ashclan.mirchithunder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -53,9 +51,9 @@ public class Activity_DashBoard2 extends AppCompatActivity{
 
         fab = (FabSpeedDial)findViewById(R.id.fab);
         FabSpeedDialMenu menu = new FabSpeedDialMenu(this);
-        menu.add("Profile").setIcon(R.drawable.ic_profile);
         menu.add("QRScan").setIcon(R.drawable.ic_fullscreen);
         menu.add("Support").setIcon(R.drawable.ic_headset);
+        menu.add("Profile Image").setIcon(R.drawable.ic_profile);
         fab.setMenu(menu);
 
         fab.addOnStateChangeListener(new FabSpeedDial.OnStateChangeListener() {
@@ -69,15 +67,14 @@ public class Activity_DashBoard2 extends AppCompatActivity{
             public void onMenuItemClick(FloatingActionButton fab, TextView textView, int itemId) {
                 // do somethi
                 Log.e("-->Tag",itemId+"");
-                if(itemId == 1){
-                    startActivity(new Intent(mContext,UserProfile.class));
-                }else if(itemId == 2)
-                {
+                if(itemId == 0){
                     startActivity(new Intent(mContext,QRCodeReaderActivity.class));
-
-                }else if(itemId == 3)
+                }else if(itemId == 1)
                 {
                     Toast.makeText(mContext, "pasistence@mirchilive.app", Toast.LENGTH_LONG).show();
+                }else if(itemId == 2)
+                {
+                    startActivity(new Intent(mContext,UserProfile.class));
                 }
             }
         });

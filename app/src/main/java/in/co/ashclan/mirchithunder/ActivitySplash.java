@@ -42,19 +42,49 @@ public class ActivitySplash extends AppCompatActivity {
         mcontext = ActivitySplash.this;
         printkeyhash();
 
-        username = PreferenceUtil.getMobileNo(mcontext);
-        pass     = PreferenceUtil.getPass(mcontext);
+       /* try {
+            if (PreferenceUtil.getSignIn(this)) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ActivitySplash.this, Activity_DashBoard2.class);
+                        startActivity(intent);
+                        finish();
+                        //layout.setVisibility(View.VISIBLE);
+                        //login(PreferenceUtil.getMobileNo(mcontext).toString(),PreferenceUtil.getPass(mcontext).toString());
 
-            new Handler().postDelayed(new Runnable() {
+                    }
+                }, 3000);
+            } else {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ActivitySplash.this, ParticipantsLogin.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 3000);
+            }
+
+        }catch (Exception e)
+        {
+            Log.e("-->splashexp",e.toString());
+        }*/
+
+          new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (PreferenceUtil.getSignIn(mcontext)) {
-                        Intent intent = new Intent(ActivitySplash.this, Activity_DashBoard2.class);
+                    Intent intent = new Intent(ActivitySplash.this, LoginScreen.class);
+                    startActivity(intent);
+                    /*if (PreferenceUtil.getSignIn(mcontext)) {
+                        Intent intent = new Intent(ActivitySplash.this, LoginScreen.class);
                         startActivity(intent);
                     }else{
                        Intent intent = new Intent(ActivitySplash.this, ParticipantsLogin.class);
                        startActivity(intent);
-                    }
+                    }*/
                     finish();
                 }}, SPLASH_TIME_OUT);
         }
