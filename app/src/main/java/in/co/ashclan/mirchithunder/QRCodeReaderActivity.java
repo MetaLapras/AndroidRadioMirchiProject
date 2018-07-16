@@ -149,13 +149,14 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext);
         LayoutInflater layoutInflater = this.getLayoutInflater();
 
+        qrEader.stop();
+
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         progressDialog.setMessage("Please Wait .... ");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
 
         View add_menu_layout = layoutInflater.inflate(R.layout.custom_qrverification,null);
-
         edtQRCodeVerifcation = (MaterialEditText) add_menu_layout.findViewById(R.id.edt_QrCOdeID);
         alertDialog.setView(add_menu_layout);
 
@@ -165,24 +166,34 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 if(edtQRCodeVerifcation.getText().toString().equals(data))
                 {
                     PreferenceUtil.setQrcodeid(mContext,edtQRCodeVerifcation.getText().toString());
+                    // Check PUID Existing
                     Query pendingQuery = table_participant.child(PreferenceUtil.getMobileNo(mContext)).child("puid").equalTo("XXXX");
                     pendingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            dataSnapshot.getRef().setValue(data);
-                            progressDialog.dismiss();
-                            PreferenceUtil.setPuid(mContext,data);
+                          if(dataSnapshot.child("puid").equals("XXXX"))
+                          {
+                              dataSnapshot.getRef().setValue(data);
+                              progressDialog.dismiss();
+                              PreferenceUtil.setPuid(mContext,data);
+                              Toast.makeText(mContext, "QR Verification Successful", Toast.LENGTH_SHORT).show();
+                              finish();
+                          }else
+                          {
+                              progressDialog.dismiss();
+                              Toast.makeText(mContext, "You have already registred your QR Code", Toast.LENGTH_SHORT).show();
+                              finish();
+                          }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                            progressDialog.dismiss();
                         }
                     });
-                    Toast.makeText(mContext, "QR Verification Successful", Toast.LENGTH_SHORT).show();
-                    finish();
                 }else
                 {
                     Toast.makeText(mContext, "Invalid QR Code", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                     dialog.dismiss();
                 }
             }
@@ -190,11 +201,13 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
         alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(mContext, "Operation Cancel by User", Toast.LENGTH_SHORT).show();
+                qrEader.start();
                 dialog.dismiss();
+                progressDialog.dismiss();
             }
         });
         alertDialog.show();
-
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull final String[] permissions,

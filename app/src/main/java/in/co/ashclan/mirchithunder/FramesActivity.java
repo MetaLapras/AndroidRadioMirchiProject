@@ -43,6 +43,7 @@ public class FramesActivity extends AppCompatActivity {
                 intent.putExtra("position",selectFrame);
                 startActivity(intent);
                 Log.e("-->",selectFrame+"");
+                finish();
             }
         });
     }

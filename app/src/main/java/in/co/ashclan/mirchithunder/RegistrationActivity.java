@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -39,7 +41,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.co.ashclan.mirchithunder.model.ImagesModel;
@@ -81,6 +86,7 @@ public class RegistrationActivity extends AppCompatActivity
     String fbNumber,gmFirstName,gmLastName,gmEmail;
     TextView txt_payment,txt_gender,txt_booking;
 
+    Boolean isImage = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,7 +168,7 @@ public class RegistrationActivity extends AppCompatActivity
             case R.id.btnUpload:
                     if(utilsCheck())
                     {
-                    uploadImage();// Upload all Data into the Firebase database
+                      uploadImage();// Upload all Data into the Firebase database
                     }
                 break;
             case R.id.img_btnSelect:
@@ -177,6 +183,7 @@ public class RegistrationActivity extends AppCompatActivity
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Uploading Image .... ");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCancelable(false);
             progressDialog.show();
 
             String imageName = UUID.randomUUID().toString(); //set Image to an ID
@@ -204,8 +211,8 @@ public class RegistrationActivity extends AppCompatActivity
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploading "+ progress + "%");
+                    long progress = (100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                    progressDialog.setMessage("Registering "+ progress + "%");
                 }
             });
         }
@@ -229,6 +236,7 @@ public class RegistrationActivity extends AppCompatActivity
         {
             saveuri = data.getData();
             Picasso.with(mContext).load(saveuri).into(img_btnSelect);
+            isImage = true;
             btn_Select.setText("Image Selected !");
         }
     }
@@ -292,7 +300,6 @@ public class RegistrationActivity extends AppCompatActivity
                 participantModel.setGender(rd_female.getText().toString());
                 PreferenceUtil.setGender(mContext, rd_female.getText().toString());
             }
-
             if (rd_fun.isChecked()) {
                 participantModel.setTickettype(rd_fun.getText().toString());
                 PreferenceUtil.setTickettype(mContext, rd_fun.getText().toString());
@@ -301,7 +308,7 @@ public class RegistrationActivity extends AppCompatActivity
                 PreferenceUtil.setTickettype(mContext, rd_pro.getText().toString());
             }
                 participantModel.setPassword(edtFirstName.getText().toString());
-                participantModel.setStatus("Active");
+                participantModel.setStatus("deactivate");
                 participantModel.setPuid("XXXX");
                 participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
                 participantModel.setImage(uri.toString());
@@ -310,6 +317,7 @@ public class RegistrationActivity extends AppCompatActivity
                 imagesModel.setMobile(edtMobileNo.getText().toString());
                 imagesModel.setBkid(edtRecipteId.getText().toString());
                 imagesModel.setPuid("XXXX");
+
                 ArrayList<String> strings = new ArrayList<>();
                 strings.add(uri.toString());
                 imagesModel.setImages(strings);
@@ -322,8 +330,6 @@ public class RegistrationActivity extends AppCompatActivity
                     //table_participant.push().setValue(participantModel);
                     //Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
 
-                    Toast.makeText(mContext, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Toast.LENGTH_SHORT).show();
-
                     PreferenceUtil.setReceiptid(mContext,edtRecipteId.getText().toString());
                     PreferenceUtil.setFirstname(mContext,edtFirstName.getText().toString());
                     PreferenceUtil.setLastname(mContext,edtLastName.getText().toString());
@@ -332,10 +338,17 @@ public class RegistrationActivity extends AppCompatActivity
                     PreferenceUtil.setMobileNo(mContext,edtMobileNo.getText().toString());
                     PreferenceUtil.setPaymenttype(mContext,spn_PaymentType.getSelectedItem().toString().trim());
 
+                    Toast toast = Toast.makeText(mContext, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     Intent intent = new Intent(RegistrationActivity.this, Activity_DashBoard2.class);
                     startActivity(intent);
                     finish();
-            }
+
+            }else
+                {
+                    Toast.makeText(mContext, "Somthing went Wrong! Please Try After some time", Toast.LENGTH_SHORT).show();
+                }
         //}
     }
     //Check User VAlidataions
@@ -347,6 +360,7 @@ public class RegistrationActivity extends AppCompatActivity
         if (TextUtils.isEmpty(edtRecipteId.getText())){
             edtRecipteId.setError("Please enter Receipt Id");
             focusView=edtRecipteId;
+            cancel=true;
         }
         if (TextUtils.isEmpty(edtFirstName.getText())){
             edtFirstName.setError("Please enter first Name");
@@ -363,16 +377,9 @@ public class RegistrationActivity extends AppCompatActivity
             focusView=edtDateofBirth;
             cancel=true;
         }
-        if (TextUtils.isEmpty(edtEmailId.getText())&&!isEmailValid(edtEmailId.getText().toString())){
-            edtEmailId.setError("Please enter in Dateformat");
-            focusView=edtEmailId;
-            cancel=true;
-        }
-        if (TextUtils.isEmpty(edtMobileNo.getText()) || edtMobileNo.length()>13){
-            edtMobileNo.setError("Please enter Valid Mobile No or prefix +91");
-            focusView=edtMobileNo;
-            cancel=true;
-        }
+        isValidEmail(edtEmailId.getText().toString());
+        //isValidMobile(edtMobileNo.getText().toString());
+
         //Spinner Validation
         if(spn_PaymentType.getSelectedItemPosition()==0){
             txt_payment.setError("Please Select Gender");
@@ -395,12 +402,13 @@ public class RegistrationActivity extends AppCompatActivity
             focusView=rdg_Gender;
             cancel=true;
         }
-        return true;
-    }
-
-    //Email Validataion
-    private boolean isEmailValid(String email) {
-        return email.contains("@")&&email.contains(".");
+        if(!isImage)
+        {
+            Toast toast = Toast.makeText(mContext,"Please Select profile Pic",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+        return cancel;
     }
     //Date Validataion
     private boolean isValidDate(String inDate) {
@@ -412,5 +420,29 @@ public class RegistrationActivity extends AppCompatActivity
             return false;
         }
         return true;
+    }
+    //Email Validataion
+    private boolean isValidEmail(String e){
+        boolean check;
+        Pattern p;
+        Matcher m;
+
+        String EMAIL_STRING = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+        p = Pattern.compile(EMAIL_STRING);
+
+        m = p.matcher(e);
+        check = m.matches();
+
+        if(!check) {
+            edtEmailId.setError("Not Valid Email");
+        }
+        return check;
+//        return Patterns.EMAIL_ADDRESS.matcher(e).matches();
+    }
+    //Mobile No Validataion
+    private boolean isValidMobile(String phone) {
+        return android.util.Patterns.PHONE.matcher(phone).matches();
     }
 }

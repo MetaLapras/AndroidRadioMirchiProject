@@ -59,6 +59,7 @@
         <ImageView
             android:id="@+id/btn_restart_activity"
             android:layout_width="100dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:src="@drawable/aar_ic_restart"/>
 

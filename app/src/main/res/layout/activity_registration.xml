@@ -98,6 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Date of Birth"
+                    android:editable="false"
                     android:fontFamily="@font/helveticaneuemedium"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"

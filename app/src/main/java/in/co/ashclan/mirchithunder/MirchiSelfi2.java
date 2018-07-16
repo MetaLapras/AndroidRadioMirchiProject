@@ -328,7 +328,7 @@ public class MirchiSelfi2 extends AppCompatActivity implements View.OnClickListe
         mPhotoEditorView.getSource().setImageBitmap(bitmapImage);
         mPhotoEditor = new PhotoEditor.Builder(mContext,mPhotoEditorView).setPinchTextScalable(true).build();
         icon = BitmapFactory.decodeResource(getResources(),
-                R.drawable.back_img);
+                R.drawable.demo_back);
         mPhotoEditor.addImage(icon);
 
         switch (selectframe)

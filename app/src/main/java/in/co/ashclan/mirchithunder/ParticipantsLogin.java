@@ -107,10 +107,11 @@ public class ParticipantsLogin extends AppCompatActivity
     StorageReference storageReference ;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participants_login);
-        init();
+        mInit();
         btn_Gmail.setOnClickListener(this);
         btn_facebook.setOnClickListener(this);
         btn_submit.setOnClickListener(this);
@@ -123,12 +124,11 @@ public class ParticipantsLogin extends AppCompatActivity
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-
     }
+
     //Initialisation
-    private void init() {
+    private void mInit()
+    {
         mContext = ParticipantsLogin.this;
         btn_facebook = (FButton)findViewById(R.id.btn_facebook);
         btn_Gmail = (FButton)findViewById(R.id.btn_Gmail);
@@ -153,7 +153,8 @@ public class ParticipantsLogin extends AppCompatActivity
 
     //OnclickListner
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
         switch (view.getId())
         {
             case R.id.btn_facebook:
@@ -166,14 +167,22 @@ public class ParticipantsLogin extends AppCompatActivity
                         //Save username and password
                             phone = "+91"+ edtUserName.getText().toString();
                             pass = edtPassword.getText().toString();
-                            login(phone, pass);
-                   // startActivity(new Intent(ParticipantsLogin.this,RegistrationActivity.class));
+
+                            if(edtUserName.getText().length()==0)
+                            {
+                                edtUserName.setError("Please Enter Your Mobile No");
+                            } else if (edtPassword.getText().length()==0) {
+                                edtPassword.setError("Please enter correct password");
+                            }else {
+                                login(phone, pass);
+                            }
                    break;
                 }
         }
 
     //Methods
-    private void startFacebookLogin() {
+    private void startFacebookLogin()
+    {
         Intent intent = new Intent(ParticipantsLogin.this, AccountKitActivity.class);
         AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                 new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
@@ -181,14 +190,17 @@ public class ParticipantsLogin extends AppCompatActivity
         intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION,configurationBuilder.build());
         startActivityForResult(intent,REQUEST_CODE);
     }
-    private void startGmailLogin() {
+    private void startGmailLogin()
+    {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
         try{
+            //Activity result set for facebook login
             if(requestCode==REQUEST_CODE)
             {
                 AccountKitLoginResult result = data.getParcelableExtra(AccountKitLoginResult.RESULT_KEY);
@@ -203,7 +215,7 @@ public class ParticipantsLogin extends AppCompatActivity
                 }
                 else
                 {
-                    if(result.getAccessToken()!=null)
+                    if(result.getAccessToken() != null)
                     {
                         //Show Dialog
                         final AlertDialog watingDialog = new SpotsDialog(this);
@@ -214,7 +226,10 @@ public class ParticipantsLogin extends AppCompatActivity
                         AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                             @Override
                             public void onSuccess(Account account) {
-                                final String userphone = account.getPhoneNumber().toString();
+                                String phone  = account.getPhoneNumber().toString();
+                                final String userphone = phone.substring(3);
+                                Log.e("fbno-->",userphone);
+
                                 //Check if User Exist on Firebase if not then add it
                                 table_participant.orderByKey().equalTo(userphone)
                                         .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -223,7 +238,6 @@ public class ParticipantsLogin extends AppCompatActivity
 
                                                 if(!dataSnapshot.child(userphone).exists())//if User not Exist
                                                 {
-                                                    PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
                                                     Intent intent = new Intent(ParticipantsLogin.this,RegistrationActivity.class);
                                                     intent.putExtra("mobilno",userphone);
                                                     startActivity(intent);
@@ -232,9 +246,7 @@ public class ParticipantsLogin extends AppCompatActivity
 
                                                 }else //if User Exist
                                                 {
-
                                                     startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
-
                                                    /* table_participant.child(userphone)
                                                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
@@ -295,7 +307,8 @@ public class ParticipantsLogin extends AppCompatActivity
             //btn_Select.setText("Image Selected !");
         }
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct)
+    {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         //Show Dialog
         final AlertDialog watingDialog = new SpotsDialog(this);
@@ -327,61 +340,69 @@ public class ParticipantsLogin extends AppCompatActivity
                 });
     }
     //User Login
-    private void login(final String phone, final String pass) {
+    private void login(final String phone, final String pass)
+    {
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_user = database.getReference("Participant");
+        try
+        {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            final DatabaseReference table_user = database.getReference("Participant");
 
-        Log.d("-->",phone +" "+pass);
+            Log.d("-->",phone +" "+pass);
 
-        if (util.isConnectedToInterNet(getBaseContext())) {
+            if (util.isConnectedToInterNet(getBaseContext())) {
 
-            final ProgressDialog mDialog = new ProgressDialog(ParticipantsLogin.this);
-            mDialog.setMessage("Please Wait.....");
-            mDialog.show();
+                final ProgressDialog mDialog = new ProgressDialog(ParticipantsLogin.this);
+                mDialog.setMessage("Please Wait.....");
+                mDialog.show();
 
-            table_user.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    //Check if User doesnt exist in database
-                    if (dataSnapshot.child(phone).exists()) {
-                        //mDialog.dismiss();
-                        //get User Values
-                        Log.d("-->123",dataSnapshot.toString());
-                        ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
-                        user.setMobile(phone);
-                        Log.d("PoJo-->",user.toString());
-                        if (user.getFirstname().equals(pass)) {
-                            //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
-                            util.currentParticipant = user;
+                table_user.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //Check if User doesnt exist in database
+                        if (dataSnapshot.child(phone).exists()) {
+                            //mDialog.dismiss();
+                            //get User Values
+                            Log.d("-->123",dataSnapshot.toString());
+                            ParticipantModel user = dataSnapshot.child(phone).getValue(ParticipantModel.class);
+                            user.setMobile(phone);
+                            Log.d("PoJo-->",user.toString());
+                            if (user.getFirstname().equals(pass)) {
+                                //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(ParticipantsLogin.this, Activity_DashBoard2.class));
+                                util.currentParticipant = user;
 
-                            PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
-                            PreferenceUtil.setMobileNo(mContext,phone);
-                            PreferenceUtil.setPass(mContext,pass);
-
-                            finish();
+                                PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
+                                PreferenceUtil.setMobileNo(mContext,phone);
+                                PreferenceUtil.setPass(mContext,pass);
+                                mDialog.dismiss();
+                                finish();
+                            } else {
+                                mDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             mDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "User Doesnt Exist", Toast.LENGTH_LONG).show();
                         }
-                    } else {
-                        mDialog.dismiss();
-                        Toast.makeText(getApplicationContext(), "User Doesnt Exist", Toast.LENGTH_LONG).show();
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        } else {
-            Toast.makeText(ParticipantsLogin.this, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(ParticipantsLogin.this, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e)
+        {
+            Log.e("-->",e.toString());
+            Toast.makeText(mContext, "Something went Wrong!", Toast.LENGTH_SHORT).show();
         }
-
     }
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(FirebaseUser user)
+    {
         if (user != null) {
             // User is signed in
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
@@ -393,10 +414,10 @@ public class ParticipantsLogin extends AppCompatActivity
                 personId = acct.getId();
                 personPhoto = acct.getPhotoUrl();
 
-                Toast.makeText(ParticipantsLogin.this, "" + personName + "\n" +
+           /*     Toast.makeText(ParticipantsLogin.this, "" + personName + "\n" +
                         personFirstName + "\n" +
                         personLastName + "\n" +
-                        personEmail + "\n", Toast.LENGTH_LONG).show();
+                        personEmail + "\n", Toast.LENGTH_LONG).show();*/
                 PreferenceUtil.setSignIn(ParticipantsLogin.this,true);
             } else {
                 // No user is signed in
@@ -489,7 +510,8 @@ public class ParticipantsLogin extends AppCompatActivity
         }
     }
     //Check User VAlidataions
-    public boolean utilsCheck(){
+    public boolean utilsCheck()
+    {
         boolean cancel = false;
         View focusView = null;
         if (TextUtils.isEmpty(edtUserName.getText())){
@@ -498,7 +520,7 @@ public class ParticipantsLogin extends AppCompatActivity
             cancel=true;
         }
         if (TextUtils.isEmpty(edtPassword.getText())){
-            edtPassword.setError("Please enter Last Name");
+            edtPassword.setError("Please enter Password");
             focusView=edtPassword;
             cancel=true;
         }

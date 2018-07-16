@@ -50,8 +50,8 @@ public class DashBoard extends AppCompatActivity  {
     Context mContext;
     CardView cardView_Gallery,cardView_Selfie,cardView_Achivements,cardView_logout;
 
-    private int[] listItems = {R.mipmap.img1, R.mipmap.img2, R.mipmap.img3, R.mipmap.img4,
-            R.mipmap.img5, R.mipmap.img6, R.mipmap.img7, R.mipmap.img8, R.mipmap.img9, R.mipmap.img10};
+    private int[] listItems = {R.drawable.demo_back, R.drawable.demo_back,R.drawable.demo_back,R.drawable.demo_back,R.drawable.demo_back,
+                                R.drawable.demo_back,R.drawable.demo_back,R.drawable.demo_back,R.drawable.demo_back,R.drawable.demo_back,};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

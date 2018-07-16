@@ -2,6 +2,8 @@ package in.co.ashclan.mirchithunder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -16,11 +18,18 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,6 +42,9 @@ import io.paperdb.Paper;
 
 public class MyGallery extends AppCompatActivity {
 
+    ImageLoaderConfiguration loaderConfiguration;
+    ImageLoader imageLoader = ImageLoader.getInstance();
+
     FirebaseDatabase database;
     DatabaseReference participantImages ;
     public static final String EXTRA_IMAGE = "image";
@@ -44,15 +56,18 @@ public class MyGallery extends AppCompatActivity {
     mGalleryAdapter adapter;
     String phoneNo;
     ArrayList<String>arrayList;
+    ShareDialog shareDialog;
+    String imgURL;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_gallery);
         intit();
-        loadPictures();
 
-        refreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
+        loadPictures();
+        /*refreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
         refreshLayout.setColorSchemeResources(R.color.colorPrimary,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_dark,
@@ -82,9 +97,8 @@ public class MyGallery extends AppCompatActivity {
                     Toast.makeText(getBaseContext(), "Check Your Internet Connection ! ", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
             }
-        });
+        });*/
     }
     private void intit() {
         mContext = MyGallery.this;
@@ -93,7 +107,6 @@ public class MyGallery extends AppCompatActivity {
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(gridView.getContext(),
                 R.anim.layout_fall_animation);
         gridView.setLayoutAnimation(controller);
-
         //init Fire base
         database = FirebaseDatabase.getInstance();
         participantImages = database.getReference("ParticipantImages");
@@ -114,15 +127,16 @@ public class MyGallery extends AppCompatActivity {
                     Log.e("-->s",arrayList.toString());
                     adapter = new mGalleryAdapter(mContext,arrayList);
                     gridView.setAdapter(adapter);
-                    gridView.scheduleLayoutAnimation();
+                    //gridView.scheduleLayoutAnimation();
                     adapter.notifyDataSetChanged();
-                    refreshLayout.setRefreshing(false);
+                    //refreshLayout.setRefreshing(false);
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Intent intent=new Intent(mContext,customGalleryFull.class);
                             intent.putExtra(EXTRA_IMAGE,arrayList.get(i));
+                            Log.e("-->",arrayList.get(i).toString());
                             startActivity(intent);
                         }
                     });

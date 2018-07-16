@@ -1,24 +1,20 @@
 package in.co.ashclan.mirchithunder.ViewHolders;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -36,11 +32,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.squareup.picasso.Picasso;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import in.co.ashclan.mirchithunder.DashBoard;
-import in.co.ashclan.mirchithunder.GlideApp;
+import in.co.ashclan.mirchithunder.ParticipantsLogin;
 import in.co.ashclan.mirchithunder.R;
 
 
@@ -54,7 +47,8 @@ public class customGalleryFull extends AppCompatActivity {
     ShareDialog shareDialog;
     String imgURL;
     String Hashtag;
-
+    Context mContext;
+    ProgressDialog mDialog;
     //Create Target from Picasso
     com.squareup.picasso.Target target = new com.squareup.picasso.Target() {
         @Override
@@ -89,10 +83,7 @@ public class customGalleryFull extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.custom_gallery_full);
-
-        imgFull =findViewById(R.id.img_Full);
-        fab_share = findViewById(R.id.fab_Share);
-        fab_post = findViewById(R.id.fab_post);
+        mInit();
 
        // final String img = getIntent().getStringExtra(DashBoard.EXTRA_IMAGE);
 
@@ -111,18 +102,18 @@ public class customGalleryFull extends AppCompatActivity {
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.ARGB_8888)
-                .showImageOnLoading(R.drawable.ic_person)
-                .showImageForEmptyUri(R.drawable.ic_person)
-                .showImageOnFail(R.drawable.ic_person)
+                .showImageOnLoading(R.drawable.ic_default)
+                .showImageForEmptyUri(R.drawable.ic_default)
+                .showImageOnFail(R.drawable.ic_default)
                 .build();
 
 
         loaderConfiguration = new ImageLoaderConfiguration.Builder(customGalleryFull.this)
-                .defaultDisplayImageOptions(imageOptions).build();
-        imageLoader.init(loaderConfiguration);
-        imgURL= getIntent().getStringExtra(DashBoard.EXTRA_IMAGE);
-        try {
-            imageLoader.displayImage(imgURL, imgFull, new ImageLoadingListener() {
+                    .defaultDisplayImageOptions(imageOptions).build();
+            imageLoader.init(loaderConfiguration);
+            imgURL= getIntent().getStringExtra(DashBoard.EXTRA_IMAGE);
+            try {
+                imageLoader.displayImage(imgURL, imgFull, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String imageUri, View view) {
                     //    imageLoader.displayImage("http://52.172.221.235:8983/uploads/" + defaultIcon, imageView);
@@ -169,16 +160,24 @@ public class customGalleryFull extends AppCompatActivity {
                 intent.setType("image/jpeg");
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
                 startActivity(Intent.createChooser(intent, "Share Image"));
-
             }
         });
 
         fab_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mDialog.show();
                 shareOnFacebook();
             }
         });
+    }
+
+    private void mInit() {
+        mContext = customGalleryFull.this;
+        imgFull =findViewById(R.id.img_Full);
+        fab_share = findViewById(R.id.fab_Share);
+        fab_post = findViewById(R.id.fab_post);
+        mDialog = new ProgressDialog(mContext);
     }
 
     private void shareOnFacebook() {
@@ -198,6 +197,7 @@ public class customGalleryFull extends AppCompatActivity {
             }
         });
         Picasso.with(this).load(imgURL).into(target);
+        mDialog.dismiss();
     }
 
 

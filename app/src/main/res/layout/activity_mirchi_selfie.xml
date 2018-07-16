@@ -82,29 +82,66 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="135dp"
+        android:layout_marginBottom="132dp"
         android:layout_marginEnd="35dp"
         android:fontFamily="@font/helveticaneuemedium"
         android:text="Save Picture"
         android:textColor="@color/white"
         android:textSize="15sp" />
 
-    <ja.burhanrashid52.photoeditor.PhotoEditorView
-        android:id="@+id/photoEditorView"
+    <SurfaceView
+        android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_horizontal|center_vertical" />
+        android:layout_above="@+id/info"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/code_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/intro_text"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        />
+
 
     <ImageView
+        android:id="@+id/pasistence_logo"
         android:layout_width="150dp"
-        android:layout_height="129dp"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginBottom="12dp"
         android:src="@drawable/technologypartnerlogo" />
+
+    <ja.burhanrashid52.photoeditor.PhotoEditorView
+        android:id="@+id/photoEditorView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center_horizontal|center_vertical" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="87dp"
+        android:background="@color/com_facebook_blue"
+        android:backgroundTint="@color/com_facebook_blue"
+        android:src="@drawable/ic_facebook"
+        app:borderWidth="0dp"
+        android:tint="@color/white"
+        app:fabSize="normal" />
 
 
 </RelativeLayout>

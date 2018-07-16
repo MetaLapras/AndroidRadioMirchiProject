@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
 <android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -48,3 +50,53 @@
     </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
+-->
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:custom="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/swipe_refresh_layout"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+android:background="@drawable/ic_demo_back_1"
+tools:context=".MyGallery"
+    >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/deliciousadventures"
+        android:text="Gallery"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/mgallery_grid_view"
+        android:layout_width="fill_parent"
+        android:layout_height="452dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:columnWidth="90dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" />
+
+</RelativeLayout>
+
+</RelativeLayout>
