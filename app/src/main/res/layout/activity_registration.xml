@@ -246,24 +246,25 @@
                     android:layout_marginBottom="6dp"
                     android:entries="@array/paymentType"/>
 
-         <!--       <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:visibility="gone"
                     android:weightSum="2">
-                    &lt;!&ndash;<TextView&ndash;&gt;
-                    &lt;!&ndash;android:layout_width="0dp"&ndash;&gt;
-                    &lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;
-                    &lt;!&ndash;android:text="Select Image"&ndash;&gt;
-                    &lt;!&ndash;android:layout_weight="1"&ndash;&gt;
-                    &lt;!&ndash;android:textSize="20sp"&ndash;&gt;
-                    &lt;!&ndash;android:textColor="@color/colorPrimaryDark"&ndash;&gt;
-                    &lt;!&ndash;android:elevation="10dp"&ndash;&gt;
-                    &lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;
-                    &lt;!&ndash;android:visibility="gone"&ndash;&gt;
-                    &lt;!&ndash;/>&ndash;&gt;
+                    <!--<TextView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Select Image"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textColor="@color/colorPrimaryDark"-->
+                    <!--android:elevation="10dp"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--android:visibility="gone"-->
+                    <!--/>-->
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/img_btnSelect"
                         android:layout_width="80dp"
@@ -287,7 +288,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="20sp" />
-                </LinearLayout>-->
+                </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"

@@ -27,8 +27,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -37,6 +40,8 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -285,70 +290,106 @@ public class RegistrationActivity extends AppCompatActivity
         }
     else
         {*/
-            participantModel = new ParticipantModel();
 
-            participantModel.setReceiptid(edtRecipteId.getText().toString());
-            participantModel.setFirstname(edtFirstName.getText().toString());
-            participantModel.setLastname(edtLastName.getText().toString());
-            participantModel.setDob(edtDateofBirth.getText().toString());
-            participantModel.setEmail(edtEmailId.getText().toString());
-            participantModel.setMobile(edtMobileNo.getText().toString());
+        if (util.isConnectedToInterNet(getBaseContext())) {
 
-            if (rd_male.isChecked()) {
-                participantModel.setGender(rd_male.getText().toString());
-                PreferenceUtil.setGender(mContext, rd_male.getText().toString());
-            } else {
-                participantModel.setGender(rd_female.getText().toString());
-                PreferenceUtil.setGender(mContext, rd_female.getText().toString());
-            }
-            if (rd_fun.isChecked()) {
-                participantModel.setTickettype(rd_fun.getText().toString());
-                PreferenceUtil.setTickettype(mContext, rd_fun.getText().toString());
-            }   else {
-                participantModel.setTickettype(rd_pro.getText().toString());
-                PreferenceUtil.setTickettype(mContext, rd_pro.getText().toString());
-            }
-                participantModel.setPassword(edtFirstName.getText().toString());
-                participantModel.setStatus("deactivate");
-                participantModel.setPuid("XXXX");
-                participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
-                //participantModel.setImage(uri.toString());
+            final ProgressDialog mDialog = new ProgressDialog(mContext);
+            mDialog.setMessage("Please Wait.....");
+            mDialog.setCancelable(false);
+            mDialog.show();
 
-                imagesModel = new ImagesModel();
-                imagesModel.setMobile(edtMobileNo.getText().toString());
-                imagesModel.setBkid(edtRecipteId.getText().toString());
-                imagesModel.setPuid("XXXX");
+            table_participant.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // Check if Already User Exist
+                    if (dataSnapshot.child(edtMobileNo.getText().toString()).exists()) {
+                        mDialog.dismiss();
+                        Toast.makeText(mContext, "User Already Exist", Toast.LENGTH_SHORT).show();
+                    } else {
+                        participantModel = new ParticipantModel();
 
-                ArrayList<String> strings = new ArrayList<>();
-                imagesModel.setImages(strings);
+                        participantModel.setReceiptid(edtRecipteId.getText().toString());
+                        participantModel.setFirstname(edtFirstName.getText().toString());
+                        participantModel.setLastname(edtLastName.getText().toString());
+                        participantModel.setDob(edtDateofBirth.getText().toString());
+                        participantModel.setEmail(edtEmailId.getText().toString());
+                        participantModel.setMobile(edtMobileNo.getText().toString());
 
-                if (participantModel != null)
-                {
-                    table_participant.child(edtMobileNo.getText().toString()).setValue(participantModel);
-                    participantImages.child(edtMobileNo.getText().toString()).setValue(imagesModel);
+                        if (rd_male.isChecked()) {
+                            participantModel.setGender(rd_male.getText().toString());
+                            PreferenceUtil.setGender(mContext, rd_male.getText().toString());
+                        } else {
+                            participantModel.setGender(rd_female.getText().toString());
+                            PreferenceUtil.setGender(mContext, rd_female.getText().toString());
+                        }
+                        if (rd_fun.isChecked()) {
+                            participantModel.setTickettype(rd_fun.getText().toString());
+                            PreferenceUtil.setTickettype(mContext, rd_fun.getText().toString());
+                        }   else {
+                            participantModel.setTickettype(rd_pro.getText().toString());
+                            PreferenceUtil.setTickettype(mContext, rd_pro.getText().toString());
+                        }
+                        participantModel.setPassword(edtFirstName.getText().toString());
+                        participantModel.setStatus("deactivate");
+                        participantModel.setPuid("XXXX");
+                        participantModel.setPaymenttype(spn_PaymentType.getSelectedItem().toString().trim());
+                        //participantModel.setImage(uri.toString());
 
-                    //table_participant.push().setValue(participantModel);
-                    //Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
+                        imagesModel = new ImagesModel();
+                        imagesModel.setMobile(edtMobileNo.getText().toString());
+                        imagesModel.setBkid(edtRecipteId.getText().toString());
+                        imagesModel.setPuid("XXXX");
 
-                    PreferenceUtil.setReceiptid(mContext,edtRecipteId.getText().toString());
-                    PreferenceUtil.setFirstname(mContext,edtFirstName.getText().toString());
-                    PreferenceUtil.setLastname(mContext,edtLastName.getText().toString());
-                    PreferenceUtil.setDob(mContext,edtDateofBirth.getText().toString());
-                    PreferenceUtil.setEmailid(mContext,edtEmailId.getText().toString());
-                    PreferenceUtil.setMobileNo(mContext,edtMobileNo.getText().toString());
-                    PreferenceUtil.setPaymenttype(mContext,spn_PaymentType.getSelectedItem().toString().trim());
+                        ArrayList<String> strings = new ArrayList<>();
 
-                    Toast toast = Toast.makeText(mContext, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                    Intent intent = new Intent(RegistrationActivity.this, Activity_DashBoard2.class);
-                    startActivity(intent);
-                    finish();
+                        try {
+                            Uri uri = Uri.parse("android.resource://in.co.ashclan.mirchithunder/drawable/ic_thunder_logo");
+                            InputStream stream = getContentResolver().openInputStream(uri);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        imagesModel.setImages(strings);
 
-            }else
-                {
-                    Toast.makeText(mContext, "Somthing went Wrong! Please Try After some time", Toast.LENGTH_SHORT).show();
+                        if (participantModel != null)
+                        {
+                            table_participant.child(edtMobileNo.getText().toString()).setValue(participantModel);
+                            participantImages.child(edtMobileNo.getText().toString()).setValue(imagesModel);
+
+                            //table_participant.push().setValue(participantModel);
+                            //Snackbar.make(RootLayout, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Snackbar.LENGTH_SHORT).show();
+
+                            PreferenceUtil.setReceiptid(mContext,edtRecipteId.getText().toString());
+                            PreferenceUtil.setFirstname(mContext,edtFirstName.getText().toString());
+                            PreferenceUtil.setLastname(mContext,edtLastName.getText().toString());
+                            PreferenceUtil.setDob(mContext,edtDateofBirth.getText().toString());
+                            PreferenceUtil.setEmailid(mContext,edtEmailId.getText().toString());
+                            PreferenceUtil.setMobileNo(mContext,edtMobileNo.getText().toString());
+                            PreferenceUtil.setPaymenttype(mContext,spn_PaymentType.getSelectedItem().toString().trim());
+
+                            Toast toast = Toast.makeText(mContext, "Congratulations" + participantModel.getFirstname().toString() + " Registred successfully", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            Intent intent = new Intent(RegistrationActivity.this, Activity_DashBoard2.class);
+                            startActivity(intent);
+                            finish();
+
+                        }else
+                        {
+                            Toast.makeText(mContext, "Somthing went Wrong! Please Try After some time", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+        else {
+            Toast.makeText(mContext, "Please Check Your Internet Connection!", Toast.LENGTH_SHORT).show();
+        }
+
+
         //}
     }
     //Check User VAlidataions
@@ -402,13 +443,13 @@ public class RegistrationActivity extends AppCompatActivity
             focusView=rdg_Gender;
             cancel=true;
         }
-        if(!isImage)
+      /*  if(!isImage)
         {
             Toast toast = Toast.makeText(mContext,"Please Select profile Pic",Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             cancel=true;
-        }
+        }*/
         return cancel;
     }
     //Date Validataion
