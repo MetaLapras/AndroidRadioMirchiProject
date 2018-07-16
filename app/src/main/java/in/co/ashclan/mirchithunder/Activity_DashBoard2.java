@@ -137,5 +137,4 @@ public class Activity_DashBoard2 extends AppCompatActivity{
         finish();
     }
 
-
 }

@@ -402,7 +402,7 @@ public class RegistrationActivity extends AppCompatActivity
             focusView=rdg_Gender;
             cancel=true;
         }
-        if(isImage)
+        if(!isImage)
         {
             Toast toast = Toast.makeText(mContext,"Please Select profile Pic",Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER, 0, 0);
