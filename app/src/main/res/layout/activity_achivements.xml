@@ -18,18 +18,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:fontFamily="@font/deliciousadventures"
+            android:fontFamily="@font/budmo"
             android:text="Achivements"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="35dp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:fontFamily="@font/deliciousadventures"
+        android:fontFamily="@font/budmo"
         android:gravity="center_vertical|center_horizontal"
         android:text="Runner  Exclusive"
         android:textColor="@color/white"

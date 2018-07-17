@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:fontFamily="@font/deliciousadventures"
+        android:fontFamily="@font/budmo"
         android:text="Mirchi Selfie"
         android:textAlignment="center"
         android:textColor="@android:color/white"
@@ -60,7 +60,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="132dp"
         android:layout_marginStart="35dp"
-        android:fontFamily="@font/helveticaneuemedium"
+        android:fontFamily="@font/calibrib"
         android:text="Select Gallery"
         android:textColor="@color/white"
         android:textSize="15sp" />
@@ -84,7 +84,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="132dp"
         android:layout_marginEnd="35dp"
-        android:fontFamily="@font/helveticaneuemedium"
+        android:fontFamily="@font/calibrib"
         android:text="Save Picture"
         android:textColor="@color/white"
         android:textSize="15sp" />

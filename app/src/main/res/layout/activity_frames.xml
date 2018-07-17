@@ -5,25 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_demo_back_1"
+    android:background="@drawable/demo_back"
     tools:context=".FramesActivity">
 
     <ImageView
-        android:id="@+id/imgage"
-        android:layout_width="317dp"
-        android:layout_height="154dp"
+        android:layout_width="282dp"
+        android:layout_height="123dp"
         android:layout_centerHorizontal="true"
+        android:visibility="gone"
         android:src="@drawable/runner" />
 
     <TextView
+        android:id="@+id/imgage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:fontFamily="@font/deliciousadventures"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/budmo"
         android:text="Frame Selection"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
-        android:textSize="35dp"
+        android:textColor="@android:color/black"
+        android:textSize="30dp"
         android:textStyle="bold" />
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -31,7 +32,6 @@
         android:id="@+id/mSelfie_gridview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/demo_back"
         android:numColumns="2"
         android:columnWidth="90dp"
         android:horizontalSpacing="10dp"

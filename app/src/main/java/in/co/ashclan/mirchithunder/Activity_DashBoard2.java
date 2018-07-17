@@ -28,6 +28,7 @@ import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import io.github.kobakei.materialfabspeeddial.FabSpeedDial;
 import io.github.kobakei.materialfabspeeddial.FabSpeedDialMenu;
 import io.paperdb.Paper;
+import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class Activity_DashBoard2 extends AppCompatActivity{
 

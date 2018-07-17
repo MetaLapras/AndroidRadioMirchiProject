@@ -56,6 +56,7 @@ import in.co.ashclan.mirchithunder.model.ImagesModel;
 import in.co.ashclan.mirchithunder.model.ParticipantModel;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import in.co.ashclan.mirchithunder.utils.util;
+import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class RegistrationActivity extends AppCompatActivity
         implements
@@ -149,11 +150,14 @@ public class RegistrationActivity extends AppCompatActivity
 
         calendar        = Calendar.getInstance();
         Year            = calendar.get(Calendar.YEAR) ;
-        Month           = calendar.get(Calendar.MONTH);
+        Month           = calendar.get(Calendar.MONTH);//add + 1
         Day             = calendar.get(Calendar.DAY_OF_MONTH);
         txt_payment     = (TextView)findViewById(R.id.textView_payment);
         txt_gender      = (TextView)findViewById(R.id.textView_gender);
         txt_booking     = (TextView)findViewById(R.id.textView_booking);
+
+        Calligrapher calligrapher = new Calligrapher(this);
+        calligrapher.setFont(this, "calibri.ttf", true);
     }
     @Override
     public void onClick(View view) {
@@ -230,7 +234,7 @@ public class RegistrationActivity extends AppCompatActivity
     }
     @Override
     public void onDateSet(DatePickerDialog view, int Year, int Month, int Day) {
-        String date = "" + Day + "/" + Month + "/" + Year;
+        String date = "" + Day + "/" + (Month + 1) + "/" + Year;
         edtDateofBirth.setText(date);
     }
     @Override

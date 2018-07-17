@@ -9,6 +9,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.anwarshahriar.calligrapher.Calligrapher;
 
 public class UserProfile extends AppCompatActivity {
     Context mcontext;
@@ -22,6 +23,11 @@ public class UserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
         mInit();
+        onLoad();
+    }
+
+    private void onLoad() {
+
     }
 
     private void mInit() {
@@ -36,5 +42,8 @@ public class UserProfile extends AppCompatActivity {
 
         imgEdit = (CircleImageView)findViewById(R.id.profile);
 
+//        Calligrapher calligrapher = new Calligrapher(this);
+//        calligrapher.setFont(this, "calibri.ttf", true);
     }
+
 }

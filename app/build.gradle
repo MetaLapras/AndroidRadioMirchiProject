@@ -5,7 +5,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "in.co.ashclan.mirchithunder"
-        minSdkVersion 20
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 3
         versionName "1.2"
@@ -131,4 +131,7 @@ dependencies {
 
     //camera
     implementation 'com.mindorks:paracamera:0.2.2'
+
+    //Fonts
+    implementation 'me.anwarshahriar:calligrapher:1.0'
 }

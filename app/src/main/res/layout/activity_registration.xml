@@ -22,7 +22,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="41dp"
-        android:fontFamily="@font/deliciousadventures"
+        android:fontFamily="@font/budmo"
         android:text="Registration"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -273,7 +273,6 @@
                         app:civ_border_color="@android:color/white"
                         app:civ_border_width="2dp"
                         />
-
 
                     <Button
                         android:id="@+id/btnSelect"

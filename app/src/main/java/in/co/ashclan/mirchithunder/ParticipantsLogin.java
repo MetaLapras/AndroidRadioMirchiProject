@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +67,7 @@ import in.co.ashclan.mirchithunder.utils.util;
 import info.hoang8f.widget.FButton;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import io.paperdb.Paper;
+import me.anwarshahriar.calligrapher.Calligrapher;
 
 
 public class ParticipantsLogin extends AppCompatActivity
@@ -113,6 +115,9 @@ public class ParticipantsLogin extends AppCompatActivity
     {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AccountKit.initialize(this);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_participants_login);
         mInit();
@@ -152,6 +157,9 @@ public class ParticipantsLogin extends AppCompatActivity
         btn_submit = (FButton)findViewById(R.id.btn_submit);
         edtUserName = (MaterialEditText)findViewById(R.id.edt_User_id);
         edtPassword = (MaterialEditText)findViewById(R.id.edt_User_password);
+
+//        Calligrapher calligrapher = new Calligrapher(this);
+//        calligrapher.setFont(this, "calibri.ttf", true);
 
     }
 
@@ -370,10 +378,13 @@ public class ParticipantsLogin extends AppCompatActivity
                                 user.setMobile(phone);
                                 Log.d("PoJo-->",user.toString());
                                 if (user.getFirstname().equals(pass)) {
-                                    //Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_LONG).show();
+
+                                    startActivity(new Intent(mContext,Activity_DashBoard2.class));
                                     PreferenceUtil.setSignIn(mContext,true);
                                     PreferenceUtil.setMobileNo(mContext,phone);
                                     PreferenceUtil.setPass(mContext,pass);
+                                    
                                 mDialog.dismiss();
                                 finish();
                             } else {
