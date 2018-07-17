@@ -171,8 +171,9 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                     pendingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                          if(dataSnapshot.child("puid").equals("XXXX"))
+                          if(dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).child("puid").equals("XXXX"))
                           {
+                              Log.e("-->",dataSnapshot.toString());
                               dataSnapshot.getRef().setValue(data);
                               progressDialog.dismiss();
                               PreferenceUtil.setPuid(mContext,data);

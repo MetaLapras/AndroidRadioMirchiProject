@@ -39,7 +39,4 @@
         android:gravity="center"
         android:stretchMode="columnWidth"
         android:layout_margin="10dp"/>
-
-
-
 </RelativeLayout>

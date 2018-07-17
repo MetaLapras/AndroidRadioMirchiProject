@@ -68,12 +68,12 @@ public class Activity_DashBoard2 extends AppCompatActivity{
             public void onMenuItemClick(FloatingActionButton fab, TextView textView, int itemId) {
                 // do somethi
                 Log.e("-->Tag",itemId+"");
-                if(itemId == 0){
+                if(itemId == 1){
                     startActivity(new Intent(mContext,QRCodeReaderActivity.class));
-                }else if(itemId == 1)
+                }else if(itemId == 2)
                 {
                     Toast.makeText(mContext, "pasistence@mirchilive.app", Toast.LENGTH_LONG).show();
-                }else if(itemId == 2)
+                }else if(itemId == 3)
                 {
                     startActivity(new Intent(mContext,UserProfile.class));
                 }

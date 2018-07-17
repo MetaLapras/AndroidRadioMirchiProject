@@ -1,8 +1,10 @@
 package in.co.ashclan.mirchithunder.ViewHolders;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -49,6 +53,7 @@ public class customGalleryFull extends AppCompatActivity {
     String Hashtag;
     Context mContext;
     ProgressDialog mDialog;
+    public static final int READ_WRITE_STORAGE = 52;
     //Create Target from Picasso
     com.squareup.picasso.Target target = new com.squareup.picasso.Target() {
         @Override
@@ -150,16 +155,19 @@ public class customGalleryFull extends AppCompatActivity {
                 sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
                 startActivity(Intent.createChooser(sharingIntent, "Share image using"));*/
 
-                Drawable mDrawable = imgFull.getDrawable();
-                Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
+                if (requestPermissionStorage(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-                String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image Description", null);
-                Uri uri = Uri.parse(path);
+                    Drawable mDrawable = imgFull.getDrawable();
+                    Bitmap mBitmap = ((BitmapDrawable) mDrawable).getBitmap();
 
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                startActivity(Intent.createChooser(intent, "Share Image"));
+                    String path = MediaStore.Images.Media.insertImage(getContentResolver(), mBitmap, "Image Description", null);
+                    Uri uri = Uri.parse(path);
+
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+                    intent.setType("image/jpeg");
+                    intent.putExtra(Intent.EXTRA_STREAM, uri);
+                    startActivity(Intent.createChooser(intent, "Share Image"));
+                }
             }
         });
 
@@ -199,6 +207,19 @@ public class customGalleryFull extends AppCompatActivity {
         Picasso.with(this).load(imgURL).into(target);
         mDialog.dismiss();
     }
+    public Boolean requestPermissionStorage(String permission){
+        boolean isGranted = ContextCompat.checkSelfPermission(mContext,permission) == PackageManager.PERMISSION_GRANTED;
+        if(!isGranted)
+        {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{permission},
+                    READ_WRITE_STORAGE
+            );
+        }
+        return isGranted;
+    }
+
 
 
 }
