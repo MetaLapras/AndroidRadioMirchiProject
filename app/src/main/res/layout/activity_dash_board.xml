@@ -17,8 +17,6 @@
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent">-->
 
-
-
         <!--<com.github.mzule.fantasyslide.SideBar-->
             <!--android:id="@+id/leftSideBar"-->
             <!--android:layout_width="200dp"-->

@@ -28,11 +28,12 @@
                 android:visibility="gone" />
 
             <ImageView
-                android:layout_width="192dp"
-                android:layout_height="169dp"
+                android:layout_width="197dp"
+                android:layout_height="194dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
+                android:scaleType="fitXY"
                 android:src="@drawable/mirchilivelogo" />
 
             <LinearLayout
@@ -50,7 +51,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/budmo"
-                    android:padding="5dp"
                     android:text="THIS'S"
                     android:textAlignment="textEnd"
                     android:textColor="@color/white"
@@ -62,7 +62,7 @@
                     android:layout_alignBottom="@+id/txtthis"
                     android:fontFamily="@font/theboldfont"
                     android:text="HOT"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:layout_weight="1"
                     android:textColor="@color/white"
                     android:textSize="45sp" />
@@ -72,13 +72,13 @@
             <ImageView
                 android:id="@+id/img_thunder_run"
                 android:layout_width="219dp"
-                android:layout_height="246dp"
+                android:layout_height="198dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="130dp"
+                android:layout_marginBottom="208dp"
+                android:clickable="false"
                 android:src="@drawable/ic_thunder_logo" />
-
 
             <ImageView
                 android:layout_width="187dp"
@@ -86,6 +86,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="94dp"
                 android:src="@drawable/technologypartnerlogo" />
 
             <LinearLayout
@@ -93,14 +94,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:layout_marginBottom="22dp"
+                android:orientation="horizontal">
 
                 <info.hoang8f.widget.FButton
                     android:id="@+id/btn_Participant"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/calibrib"
                     android:shadowColor="@android:color/black"
                     android:text="Participants"
                     android:textColor="@android:color/white"
@@ -115,6 +117,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/calibrib"
                     android:shadowColor="@android:color/black"
                     android:text="Volunteer"
                     android:textColor="@android:color/white"

@@ -53,8 +53,33 @@ dependencies {
     implementation 'com.google.firebase:firebase-ads:15.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
 
+    /* implementation'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-ads:15.0.1'
+    implementation 'com.google.firebase:firebase-analytics:16.0.1'
+    implementation 'com.google.firebase:firebase-appindexing:16.0.1'
+    implementation 'com.google.firebase:firebase-auth:16.0.2'
+    implementation 'com.google.firebase:firebase-firestore:17.0.3'
+    implementation 'com.google.firebase:firebase-functions:16.1.0'
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+    implementation'com.google.firebase:firebase-storage:16.0.1'
+    implementation'com.google.firebase:firebase-crash:16.0.1'
+    implementation'com.crashlytics.sdk.android:crashlytics:2.9.3'
+    implementation'com.google.firebase:firebase-dynamic-links:16.0.1'
+    implementation'com.google.firebase:firebase-invites:16.0.1'
+    implementation'com.google.firebase:firebase-ml-model-interpreter:16.0.0'
+    implementation'com.google.firebase:firebase-ml-vision:16.0.0'
+    implementation'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
+    implementation'com.google.firebase:firebase-perf:16.0.0'
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-config:16.0.0'
+*/
+
 
     implementation 'com.google.android.gms:play-services-vision:15.0.2'
+    // Play Services 15.0.0
+    implementation "com.google.android.gms:play-services-base:15.0.1"
+    implementation "com.google.android.gms:play-services-auth:15.0.1"
+    implementation "com.google.android.gms:play-services-identity:15.0.1"
 
     // FirebaseUI for Firebase Realtime Database
     implementation 'com.firebaseui:firebase-ui-database:3.3.1'
@@ -83,7 +108,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-login:[4,5)'
     //Facebook Account Kit
     implementation 'com.facebook.android:account-kit-sdk:4.+'
-    implementation 'com.android.support:multidex:1.0.0'
+    implementation 'com.android.support:multidex:1.0.1'
 
     //app Dialog
     implementation 'com.github.d-max:spots-dialog:0.7@aar'
@@ -134,4 +159,7 @@ dependencies {
 
     //Fonts
     implementation 'me.anwarshahriar:calligrapher:1.0'
+
+    //Count down button
+    implementation 'com.github.alexfu:CountDownView:0.1.0'
 }

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/ic_demo_back_1"
+    tools:context=".MirchiSelfie4Activity">
+
+    <ImageView
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/budmo"
+        android:text="Mirchi Selfie"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="262dp"-->
+    <!--android:fontFamily="@font/deliciousadventures"-->
+    <!--android:text="Comming Soon "-->
+    <!--android:textAlignment="center"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textSize="45dp"-->
+    <!--android:textStyle="bold" />-->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_camera_m4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="162dp"
+        app:fabSize="normal"
+        android:layout_marginStart="55dp"
+        android:src="@drawable/camera"
+        android:scaleType="fitXY"
+        android:tint="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="132dp"
+        android:layout_marginStart="35dp"
+        android:fontFamily="@font/calibrib"
+        android:text="Select Gallery"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_camera_save_m4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="162dp"
+        android:layout_marginEnd="55dp"
+        android:src="@drawable/save"
+        android:tint="@color/black" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="132dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/calibrib"
+        android:text="Save Picture"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <SurfaceView
+        android:id="@+id/camera_view_m4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/info"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/code_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="@string/intro_text"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone"
+        />
+
+
+    <ImageView
+        android:id="@+id/pasistence_logo"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:src="@drawable/technologypartnerlogo" />
+
+    <ja.burhanrashid52.photoeditor.PhotoEditorView
+        android:id="@+id/photoEditorView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:gravity="center_horizontal|center_vertical" />
+
+</RelativeLayout>

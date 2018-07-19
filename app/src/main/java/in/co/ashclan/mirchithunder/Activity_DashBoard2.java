@@ -1,8 +1,10 @@
 package in.co.ashclan.mirchithunder;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import io.github.kobakei.materialfabspeeddial.FabSpeedDial;
 import io.github.kobakei.materialfabspeeddial.FabSpeedDialMenu;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 import io.paperdb.Paper;
 import me.anwarshahriar.calligrapher.Calligrapher;
 
@@ -35,7 +38,7 @@ public class Activity_DashBoard2 extends AppCompatActivity{
     Context mContext;
     CardView cardView_Gallery,cardView_Selfie,cardView_Achivements,cardView_logout;
     GoogleSignInClient mGoogleSignInClient;
-    FabSpeedDial fab;
+    io.github.yavski.fabspeeddial.FabSpeedDial fabSpeedDial;
 
 
     @Override
@@ -50,7 +53,7 @@ public class Activity_DashBoard2 extends AppCompatActivity{
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        fab = (FabSpeedDial)findViewById(R.id.fab);
+       /* fab = (FabSpeedDial)findViewById(R.id.fab);
         FabSpeedDialMenu menu = new FabSpeedDialMenu(this);
         menu.add("QRScan").setIcon(R.drawable.ic_fullscreen);
         menu.add("Support").setIcon(R.drawable.ic_headset);
@@ -77,6 +80,27 @@ public class Activity_DashBoard2 extends AppCompatActivity{
                 {
                     startActivity(new Intent(mContext,UserProfile.class));
                 }
+            }
+        });*/
+
+       fabSpeedDial = (io.github.yavski.fabspeeddial.FabSpeedDial) findViewById(R.id.fab_speed_dial);
+        fabSpeedDial.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                //TODO: Start some activity
+                switch (menuItem.getItemId())
+                {
+                    case R.id.QR_Code_Scanner :
+                        startActivity(new Intent(mContext,QRCodeReaderActivity.class));
+                        break;
+                    case R.id.support:
+                        sendEmail();
+                        break;
+                    case R.id.profile:
+                        startActivity(new Intent(mContext,UserProfile.class));
+                        break;
+                }
+                return false;
             }
         });
 
@@ -109,8 +133,18 @@ public class Activity_DashBoard2 extends AppCompatActivity{
                 //Paper.book().destroy();
             }
         });
-
     }
+
+    private void emailIntent() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/html");
+        intent.putExtra(Intent.EXTRA_EMAIL, "emailaddress@emailaddress.com");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+        intent.putExtra(Intent.EXTRA_TEXT, "I'm email body.");
+
+        startActivity(Intent.createChooser(intent, "Send Email"));
+    }
+
     private void init() {
         mContext = Activity_DashBoard2.this;
         //Cardviews
@@ -145,4 +179,26 @@ public class Activity_DashBoard2 extends AppCompatActivity{
         finish();
     }
 
+    @SuppressLint("LongLogTag")
+    protected void sendEmail() {
+        Log.i("Send email", "");
+        String[] TO = {"pasistence@mirchilive.app"};
+        String[] CC = {""};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Require Help");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "");
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+          //  Log.i("Finished sending email...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(mContext, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

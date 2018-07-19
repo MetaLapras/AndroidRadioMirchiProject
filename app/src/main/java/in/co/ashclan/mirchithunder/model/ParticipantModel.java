@@ -1,9 +1,9 @@
 package in.co.ashclan.mirchithunder.model;
 
 public class ParticipantModel {
-    private String firstname,lastname,gender,dob,email,password,status,mobile,image,puid,receiptid,paymenttype,tickettype;
+    private String firstname,lastname,gender,dob,email,password,status,mobile,image,puid,receiptid,paymenttype,cat;
 
-    public ParticipantModel(String firstname, String lastname, String gender, String dob, String email, String password, String status, String mobile, String image, String puid, String receiptid, String paymenttype, String tickettype) {
+    public ParticipantModel(String firstname, String lastname, String gender, String dob, String email, String password, String status, String mobile, String image, String puid, String receiptid, String paymenttype, String cat) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
@@ -16,7 +16,7 @@ public class ParticipantModel {
         this.puid = puid;
         this.receiptid = receiptid;
         this.paymenttype = paymenttype;
-        this.tickettype = tickettype;
+        this.cat = cat;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class ParticipantModel {
                 ", puid='" + puid + '\'' +
                 ", receiptid='" + receiptid + '\'' +
                 ", paymenttype='" + paymenttype + '\'' +
-                ", tickettype='" + tickettype + '\'' +
+                ", cat='" + cat + '\'' +
                 '}';
     }
 
@@ -137,11 +137,11 @@ public class ParticipantModel {
         this.paymenttype = paymenttype;
     }
 
-    public String getTickettype() {
-        return tickettype;
+    public String getcat() {
+        return cat;
     }
 
-    public void setTickettype(String tickettype) {
-        this.tickettype = tickettype;
+    public void setcat(String cat) {
+        this.cat = cat;
     }
 }

@@ -12,6 +12,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import in.co.ashclan.mirchithunder.ViewHolders.customGalleryFull;
 import in.co.ashclan.mirchithunder.adapter.mGalleryAdapter;
 import in.co.ashclan.mirchithunder.model.ImagesModel;
+import in.co.ashclan.mirchithunder.utils.ItemClickListener;
 import in.co.ashclan.mirchithunder.utils.PreferenceUtil;
 import in.co.ashclan.mirchithunder.utils.util;
 import io.paperdb.Paper;
@@ -59,6 +62,7 @@ public class MyGallery extends AppCompatActivity {
     ArrayList<String>arrayList;
     ShareDialog shareDialog;
     String imgURL;
+    private ItemClickListener itemClickListener;
 
 
     @Override
@@ -149,6 +153,13 @@ public class MyGallery extends AppCompatActivity {
                         }
                     });
 
+                    adapter.setItemClickListener(new ItemClickListener() {
+                        @Override
+                        public void onClick(View view, int position, boolean isLongClick) {
+                            Toast.makeText(mContext, "Item Delete ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     for(int i =0;i<arrayList.size();i++)
                     {
                         Log.e("-->ss", arrayList.get(i));
@@ -161,8 +172,19 @@ public class MyGallery extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
 
     }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        return super.onContextItemSelected(item);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();

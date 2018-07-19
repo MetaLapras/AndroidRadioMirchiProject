@@ -162,7 +162,6 @@ public class ParticipantsLogin extends AppCompatActivity
 //        calligrapher.setFont(this, "calibri.ttf", true);
 
     }
-
     //OnclickListner
     @Override
     public void onClick(View view)
@@ -192,7 +191,6 @@ public class ParticipantsLogin extends AppCompatActivity
                    break;
                 }
         }
-
     //Methods
     private void startFacebookLogin()
     {
@@ -311,14 +309,13 @@ public class ParticipantsLogin extends AppCompatActivity
                 // ...
             }
         }
-
-        //Result returned from launching FirebaseDialog
+    /*    //Result returned from launching FirebaseDialog
         if(requestCode== util.PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null)
         {
            // saveuri = data.getData();
             //btn_Select.setText("Image Selected !");
-        }
+        }*/
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct)
     {

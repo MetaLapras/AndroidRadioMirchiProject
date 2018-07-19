@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        android:fontFamily="@font/calibrib"
+        />
+    <item
         android:id="@+id/QR_Code_Scanner"
-        android:title="QR SCanning"
+        android:title="QR Scanning"
         android:icon="@drawable/ic_fullscreen"
-        android:orderInCategory="1"/>
+        android:fontFamily="@font/calibrib"
+        />
     <item
         android:id="@+id/support"
         android:title="Support"
         android:icon="@drawable/ic_headset"
-        android:orderInCategory="2"/>
-    <item
-        android:id="@+id/profile"
-        android:title="Profile"
-        android:icon="@drawable/ic_profile"
-        android:orderInCategory="2"/>
+        android:fontFamily="@font/calibrib"
+
+        />
+
 </menu>

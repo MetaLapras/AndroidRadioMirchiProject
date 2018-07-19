@@ -67,7 +67,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
 
 
     }
-
     private void mIinit(){
         mContext = QRCodeReaderActivity.this;
         mySurfaceView = (SurfaceView)findViewById(R.id.camera_view);
@@ -83,7 +82,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
         table_participant   = database.getReference("Participant");
 
     }
-
     @Override
     public void onClick(View view) {
         if (view==stateBtn){
@@ -100,12 +98,10 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
             restartActivity();
         }
     }
-
     public void restartActivity() {
         startActivity(new Intent(mContext, QRCodeReaderActivity.class));
         finish();
     }
-
     public void setUpQREader(){
         qrEader = new QREader.Builder(mContext, mySurfaceView, new QRDataListener() {
             @Override
@@ -119,6 +115,7 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                        // Dialog box
                         /*******************************************/
                         showQRVerificationDialog(data);
+
                     }
                 });
             }
@@ -128,7 +125,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 .width(mySurfaceView.getWidth())
                 .build();
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -136,7 +132,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
             qrEader.releaseAndCleanup();
         }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -144,7 +139,6 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
             qrEader.initAndStart(mySurfaceView);
         }
     }
-
     private void showQRVerificationDialog(final String data) {
         android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext);
         LayoutInflater layoutInflater = this.getLayoutInflater();
@@ -167,27 +161,32 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
                 {
                     PreferenceUtil.setQrcodeid(mContext,edtQRCodeVerifcation.getText().toString());
                     // Check PUID Existing
-                    Query pendingQuery = table_participant.child(PreferenceUtil.getMobileNo(mContext)).child("puid").equalTo("XXXX");
+                    Query pendingQuery = table_participant.child(PreferenceUtil.getMobileNo(mContext)).child("puid");
                     pendingQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                          if(dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).child("puid").equals("XXXX"))
+                            String Xpuid = dataSnapshot.getValue().toString();
+                            Log.e("-->puid",dataSnapshot.toString());
+                            Log.e("-->X",Xpuid.toString());
+
+                        if(Xpuid.equals("XXXX"))
                           {
-                              Log.e("-->",dataSnapshot.toString());
                               dataSnapshot.getRef().setValue(data);
+
                               progressDialog.dismiss();
                               PreferenceUtil.setPuid(mContext,data);
                               Toast.makeText(mContext, "QR Verification Successful", Toast.LENGTH_SHORT).show();
                               finish();
-                          }else
+                   }else
                           {
-                              progressDialog.dismiss();
+                             progressDialog.dismiss();
                               Toast.makeText(mContext, "You have already registred your QR Code", Toast.LENGTH_SHORT).show();
                               finish();
                           }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(mContext, "You have already registred your QR Code", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     });
@@ -229,7 +228,4 @@ public class QRCodeReaderActivity extends AppCompatActivity implements View.OnCl
             });
         }
     }
-
-
-
 }

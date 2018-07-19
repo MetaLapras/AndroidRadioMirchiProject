@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_demo_back_1"
+    tools:context=".AdminPanelActivity">
+
+    <ImageView
+        android:id="@+id/img_runner"
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:fontFamily="@font/budmo"
+        android:text="Admin panel"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <!--   <com.alexfu.countdownview.CountDownView
+           android:id="@+id/count_down"
+           android:layout_width="239dp"
+           android:layout_height="79dp"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           android:layout_marginBottom="106dp"
+           android:background="@color/white"
+           android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+           app:startDuration="120000000" />-->
+
+    <!--<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/budmo"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Runner  Exclusive"
+        android:textColor="@color/white"
+        android:textSize="70dp" />-->
+    <ImageView
+        android:layout_width="44dp"
+        android:layout_height="46dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="199dp"
+        android:src="@drawable/ic_refresh"
+        android:tint="@color/white" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_runner"
+        android:orientation="vertical">
+        <TextView
+            android:textSize="20sp"
+            android:id="@+id/textView_payment"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/theboldfont"
+            android:text="Select Batch" />
+
+        <Spinner
+            android:id="@+id/spn_batch"
+            android:layout_width="338dp"
+            android:layout_height="51dp"
+            android:layout_margin="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/white"
+            android:dropDownSelector="@color/primary_dark"
+            android:entries="@array/paymentType" />
+
+
+        <TextClock
+            android:id="@+id/txt_start_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:fontFamily="@font/calibrib"
+            android:textColor="@color/white"
+            android:textSize="35sp"
+            android:textAlignment="center"
+            android:format12Hour="hh:mm:ss a"
+            android:text="hh:mm:ss a"
+            android:textStyle="bold" />
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/btn_start_race"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/calibrib"
+            android:shadowColor="@android:color/black"
+            android:text=" Start Race "
+            android:textColor="@android:color/white"
+            app:cornerRadius="0dp"
+            app:fButtonColor="@color/colorPrimary"
+            app:shadowColor="@android:color/black"
+            app:shadowEnabled="true"
+            app:shadowHeight="5dp" />
+    </LinearLayout>
+</RelativeLayout>

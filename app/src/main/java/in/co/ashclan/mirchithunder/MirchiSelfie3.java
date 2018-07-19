@@ -65,8 +65,8 @@ import ja.burhanrashid52.photoeditor.PhotoEditor;
 import ja.burhanrashid52.photoeditor.PhotoEditorView;
 
 public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickListener {
-    Context mContext;
 
+    Context mContext;
     boolean hasCameraPermission = false;
     private static final String cameraPerm = Manifest.permission.CAMERA;
 
@@ -144,7 +144,6 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
         //**********************************************//
-
 
         //chn******************************************************
         if (hasCameraPermission){
@@ -412,69 +411,71 @@ public class MirchiSelfie3 extends AppCompatActivity implements View.OnClickList
         }
     }
     private void uploadImage(Uri saveUri) {
-        if(saveUri!=null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Uploading Image .... ");
-            progressDialog.setCancelable(false);
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
+        if (util.isConnectedToInterNet(mContext)) {
+            if (saveUri != null) {
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Uploading Image .... ");
+                progressDialog.setCancelable(false);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.show();
 
-            participantImages.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Log.e("-->img",dataSnapshot.toString());
-                    if(dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).exists())
-                    {
-                        imagesModel = dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).getValue(ImagesModel.class);
-                        Log.e("-->1234",imagesModel.toString());
-                        util.CurrentimagesModel = imagesModel;
-                        arrayList = imagesModel.getImages();
-                        Log.e("-->s",arrayList.toString());
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-            String imageName = UUID.randomUUID().toString(); //set Image to an ID
-            final StorageReference imageFolder = storageReference.child("images/"+imageName); // Create a folder in the Firebase with id reference
-            // Add Image to the Folder at Firebase
-            imageFolder.putFile(saveUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    progressDialog.dismiss();
-                    //Download the refence image from the database
-                    imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            // set value for new category if image upload and we can get download link
-                            if(imagesModel!=null)
-                            {
-                                arrayList.add(uri.toString());
-                                participantImages.child(PreferenceUtil.getMobileNo(mContext)).setValue(imagesModel);
-                                startActivity(new Intent(MirchiSelfie3.this,MyGallery.class));
-                                finish();
-                            }
+                participantImages.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.e("-->img", dataSnapshot.toString());
+                        if (dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).exists()) {
+                            imagesModel = dataSnapshot.child(PreferenceUtil.getMobileNo(mContext)).getValue(ImagesModel.class);
+                            Log.e("-->1234", imagesModel.toString());
+                            util.CurrentimagesModel = imagesModel;
+                            arrayList = imagesModel.getImages();
+                            Log.e("-->s", arrayList.toString());
                         }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(mContext, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                    long progress = (100 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
-                    progressDialog.setMessage("Uploading "+ progress + "%");
-                }
-            });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                String imageName = UUID.randomUUID().toString(); //set Image to an ID
+                final StorageReference imageFolder = storageReference.child("images/" + imageName); // Create a folder in the Firebase with id reference
+                // Add Image to the Folder at Firebase
+                imageFolder.putFile(saveUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        //Download the refence image from the database
+                        imageFolder.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // set value for new category if image upload and we can get download link
+                                if (imagesModel != null) {
+                                    arrayList.add(uri.toString());
+                                    participantImages.child(PreferenceUtil.getMobileNo(mContext)).setValue(imagesModel);
+                                    startActivity(new Intent(MirchiSelfie3.this, MyGallery.class));
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(mContext, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        long progress = (100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                        progressDialog.setMessage("Uploading " + progress + "%");
+                    }
+                });
+            }
+        }
+        else {
+            Toast.makeText(mContext,"Please Check your Internet Connection",Toast.LENGTH_LONG).show();
         }
     }
     public Boolean requestPermissionStorage(String permission){

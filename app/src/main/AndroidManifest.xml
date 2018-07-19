@@ -29,6 +29,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -111,6 +112,7 @@
         <activity
             android:name=".CropImageActivity"
             android:screenOrientation="portrait" />
+
         <receiver
             android:name=".checkinternet.ConnectivityReceiver"
             android:enabled="true">
@@ -118,6 +120,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider239851700149329"
@@ -134,7 +137,16 @@
         <!-- </provider> -->
 
         <activity android:name=".Activity_DashBoard2" />
-        <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".SplashScreen" />
+        <activity android:name=".VolunteerDashBoard_Activity" />
+        <activity android:name=".AdminPanelActivity" />
+        <activity android:name=".CheckPointActivity" />
+        <activity android:name=".ScanRunnerActivity" />
+        <activity android:name=".StartRunnerActivity" />
+        <activity android:name=".EndPointActivity" />
+        <activity android:name=".MirchiSelfie4Activity" />
+        <activity android:name=".UploadAllDataActivity" />
+        <activity android:name=".RankingActivity"></activity>
     </application>
 
 </manifest>

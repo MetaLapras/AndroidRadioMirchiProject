@@ -75,6 +75,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="70dp"
                     android:text="Demo Demo"
+                    android:fontFamily="@font/theboldfont"
                     android:textColor="#fff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -86,8 +87,10 @@
                     android:layout_below="@+id/txt_user_type"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/calibrib"
                     android:text="Surat"
                     android:textColor="#fff"
+                    android:visibility="gone"
                     android:textSize="16sp" />
 
                 <TextView
@@ -96,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_name"
                     android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/calibrib"
                     android:layout_marginTop="10dp"
                     android:text="(Competitor)"
                     android:textColor="#fff"
@@ -112,7 +116,8 @@
                 app:cardCornerRadius="8dp">
                 <TableLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp">
                     <TableRow
                         android:weightSum="3"
                         android:layout_width="match_parent"
@@ -124,12 +129,18 @@
                             android:layout_marginRight="60dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="Email Id" />
 
                         <TextView
                             android:id="@+id/txt_email_id"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:padding="5dp"
                             android:text="txtEmailId" />
                     </TableRow>
@@ -143,12 +154,18 @@
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="Gender" />
 
                         <TextView
                             android:id="@+id/txt_gender"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:padding="5dp"
                             android:text="txt_gender" />
                     </TableRow>
@@ -162,12 +179,18 @@
                             android:id="@+id/textView4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="Mobile No" />
 
                         <TextView
                             android:id="@+id/txt_mobile_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:padding="5dp"
                             android:text="mobile no" />
                     </TableRow>
@@ -180,12 +203,18 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="Payment Type" />
 
                         <TextView
                             android:id="@+id/txt_payment_type"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:padding="5dp"
                             android:text="txt_paymenttype" />
                     </TableRow>
@@ -198,13 +227,19 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="Receipt Id" />
 
                         <TextView
                             android:id="@+id/txt_receipt_id"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/calibrib"
                             android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
                             android:text="txt_recepit" />
                     </TableRow>
                 </TableLayout>

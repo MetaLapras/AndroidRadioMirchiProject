@@ -8,11 +8,11 @@
     android:background="@drawable/ic_demo_back_1"
     tools:context=".Achivements">
 
-         <ImageView
-            android:layout_width="317dp"
-            android:layout_height="154dp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/runner" />
+    <ImageView
+        android:layout_width="317dp"
+        android:layout_height="154dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/runner" />
 
         <TextView
             android:layout_width="match_parent"
@@ -24,6 +24,17 @@
             android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
+
+ <!--   <com.alexfu.countdownview.CountDownView
+        android:id="@+id/count_down"
+        android:layout_width="239dp"
+        android:layout_height="79dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="106dp"
+        android:background="@color/white"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:startDuration="120000000" />-->
 
         <TextView
         android:layout_width="wrap_content"

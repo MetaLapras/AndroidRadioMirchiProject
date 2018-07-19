@@ -326,10 +326,10 @@ public class RegistrationActivity extends AppCompatActivity
                             PreferenceUtil.setGender(mContext, rd_female.getText().toString());
                         }
                         if (rd_fun.isChecked()) {
-                            participantModel.setTickettype(rd_fun.getText().toString());
+                            participantModel.setcat(rd_fun.getText().toString());
                             PreferenceUtil.setTickettype(mContext, rd_fun.getText().toString());
                         }   else {
-                            participantModel.setTickettype(rd_pro.getText().toString());
+                            participantModel.setcat(rd_pro.getText().toString());
                             PreferenceUtil.setTickettype(mContext, rd_pro.getText().toString());
                         }
                         participantModel.setPassword(edtFirstName.getText().toString());

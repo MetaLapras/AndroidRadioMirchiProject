@@ -2,6 +2,7 @@ package in.co.ashclan.mirchithunder.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,17 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import java.util.ArrayList;
 
 import in.co.ashclan.mirchithunder.R;
+import in.co.ashclan.mirchithunder.utils.ItemClickListener;
 
-public class mGalleryAdapter extends BaseAdapter {
+public class mGalleryAdapter extends BaseAdapter implements View.OnClickListener,
+View.OnCreateContextMenuListener{
 
     Context mContext;
     ArrayList<String> pictures;
     ImageLoaderConfiguration loaderConfiguration;
     ImageLoader imageLoader = ImageLoader.getInstance();
+    private ItemClickListener itemClickListener;
+    int position;
 
     public mGalleryAdapter(Context mContext, ArrayList<String> pictures) {
         this.mContext = mContext;
@@ -49,6 +54,7 @@ public class mGalleryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View vList;
+        position = i ;
         if (view == null){
             LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             vList = new View(mContext);
@@ -94,5 +100,17 @@ public class mGalleryAdapter extends BaseAdapter {
             e.printStackTrace();
         }
         return vList;
+    }
+
+    @Override
+    public void onClick(View view) {
+        itemClickListener.onClick(view,position,false);
+    }
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select the Action");
+        menu.add(0,1,position, "DELETE");
     }
 }
